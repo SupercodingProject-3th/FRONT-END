@@ -1,7 +1,7 @@
 
 import styled from "styled-components";
-import { ReactComponent as RegisterIcon } from '../../shared/images/MenuIcon/register.svg';
-import { ReactComponent as LogInIcon } from '../../shared/images/MenuIcon/login.svg';
+import { ReactComponent as RegisterIcon } from '../../shared/images/MainPage/MenuIcon/register.svg';
+import { ReactComponent as LogInIcon } from '../../shared/images/MainPage/MenuIcon/login.svg';
 
 
 const UserMenu = () => {

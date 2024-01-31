@@ -1,6 +1,6 @@
 import React from 'react';
-import { ReactComponent as MoonSVG } from '../../shared/images/darkMode/moon.svg';
-import { ReactComponent as SunSVG } from '../../shared/images/darkMode/sun.svg';
+import { ReactComponent as MoonSVG } from '../../shared/images/MainPage/darkMode/moon.svg';
+import { ReactComponent as SunSVG } from '../../shared/images/MainPage/darkMode/sun.svg';
 
 interface ImageProps {
   isDarkMode: boolean;
