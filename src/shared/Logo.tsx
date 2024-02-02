@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import imageLogo from "../shared/logo.png"
+import imageLogo from "../assets/icon/logo.png";
 
 interface LogoProps {
   //Note: Logo 컴포넌트의 프로퍼티 타입 정의
