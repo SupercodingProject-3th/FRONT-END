@@ -1,10 +1,11 @@
     import styled from "styled-components";
 
 
-    import Logo from "./Logo";
+    import LogoImage from "../assets/icon/logo.png";
     import SearchBar from "../components/mainPageLayout/SearchBar";
     import DarkmodeBtn from "../components/mainPageLayout/DarkModeToggleButton";
     import UserMenu from "../components/mainPageLayout/UserMenu";
+
 
     const Header = () => {
       return (
@@ -12,7 +13,7 @@
           <HeaderContainer>
             <TopNavBar>
               <LogoWrapper>
-                <Logo />
+                <Logo src={LogoImage}  alt="Logo"/>
               </LogoWrapper>
               <SearchBar />
               <ButtonsWrapper>
@@ -29,12 +30,12 @@
     export default Header;
 
     const HeaderLayout = styled.div`
-      position: fixed;
       width: 100%;
       background-color: "#fff"
       z-index: 9990;
       font-size: 16px;
       transition: transform 0.3s ease-in-out;
+      z-index: 1000; 
     `;
 
     const HeaderContainer = styled.div`
@@ -88,4 +89,10 @@
       }
     `;
 
-    const SearchBtn = styled.button``;
+
+    const Logo = styled.img`
+    width: 100px; 
+    height: 100px; //NOTE: 가로 길이에 맞추어 세로 길이를 조절
+
+  `;
+

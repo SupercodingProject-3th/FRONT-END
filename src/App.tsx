@@ -1,11 +1,11 @@
-import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store/store"
 
 import MainPage from "./pages/mainPage/MainPage";
+import GoodRestaurantEnrollPage from "./pages/goodRestaurantEnrollPage/GoodRestaurantEnrollPage";
+
 
 function App() {
   return (
@@ -17,6 +17,14 @@ function App() {
             element={
               <div>
                 <MainPage />
+              </div>
+            }
+          />
+              <Route
+            path="/goodrestaurantenroll"
+            element={
+              <div>
+                <GoodRestaurantEnrollPage />
               </div>
             }
           />
