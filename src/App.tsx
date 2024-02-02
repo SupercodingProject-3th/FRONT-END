@@ -12,7 +12,7 @@ function App() {
       <Route path="/" element={ <div>홈</div> } />
       <Route path="/detail/:id" element={ <div>상세페이지</div> } />
       <Route path="*" element={ <div>404페이지</div> } />
-      </Routes>
+    </Routes>
     </div>
    
   );
