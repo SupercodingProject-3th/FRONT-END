@@ -1,24 +1,26 @@
 import styled from "styled-components";
 import { ReactComponent as RegisterIcon } from "../../assets/icon/mainPage/register.svg";
 import { ReactComponent as LogInIcon } from "../../assets/icon/mainPage/login.svg";
-
+import { Link } from "react-router-dom";
 
 const UserMenu = () => {
-    return (
-      <UserMenuContainer>
-        <>
-          <LoginButton isDarkMode={false} onClick={() => {}}>
-            <LogInIcon/>
-          </LoginButton>
+  return (
+    <UserMenuContainer>
+      <>
+        <LoginButton isDarkMode={false} onClick={() => {}}>
+          <Link to="/login">
+            <LogInIcon />
+          </Link>
+        </LoginButton>
+        <Link to="/signup">
           <SignupButton isDarkMode={false}>
-            <RegisterIcon/>
+            <RegisterIcon />
           </SignupButton>
-        </>
-      </UserMenuContainer>
-    );
-  };
-
-
+        </Link>
+      </>
+    </UserMenuContainer>
+  );
+};
 
 const UserMenuContainer = styled.div`
   display: flex;
@@ -65,7 +67,6 @@ const LoginButton = styled.button<{ isDarkMode: boolean }>`
     color: ${(props) =>
       props.isDarkMode ? props.theme.lightYellow : props.theme.brown};
     transition: all 0.3s;
-
 
     cursor: pointer;
     border: 2px solid #feaa00;
