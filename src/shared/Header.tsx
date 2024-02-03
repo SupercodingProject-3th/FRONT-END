@@ -31,7 +31,7 @@
 
     const HeaderLayout = styled.div`
       width: 100%;
-      background-color: "#fff"
+      background-color: #fff;
       z-index: 9990;
       font-size: 16px;
       transition: transform 0.3s ease-in-out;

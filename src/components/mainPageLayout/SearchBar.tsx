@@ -49,7 +49,7 @@
         box-sizing: border-box;
         width: 36rem;
         top: 50%;
-        left: 48%;
+        left: 50%;
         transform: translate(-50%, -50%);
         border-radius: 10rem;
         border: 0.2rem solid #feaa00;
@@ -59,9 +59,7 @@
 
 
       
-        
-        
-          left: 40rem; /* NOTE: 원하는 만큼 이동할 거리 설정 + Header Container에 relative 요소 추가함 Category 요소 들어오면 수정해야함 */
+        left: 40rem; /* NOTE: 원하는 만큼 이동할 거리 설정 + Header Container에 relative 요소 추가함 Category 요소 들어오면 수정해야함 */
         
 
       }
