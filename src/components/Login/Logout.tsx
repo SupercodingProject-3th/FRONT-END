@@ -1,7 +1,7 @@
 import React, { useState, useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import backgroundImage from "../../components/shared/images/LoginPage/logout-background.jpg";
+import backgroundImage from "../../shared/images/LoginPage/logout-background.jpg";
 //import axios from "axios";
 interface LogoutProps {
   nickName: string;
