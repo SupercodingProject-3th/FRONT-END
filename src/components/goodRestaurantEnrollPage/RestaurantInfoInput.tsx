@@ -15,19 +15,24 @@ const RestaurantInfoInput: React.FC<RestaurantInfoInputProps> = ({
   onChange,
 }) => {
   return (
-    <div>
+    <RestaurantInfoInputWrapper>
+      <>
       <Label htmlFor={name}>{label}</Label>
       <Input type="text" id={name} name={name} value={value} onChange={onChange} />
-    </div>
+      </>
+    </RestaurantInfoInputWrapper>
   );
 };
 
+
+export default RestaurantInfoInput;
 
 const Label = styled.label`
   display: block;
   margin-bottom: 5px;
   font-size: 14px;
   font-weight: bold;
+  width: 200px;
 `;
 
 
@@ -43,4 +48,12 @@ const Input = styled.input`
   }
 `;
 
-export default RestaurantInfoInput;
+
+const RestaurantInfoInputWrapper = styled.div`
+  display: flex;
+  gap: 10px; 
+  flex-direction: row;
+  align-items: baseline;
+  margin-bottom: 80px; /* 아래쪽에 일정한 여백 추가 */
+`
+

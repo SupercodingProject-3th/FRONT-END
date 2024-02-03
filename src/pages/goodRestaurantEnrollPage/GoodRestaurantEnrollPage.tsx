@@ -11,6 +11,8 @@ import MapSection from "../../components/goodRestaurantEnrollPage/MapSection";
 import MenuReviewSection from "../../components/goodRestaurantEnrollPage/MenuReviewSection";
 import ButtonSection from "../../components/goodRestaurantEnrollPage/ButtonSection";
 import ScrollToTopButton from "../../shared/ScrollTopButton";
+import QuillEditor from "../../components/goodRestaurantEnrollPage/QuillEditor";
+
 
 const GoodRestaurantEnrollPage: React.FC = () => {
   const [restaurantInfo, setRestaurantInfo] = useState({
@@ -33,27 +35,28 @@ const GoodRestaurantEnrollPage: React.FC = () => {
       <Wrapper>
         <RestaurantInfoSectionWrapper>
           <RestaurantInfoSection>
-            <RestaurantInfoInputWrapper>
-              <RestaurantInfoInput
-                label="게시글 제목"
-                name="title"
-                value={restaurantInfo.title}
-                onChange={handleInputChange}
-              />
-              <CategorySelect />
-              <RestaurantInfoInput
-                label="가게명"
-                name="contact"
-                value={restaurantInfo.contact}
-                onChange={handleInputChange}
-              />
-            </RestaurantInfoInputWrapper>
+            <RestaurantInfoInput
+              label="게시글 제목"
+              name="title"
+              value={restaurantInfo.title}
+              onChange={handleInputChange}
+            />
+            <CategorySelect />
+            <RestaurantInfoInput
+              label="가게명"
+              name="contact"
+              value={restaurantInfo.contact}
+              onChange={handleInputChange}
+            />
             <AddressInput />
           </RestaurantInfoSection>
           <MapSection />
           <MenuReviewSection />
-          <ButtonSection />
         </RestaurantInfoSectionWrapper>
+          <QuillEditorWrapper>
+            <QuillEditor />
+          </QuillEditorWrapper>
+        <ButtonSection />
         <ScrollToTopButton />
       </Wrapper>
       <Footer />
@@ -66,9 +69,11 @@ export default GoodRestaurantEnrollPage;
 const StyledGoodRestrauntPage = styled.div`
   background-color: #fff;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const RestaurantInfoSectionWrapper = styled.div`
@@ -80,13 +85,18 @@ const RestaurantInfoSectionWrapper = styled.div`
   flex-direction: column;
 
   /*NOTE: TEST  */
-  height: 50vh; /* 수정된 부분 */
-  width: 50vw;
+  height: 80vh;
+  width: 80vw;
+  justify-content: center; /* 세로 중앙 정렬 */
+  align-items: center; /* 가로 중앙 정렬 */
+  margin: auto; /* 부모 컨테이너에 대해 가운데 정렬 */
+  justify-content: space-evenly; /* 세로 방향 여백을 동일하게 설정 */
+  margin-bottom: 1.5rem;
 `;
 
 const Wrapper = styled.div`
   background-color: #fff;
-  padding: 900px;
+  padding: 50px 0px 50px 0px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
@@ -112,9 +122,23 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const RestaurantInfoInputWrapper = styled.div`
+const QuillEditorWrapper = styled.div`
+  background-color: red;
+  flex: 0.7; /* 부모의 70%를 차지하도록 설정 */
+  height: 30vh;
+  width: 50vw; /* 또는 원하는 크기로 조절 */
+  margin: auto; /* 부모 컨테이너에 대해 가운데 정렬 *
+  
+`;
+
+const FileUploadWrapper = styled.div`
+  background-color: pink;
+  flex: 0.3; /* 부모의 30%를 차지하도록 설정 */
+  height: 30vh;
+  width: 70vw; /* 또는 원하는 크기로 조절 */
   display: flex;
-  gap: 10px; /* 자식 요소들 간의 간격 설정 */
-  flex-direction: column;
-  align-items: baseline;
-`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: auto; /* 부모 컨테이너에 대해 가운데 정렬 *
+`;
