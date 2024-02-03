@@ -13,7 +13,6 @@ import ButtonSection from "../../components/goodRestaurantEnrollPage/ButtonSecti
 import ScrollToTopButton from "../../shared/ScrollTopButton";
 import QuillEditor from "../../components/goodRestaurantEnrollPage/QuillEditor";
 
-
 const GoodRestaurantEnrollPage: React.FC = () => {
   const [restaurantInfo, setRestaurantInfo] = useState({
     title: "",
@@ -53,9 +52,9 @@ const GoodRestaurantEnrollPage: React.FC = () => {
           <MapSection />
           <MenuReviewSection />
         </RestaurantInfoSectionWrapper>
-          <QuillEditorWrapper>
-            <QuillEditor />
-          </QuillEditorWrapper>
+        <QuillEditorWrapper>
+          <QuillEditor />
+        </QuillEditorWrapper>
         <ButtonSection />
         <ScrollToTopButton />
       </Wrapper>
@@ -124,21 +123,6 @@ const Button = styled.button`
 
 const QuillEditorWrapper = styled.div`
   background-color: red;
-  flex: 0.7; /* 부모의 70%를 차지하도록 설정 */
   height: 30vh;
-  width: 50vw; /* 또는 원하는 크기로 조절 */
-  margin: auto; /* 부모 컨테이너에 대해 가운데 정렬 *
-  
-`;
-
-const FileUploadWrapper = styled.div`
-  background-color: pink;
-  flex: 0.3; /* 부모의 30%를 차지하도록 설정 */
-  height: 30vh;
-  width: 70vw; /* 또는 원하는 크기로 조절 */
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin: auto; /* 부모 컨테이너에 대해 가운데 정렬 *
+  width: 30vw;
 `;
