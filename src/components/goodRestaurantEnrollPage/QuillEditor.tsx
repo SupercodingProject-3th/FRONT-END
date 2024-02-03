@@ -4,7 +4,7 @@ import 'react-quill/dist/quill.snow.css';
 
 const QuillTest = () => {
   const [text, setText] = useState("");
-  const QuillRef = useRef();
+  const QuillRef = useRef<ReactQuill | null>(null);
 
   const modules = {
     toolbar: [
@@ -20,7 +20,7 @@ const QuillTest = () => {
     'link', 'image'
   ];
 
-  const handleChange = (value) => {
+  const handleChange = (value: string) => {
     setText(value);
   };
 

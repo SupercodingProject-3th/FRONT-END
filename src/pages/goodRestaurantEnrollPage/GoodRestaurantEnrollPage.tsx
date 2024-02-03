@@ -12,6 +12,7 @@ import MenuReviewSection from "../../components/goodRestaurantEnrollPage/MenuRev
 import ButtonSection from "../../components/goodRestaurantEnrollPage/ButtonSection";
 import ScrollToTopButton from "../../shared/ScrollTopButton";
 import QuillEditor from "../../components/goodRestaurantEnrollPage/QuillEditor";
+import FileUpload from "../../components/goodRestaurantEnrollPage/FileUpload";
 
 const GoodRestaurantEnrollPage: React.FC = () => {
   const [restaurantInfo, setRestaurantInfo] = useState({
@@ -52,9 +53,16 @@ const GoodRestaurantEnrollPage: React.FC = () => {
           <MapSection />
           <MenuReviewSection />
         </RestaurantInfoSectionWrapper>
-        <QuillEditorWrapper>
-          <QuillEditor />
-        </QuillEditorWrapper>
+        <QuillAndFileUploadWrapper>
+          <QuillEditorWrapper>
+            <QuillEditor />
+          </QuillEditorWrapper>
+          <FileUploadWrapper>
+            <FileUpload />
+            <FileUpload />
+            <FileUpload />
+          </FileUploadWrapper>
+        </QuillAndFileUploadWrapper>
         <ButtonSection />
         <ScrollToTopButton />
       </Wrapper>
@@ -125,4 +133,16 @@ const QuillEditorWrapper = styled.div`
   background-color: red;
   height: 30vh;
   width: 30vw;
+`;
+
+const QuillAndFileUploadWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center; /* 가로 중앙 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+`;
+
+const FileUploadWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
