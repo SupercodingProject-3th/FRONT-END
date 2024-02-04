@@ -51,7 +51,6 @@ const GoodRestaurantEnrollPage: React.FC = () => {
             <AddressInput />
           </RestaurantInfoSection>
           <MapSection />
-          <MenuReviewSection />
         </RestaurantInfoSectionWrapper>
         <QuillAndFileUploadWrapper>
           <QuillEditorWrapper>
@@ -63,6 +62,7 @@ const GoodRestaurantEnrollPage: React.FC = () => {
             <FileUpload />
           </FileUploadWrapper>
         </QuillAndFileUploadWrapper>
+        <MenuReviewSection />
         <ButtonSection />
         <ScrollToTopButton />
       </Wrapper>
@@ -140,6 +140,7 @@ const QuillAndFileUploadWrapper = styled.div`
   flex-direction: row;
   justify-content: center; /* 가로 중앙 정렬 */
   align-items: center; /* 세로 중앙 정렬 */
+  gap: 20px; 
 `;
 
 const FileUploadWrapper = styled.div`

@@ -57,6 +57,16 @@ const StyledProductUpload = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 1vh;
+
+  button {
+    width: 100%; /* 버튼의 너비를 100%로 설정하여 부모 컨테이너에 맞게 확장 */
+    height: 100%; /* 버튼의 높이를 100%로 설정하여 부모 컨테이너에 맞게 확장 */
+    opacity: 1;
+    font-size: 1.5rem; /* 버튼의 글꼴 크기를 조절하세요 */
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
  
   }
 `;
