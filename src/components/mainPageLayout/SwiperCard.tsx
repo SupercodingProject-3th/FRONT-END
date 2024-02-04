@@ -35,11 +35,13 @@ export default function Card({ title, data }: { title: any; data: any[] }) {
         {data.map((item: any, index: number) => {
           return (
             <div className="card__container--inner--card" key={index}>
+              <ImageWrapper>
               <img
                 src={item.url}
                 alt="hero_img"
                 style={{ width: "80%", height: "auto" }}
               />
+              </ImageWrapper>
               <div className="card__container--inner--card--date_time">
                 <p>한식</p>
               </div>
@@ -62,9 +64,16 @@ export default function Card({ title, data }: { title: any; data: any[] }) {
 const CardContainer = styled.div`
   &:hover {
     cursor: pointer;
-
-    h1 {
-      margin-bottom: 40px; /* 여기에 원하는 margin 값 설정 */
-    }
   }
+  h1 {
+    margin-bottom: 40px; /* 여기에 원하는 margin 값 설정 */
+  }
+`;
+
+
+const ImageWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 `;
