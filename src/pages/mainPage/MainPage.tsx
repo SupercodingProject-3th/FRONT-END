@@ -6,11 +6,16 @@ import Footer from "../../shared/Footer";
 import MainSecondSliderTest from "../../components/mainPageLayout/MainSecondSliderTest";
 import ScrollToTopButton from "../../shared/ScrollTopButton";
 import {media} from "../../styles/media";
+import MainSliderTitle from "../../components/mainPageLayout/MainSliderTitle";
+import MainSwiper from "../../components/mainPageLayout/MainSwiper";
+
 
 const MainPage: React.FC = () => {
   return (
     <StyledMainPage>
       <Header></Header>
+      <MainSliderTitle/>
+      <MainSwiper/>
       <MainSecondSliderTest />
       <ScrollToTopButton />
       <Footer />

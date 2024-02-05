@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 interface TitleProps {
-  text: string;
+  text?: string;
 }
 
 const MainSliderTitle: React.FC<TitleProps> = ({ text }) => {

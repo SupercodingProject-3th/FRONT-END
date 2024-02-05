@@ -17,6 +17,9 @@ const ButtonSection: React.FC = () => {
     <StyledButton type="button" onClick={handleModify}>
       수정
     </StyledButton>
+    <StyledButton type="button" onClick={handleModify}>
+      삭제
+    </StyledButton>
   </ButtonContainer>
   );
 };
