@@ -29,22 +29,18 @@ export default function Card({ title, data }: { title: any; data: any[] }) {
   };
 
   return (
-    <CardContainer className="card__container" style={{ padding: "100px" }}>
+    <CardContainer>
       <h1>{title}</h1>
-      <Slider {...settings} className="card__container--inner">
+      <Slider {...settings}>
         {data.map((item: any, index: number) => {
           return (
-            <div className="card__container--inner--card" key={index}>
+            <CardItem key={index}>
               <ImageWrapper>
-              <img
-                src={item.url}
-                alt="hero_img"
-                style={{ width: "80%", height: "auto" }}
-              />
+                <FoodImage src={item.url} alt="food_img" />
               </ImageWrapper>
-              <div className="card__container--inner--card--date_time">
+              <CardContainerInner>
                 <p>한식</p>
-              </div>
+              </CardContainerInner>
               <h2>우래옥 본점</h2>
               <p>
                 위치: <span>서울</span>
@@ -53,7 +49,7 @@ export default function Card({ title, data }: { title: any; data: any[] }) {
                 className="far fa-heart"
                 style={{ width: "50px", height: "50px" }}
               ></i>
-            </div>
+            </CardItem>
           );
         })}
       </Slider>
@@ -62,18 +58,30 @@ export default function Card({ title, data }: { title: any; data: any[] }) {
 }
 
 const CardContainer = styled.div`
-  &:hover {
-    cursor: pointer;
-  }
+  padding: "80px";
+
   h1 {
     margin-bottom: 40px; /* 여기에 원하는 margin 값 설정 */
   }
 `;
 
+const CardItem = styled.div`
+backgroundColor: "#FFB6C1"
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
 const ImageWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
 `;
+
+const FoodImage = styled.img`
+  width: 80%;
+  height: auto;
+`;
+
+const CardContainerInner = styled.div`
+`
