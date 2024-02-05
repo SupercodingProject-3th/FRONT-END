@@ -1,6 +1,7 @@
 export interface Place {
   title: string;
-  description: string;
+  category: string;
+  image: string;
   liked: boolean; 
 }
 
@@ -13,4 +14,10 @@ export interface Category {
 export interface LocationCategory {
   name: string;
   text: string;
+}
+
+export interface FetchPlacesParams {
+  neighborhood: string;
+  category: string;
+  order: string;
 }

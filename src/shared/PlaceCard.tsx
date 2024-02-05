@@ -6,7 +6,7 @@ import LikeButton from './LikeButton';
 import {RootState} from '../store/store';
 
 const PlaceCard: React.FC<Place& { size?: string}> = ({ 
-    title, description,liked: initialLiked, size})=> {
+    title, category,liked:initialLiked, image, size})=> {
     const [liked, setLiked] = useState(initialLiked);
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
     const toggleHandler=()=>{
@@ -18,13 +18,13 @@ const PlaceCard: React.FC<Place& { size?: string}> = ({
     };
     return (
       <CardContainer size={size}>
-        <Image src='https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20231025_278%2F1698214827092y7jVW_JPEG%2FD29AE850-A12B-40E0-AD8F-BDB758670DC2.jpeg' size={size}/>
+        <Image src={image} alt={title} size={size} /> 
         <ContentContainer>
           <ContentWrapper>
             <Title>{title}</Title>
             <LikeButton liked={liked} onToggleLike={toggleHandler} />
           </ContentWrapper>
-          <Description>{description}</Description>
+          <Description>{category}</Description>
         </ContentContainer>
       </CardContainer>
     );
@@ -51,6 +51,10 @@ const Image = styled.img<{size?: string}>`
   height: ${props => props.size || '225px'};
   min-height: 125px;
   border-radius: 10px 10px 0 0;
+  min-height: ${props => {
+    const size = parseInt(props.size || '0', 10);
+    return size < 125 ? '125px' : props.size || '125px';
+  }};
 `;
 
 const ContentContainer = styled.div`
@@ -63,12 +67,14 @@ const ContentWrapper = styled.div`
 
 const Title = styled.h4`
   margin: 10px 0px 0px 0px;
-  max-width:144.5px;
+  max-width:150px;
   overflow: hidden; 
   text-overflow: ellipsis; 
+  text-align: left;
 `;
 
 const Description = styled.p`
   color: grey;
   margin:10px 0px;
+  text-align: left;
 `;

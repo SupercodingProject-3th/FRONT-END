@@ -16,6 +16,7 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import MainPage from "./pages/mainPage/MainPage";
 import GoodRestaurantEnrollPage from "./pages/goodRestaurantEnrollPage/GoodRestaurantEnrollPage";
+import PlacesList from "./pages/PlacesList";
 
 function App() {
   const [isToken, setIsToken] = useState(false);
