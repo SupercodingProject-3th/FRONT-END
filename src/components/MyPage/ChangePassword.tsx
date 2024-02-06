@@ -1,13 +1,16 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import validator from "validator";
 import { BaseSyntheticEvent } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ChangePassword: React.FC = () => {
   const [oldPassword, setOldPassword] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+
+  const [nickName, setNickName] = useState<string>("");
 
   //비밀번호 보이기/ 숨기기 상태변수
   const [isShowPwd, setIsShowPwd] = useState<boolean>(false);
@@ -15,6 +18,20 @@ const ChangePassword: React.FC = () => {
   const [newPasswordMessage, setNewPasswordMessage] = useState<string>("");
   const [passMatchMessage, setPassMatchMessage] = useState<string>("");
   const [axiosErrorMessage, setAxiosErrorMessage] = useState<string>("");
+
+  const navigator = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("nickName") !== null) {
+      const nickName = localStorage.getItem("nickName");
+
+      if (nickName !== null) {
+        setNickName(nickName);
+      } else {
+        setNickName("");
+      }
+    }
+  }, [nickName]);
 
   const OnOldPasswordChange = (e: BaseSyntheticEvent) => {
     setOldPassword(e.target.value);
@@ -86,19 +103,32 @@ const ChangePassword: React.FC = () => {
     ) {
       //const tokenStr = localStorage.getItem("token");
       //const token = JSON.parse(tokenStr);
+      const token = localStorage.getItem("token");
 
-      await axios
-        .patch(`https://www.onesol.shop/v1/api/account/my-page`, {
-          password: newPassword,
-        })
-        .then(function (res) {
-          console.log(res);
-          alert("비밀번호가 변경되었습니다!");
-        })
-        .catch(function (err) {
-          console.log(err);
-          setAxiosErrorMessage(err.message);
-        });
+      if (token !== null) {
+        await axios
+          .put(
+            `https://www.onesol.shop/account/update-password`,
+            {
+              password: oldPassword,
+              updatePassword: newPassword,
+              updatePasswordConfirm: confirmPassword,
+            },
+            {
+              headers: {
+                Token: token,
+              },
+            }
+          )
+          .then(function (res) {
+            console.log(res);
+            alert("비밀번호가 변경되었습니다!");
+          })
+          .catch(function (err) {
+            console.log(err);
+            setAxiosErrorMessage(err.message);
+          });
+      }
     }
   };
 
@@ -106,6 +136,10 @@ const ChangePassword: React.FC = () => {
     <MainChange>
       <UserChange>
         <h3>비밀번호 변경</h3>
+        <p>
+          회원님의 닉네임은
+          <br /> <b>{nickName}</b> <br /> 입니다.
+        </p>
         <LabelChange htmlFor="oldpass">현재 비밀번호</LabelChange>
         <InputChange
           type="password"
@@ -151,6 +185,9 @@ const ChangePassword: React.FC = () => {
         {axiosErrorMessage && (
           <MessageChange>{axiosErrorMessage}</MessageChange>
         )}
+        <BackButtonChange onClick={() => navigator(-1)}>
+          이전 페이지
+        </BackButtonChange>
       </UserChange>
     </MainChange>
   );
@@ -165,8 +202,8 @@ const MainChange = styled.div`
 
 const UserChange = styled.div`
   margin: 30px;
-  padding: 20px;
-  width: 300px;
+  padding-bottom: 300px;
+  width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -175,6 +212,7 @@ const UserChange = styled.div`
 `;
 
 const LabelChange = styled.label`
+  text-align: left;
   padding-top: 10px;
   color: rgb(100, 100, 100);
   width: 180px;
@@ -201,7 +239,7 @@ const PwdCheckLabelChange = styled.label`
 
 const ButtonChange = styled.button`
   margin: 20px;
-  width: 120px;
+  width: 130px;
   height: 40px;
 
   border: none;
@@ -214,6 +252,17 @@ const MessageChange = styled.div`
   color: red;
   font-size: 12px;
   text-align: center;
+`;
+
+const BackButtonChange = styled.button`
+  margin: 50px 0px 10px 0px;
+  font-weight: bold;
+  font-size: 15px;
+  width: 120px;
+  height: 40px;
+
+  border: none;
+  border-radius: 5px;
 `;
 
 export default ChangePassword;

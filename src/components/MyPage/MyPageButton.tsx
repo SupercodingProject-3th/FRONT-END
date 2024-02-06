@@ -8,26 +8,32 @@ interface MyPageButtonProps {
 
 const MyPageButton: React.FC<MyPageButtonProps> = ({ isToken }) => {
   return (
-    <div>
+    <DivMainPost>
       {isToken ? (
         <>
           <LinkPage to="/logout">로그아웃 페이지로 이동</LinkPage>
           <LinkPage to="/mypage/0">마이 페이지로 이동</LinkPage>
-          <LinkPage to="change-password">비밀번호 바꾸기</LinkPage>
+          <LinkPage to="/myposts">내가 쓴 포스트 조회</LinkPage>
         </>
       ) : (
         <>
           <LinkPage to="/login">로그인 페이지로 이동</LinkPage>
           <LinkPage to="/signup">회원가입 페이지로 이동</LinkPage>
+          <LinkPage to="/find-email">이메일 찾기</LinkPage>
         </>
       )}
-    </div>
+    </DivMainPost>
   );
 };
 
+const DivMainPost = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const LinkPage = styled(Link)`
-  margin: 20px;
-  width: 100px;
+  margin: 10px;
 `;
 
 export default MyPageButton;
