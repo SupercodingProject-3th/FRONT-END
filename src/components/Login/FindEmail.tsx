@@ -99,6 +99,7 @@ const UserFind = styled.div`
 `;
 
 const LabelFind = styled.label`
+  text-align: left;
   padding-top: 10px;
   color: rgb(100, 100, 100);
   width: 170px;

@@ -39,7 +39,7 @@ const FindPassword: React.FC = () => {
     <MainPass>
       <UserPass>
         <h3>비밀번호 변경</h3>
-        <LablePass htmlFor="oldpass">현재 비밀번호</LablePass>
+        <LabelPass htmlFor="oldpass">현재 비밀번호</LabelPass>
         <InputPass
           type="password"
           id="oldpass"
@@ -47,7 +47,7 @@ const FindPassword: React.FC = () => {
           value={oldPassword}
           onChange={OnOldPasswordChange}
         />
-        <LablePass htmlFor="newpass">새로운 비밀번호</LablePass>
+        <LabelPass htmlFor="newpass">새로운 비밀번호</LabelPass>
         <InputPass
           type="password"
           id="newpass"
@@ -55,7 +55,7 @@ const FindPassword: React.FC = () => {
           value={newPassword}
           onChange={OnNewPasswordChange}
         />
-        <LablePass htmlFor="confirmpass">새로운 비밀번호 확인</LablePass>
+        <LabelPass htmlFor="confirmpass">새로운 비밀번호 확인</LabelPass>
         <InputPass
           type="password"
           id="confirmpass"
@@ -87,7 +87,8 @@ const UserPass = styled.div`
   border: 1px solid pink;
 `;
 
-const LablePass = styled.label`
+const LabelPass = styled.label`
+  text-align: left;
   padding-top: 10px;
   color: rgb(100, 100, 100);
   width: 180px;

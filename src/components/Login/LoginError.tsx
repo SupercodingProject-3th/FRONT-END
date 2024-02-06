@@ -11,7 +11,7 @@ const LoginError: React.FC<LoginErrorProps> = ({ pageName, error }) => {
   const navigator = useNavigate();
 
   const onClickHander = () => {
-    navigator(-1);
+    navigator("/");
   };
   return (
     <>
@@ -22,7 +22,7 @@ const LoginError: React.FC<LoginErrorProps> = ({ pageName, error }) => {
           {error}
         </h1>
         <ButtonLoginError onClick={onClickHander}>
-          이전 페이지로 이동
+          메인 페이지로 이동
         </ButtonLoginError>
       </MessageLoginError>
     </>

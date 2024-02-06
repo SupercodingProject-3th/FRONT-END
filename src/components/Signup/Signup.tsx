@@ -461,7 +461,7 @@ const Signup = () => {
         {axiosErrorMessage && (
           <MessageSignup>{axiosErrorMessage}</MessageSignup>
         )}
-        <LinkSignup to="/">로그인 하기</LinkSignup>
+        <LinkSignup to="/login">로그인 하기</LinkSignup>
       </UserSignup>
     </UserSignupMain>
   );
@@ -493,6 +493,7 @@ const UserTitleSignup = styled.div`
 `;
 
 const LabelSignup = styled.label`
+  text-align: left;
   padding-top: 10px;
   color: rgb(100, 100, 100);
   width: 260px;

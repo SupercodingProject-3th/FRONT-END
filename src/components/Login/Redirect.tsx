@@ -12,7 +12,7 @@ const Redirect: React.FC<RedirectProps> = ({ updateIsToken }) => {
   const hostname = window.location.hostname;
   const port = window.location.port;
 
-  const currentUrl = `${protocol}//${hostname}:${port}/signup`;
+  const currentUrl = `${protocol}//${hostname}:${port}/auth/signup`;
 
   const navigator = useNavigate();
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -38,7 +38,6 @@ const Redirect: React.FC<RedirectProps> = ({ updateIsToken }) => {
           navigator("/");
         })
         .catch(async function (err) {
-          console.log(err);
           if (err.response.status === 422) {
             // 서버 응답 데이터에서 필요한 필드들 추출
             const email = err.response.data.request.email || "";
@@ -92,10 +91,12 @@ const Redirect: React.FC<RedirectProps> = ({ updateIsToken }) => {
                 .then((res) => {
                   // 서버의 응답을 처리하는 로직 추가
                   console.log("Server response:", res);
+                  navigator("/login");
                 })
                 .catch((error) => {
                   // 오류 처리 로직 추가
                   console.error("Error sending request:", error);
+                  navigator("/login");
                 });
             }
           } else if (err.response.status === 409) {
@@ -121,12 +122,13 @@ const Redirect: React.FC<RedirectProps> = ({ updateIsToken }) => {
               })
               .catch((error) => {
                 console.error("실패 응답:", error);
+                navigator("/login");
               });
           } else if (err.response.status === 400) {
             console.log(err);
             alert(err.response.data.detailMessage);
-            navigator("/login");
-          } else if (err.response.status === 500) {
+            navigator("/");
+          } else {
             console.log(err);
             alert(err.response.data.error);
             navigator("/login");
@@ -136,7 +138,7 @@ const Redirect: React.FC<RedirectProps> = ({ updateIsToken }) => {
 
     getCode();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [searchParams]);
 
   return <h1>KaKao Redirecting Page</h1>;
 };
