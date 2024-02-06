@@ -2,6 +2,7 @@ import React, { useState, useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import backgroundImage from "../../shared/images/LoginPage/logout-background.jpg";
+import axios from "axios";
 //import axios from "axios";
 interface LogoutProps {
   nickName: string;
@@ -21,28 +22,38 @@ const Logout: React.FC<LogoutProps> = ({ nickName, updateIsToken }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const logoutHandler = () => {
-    /*await axios
-      .post("https://www.onesol.shop/auth/logout")
-      .then((res) => {
-        //로그아웃 성공
-        localStorage.removeItem("token");
-        updateIsToken(false);
-        console.log(res);
+  const logoutHandler = async () => {
+    const token = localStorage.getItem("token");
 
-        alert("로그아웃 되셨습니다!");
-        navigator("/");
-      })
-      .catch((err) => {
-        //로그아웃에 실패하면 err 출력
-        console.log(err.response.data);
-      });
-*/
-    localStorage.removeItem("token");
-    localStorage.removeItem("nickName");
-    updateIsToken(false);
+    if (token !== null) {
+      await axios
+        .post("https://www.onesol.shop/auth/logout", {
+          headers: {
+            Token: token,
+          },
+        })
+        .then((res) => {
+          //로그아웃 성공
+          localStorage.removeItem("nickName");
+          localStorage.removeItem("token");
+          updateIsToken(false);
+          console.log(res);
 
-    navigator("/");
+          alert("로그아웃 되셨습니다!");
+          navigator("/");
+        })
+        .catch((err) => {
+          //로그아웃에 실패하면 err 출력
+          localStorage.removeItem("nickName");
+          localStorage.removeItem("token");
+          updateIsToken(false);
+
+          console.log(err);
+
+          //alert(err.message);
+          navigator("/");
+        });
+    }
   };
 
   const onClickHandler = () => {

@@ -4,21 +4,27 @@ import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.module.css";
 import axios from "axios";
 import { BaseSyntheticEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
-const MyEditProfile = () => {
+interface MyEditProps {
+  updateIsToken: any;
+}
+
+const MyEditProfile: React.FC<MyEditProps> = ({ updateIsToken }) => {
   const [email, setEmail] = useState<string>("");
   const [nickName, setNickName] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
   const [neighbor, setNeighbor] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [newPassword, setNewPassword] = useState<string>("");
-  const [newPasswordConfirm, setNewPasswordConfirm] = useState<string>("");
   const [dateOfBirth, setDateOfBirth] = useState<string>("");
   const [dateOfBirthObj, setDateOfBirthObj] = useState<any>();
   const [gender, setGender] = useState<number>(0);
   const [joinDate, setJointDate] = useState<string>("");
   const [isShowPwd, setIsShowPwd] = useState<boolean>(false);
   const [errMessage, setErrMessage] = useState<string>("");
+
+  const navigator = useNavigate();
 
   useEffect(() => {
     const getUserInfo = async () => {
@@ -38,7 +44,6 @@ const MyEditProfile = () => {
             setNickName(res.data.data.nickName);
             setPhone(res.data.data.phoneNumber);
             setNeighbor(res.data.data.neighborhood);
-            //setPassword(res.data.data.password);
             setDateOfBirth(res.data.data.dateOfBirth);
             setDateOfBirthObj(new Date(res.data.data.dateOfBirth));
             setJointDate(res.data.data.joinDate.toString());
@@ -58,6 +63,70 @@ const MyEditProfile = () => {
     getUserInfo();
   }, []);
 
+  const onDeleteMyAccount = async () => {
+    const token = localStorage.getItem("token");
+    // eslint-disable-next-line no-restricted-globals
+    const check = confirm("정말로 계정을 삭제 하시겠습니까?");
+
+    if (check && token !== null) {
+      await axios
+        .delete("https://www.onesol.shop/account/withdrawal", {
+          headers: {
+            Token: token,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          localStorage.removeItem("nickName");
+          localStorage.removeItem("token");
+          updateIsToken(false);
+
+          navigator("/");
+        })
+        .catch((err) => {
+          console.log(err);
+          setErrMessage(err.message);
+        });
+    }
+  };
+
+  const onNickNameHandler = (e: BaseSyntheticEvent) => {
+    setErrMessage("");
+    setNickName(e.target.value);
+  };
+
+  const onPhoneHandler = (e: BaseSyntheticEvent) => {
+    setErrMessage("");
+    setPhone(e.target.value);
+  };
+
+  const onNeighborHandler = (e: BaseSyntheticEvent) => {
+    setErrMessage("");
+    setNeighbor(e.target.value);
+  };
+
+  const onBirthDateHander = (date: any) => {
+    setErrMessage("");
+
+    const changedDate = moment(date).format("YYYY-MM-DD");
+    setDateOfBirth(changedDate);
+    setDateOfBirthObj(date);
+  };
+
+  const onPasswordHandler = (e: BaseSyntheticEvent) => {
+    setErrMessage("");
+    setPassword(e.target.value);
+  };
+
+  const onGenderHandler = () => {
+    setErrMessage("");
+    setGender(1 - gender);
+  };
+
+  const onPicHandler = () => {
+    setErrMessage("");
+  };
+
   const onTogglePwdShowHandler = () => {
     if (!isShowPwd) {
       setIsShowPwd(true);
@@ -66,36 +135,45 @@ const MyEditProfile = () => {
     }
   };
 
-  const onBirthDateChange = () => {
-    setDateOfBirth(dateOfBirth);
-    setDateOfBirthObj(dateOfBirthObj);
-  };
-
   const onChangeInfoHander = async () => {
     //const token = localStorage.getItem("token");
     const gender2 = gender === 0 ? "남성" : "여성";
+    const token = localStorage.getItem("token");
 
-    await axios
-      .patch("https://www.onesol.shop/account/my-page", {
-        email,
-        nickName,
-        password,
-        newPassword,
-        newPasswordConfirm,
-        phoneNumber: phone,
-        neighborhood: neighbor,
-        imageUrl: "",
-        dateOfBirth,
-        gender: gender2,
-        joinDate,
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-        setErrMessage(err.message);
-      });
+    /*  formData.append("nickName", nickName);
+    formData.append("phoneNum", phone);
+    formData.append("neighborhood", neighbor);
+    formData.append("dateOfBirth", dateOfBirth);
+    formData.append("gender", gender2);
+    formData.append("password", password);
+    */
+
+    const data = {
+      nickName,
+      phoneNum: phone,
+      neighborhood: neighbor,
+      dateOfBirth,
+      gender: gender2,
+      password,
+    };
+
+    const jsonData = JSON.stringify(data);
+
+    if (token !== null) {
+      await axios
+        .put("https://www.onesol.shop/account/update-my-info", jsonData, {
+          headers: {
+            Token: token,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+          setErrMessage(err.message);
+        });
+    }
   };
 
   return (
@@ -104,13 +182,21 @@ const MyEditProfile = () => {
       <UserInfoPro>
         <UserInfoContainerPro>
           <h1>회원정보 수정 페이지</h1>
+          <DeleteMyAccountDiv>
+            <PwdChangeButton onClick={() => navigator("/mypage/3")}>
+              비밀 번호 변경
+            </PwdChangeButton>
+            <DeleteMyAccountButton onClick={onDeleteMyAccount}>
+              회원 탈퇴
+            </DeleteMyAccountButton>
+          </DeleteMyAccountDiv>
           <InputContainerPro>
             <LabelPro htmlFor="user_nickname">닉네임 :</LabelPro>
             <InputPro
               type="text"
               id="user_nickname"
               value={nickName || ""}
-              onChange={(e: BaseSyntheticEvent) => setNickName(e.target.value)}
+              onChange={onNickNameHandler}
             />
           </InputContainerPro>
           <InputContainerPro>
@@ -119,7 +205,7 @@ const MyEditProfile = () => {
               type="text"
               id="user_phone"
               value={phone || ""}
-              onChange={(e: BaseSyntheticEvent) => setPhone(e.target.value)}
+              onChange={onPhoneHandler}
             />
           </InputContainerPro>
           <InputContainerPro>
@@ -129,16 +215,15 @@ const MyEditProfile = () => {
               id="user_email"
               disabled={true}
               value={email || ""}
-              onChange={(e: BaseSyntheticEvent) => setEmail(e.target.value)}
             />
           </InputContainerPro>
           <InputContainerPro>
-            <LabelPro htmlFor="user_neighbor">이웃 :</LabelPro>
+            <LabelPro htmlFor="user_neighbor">동네 :</LabelPro>
             <InputPro
               type="text"
               id="user_neighbor"
               value={neighbor || ""}
-              onChange={(e: BaseSyntheticEvent) => setNeighbor(e.target.value)}
+              onChange={onNeighborHandler}
             />
           </InputContainerPro>
           <RadioContainerPro>
@@ -149,7 +234,7 @@ const MyEditProfile = () => {
                 id="user_gender1"
                 value={gender}
                 checked={gender === 0}
-                onChange={() => setGender(0)}
+                onChange={onGenderHandler}
               />
               <RadioLabelPro htmlFor="user_gender1">남성</RadioLabelPro>
               <RadioInputPro
@@ -157,7 +242,7 @@ const MyEditProfile = () => {
                 id="user_gender2"
                 value={gender}
                 checked={gender === 1}
-                onChange={() => setGender(1)}
+                onChange={onGenderHandler}
               />
               <RadioLabelPro htmlFor="user_gender2">여성</RadioLabelPro>
             </RadioPro>
@@ -170,12 +255,12 @@ const MyEditProfile = () => {
               startDate={null}
               showYearDropdown
               selected={dateOfBirthObj}
-              onChange={onBirthDateChange}
+              onChange={onBirthDateHander}
             />
           </BirthDateContainerPro>
           <InputContainerPro>
             <LabelPro htmlFor="user_image">프로필 사진:</LabelPro>
-            <InputPro type="file" id="user_image" />
+            <InputPro type="file" id="user_image" onChange={onPicHandler} />
           </InputContainerPro>
           <br />
           <br />
@@ -190,35 +275,13 @@ const MyEditProfile = () => {
             />
           </InputContainerPro>
           <InputContainerPro>
-            <LabelPro htmlFor="user_password">이전 비밀번호:</LabelPro>
+            <LabelPro htmlFor="user_password">비밀번호 확인:</LabelPro>
             <InputPro
               type={isShowPwd ? "text" : "password"}
               id="user_password"
-              placeholder="이전 비밀번호를 입력하세요."
+              placeholder="확인 비밀번호를 입력하세요."
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </InputContainerPro>
-          <InputContainerPro>
-            <LabelPro htmlFor="user_newpassword">새로운 비밀번호:</LabelPro>
-            <InputPro
-              type={isShowPwd ? "text" : "password"}
-              id="user_newpassword"
-              placeholder="새로운 비밀번호를 입력하세요."
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-            />
-          </InputContainerPro>
-          <InputContainerPro>
-            <LabelPro htmlFor="user_newpassword_confirm">
-              새 비밀번호 확인:
-            </LabelPro>
-            <InputPro
-              type={isShowPwd ? "text" : "password"}
-              id="user_newpassword_confirm"
-              placeholder="새로운 비밀번호를 입력하세요."
-              value={newPasswordConfirm}
-              onChange={(e) => setNewPasswordConfirm(e.target.value)}
+              onChange={onPasswordHandler}
             />
           </InputContainerPro>
           <PwdCheckDivPro>
@@ -259,6 +322,20 @@ const UserInfoContainerPro = styled.div`
   border: 1px solid gray;
 `;
 
+const DeleteMyAccountDiv = styled.div`
+  width: 400px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding-bottom: 20px;
+`;
+
+const DeleteMyAccountButton = styled.button`
+  width: 90px;
+  height: 30px;
+  padding-bottom: 5px;
+`;
+
 const InputContainerPro = styled.div`
   width: 400px;
   display: flex;
@@ -268,6 +345,7 @@ const InputContainerPro = styled.div`
 `;
 
 const LabelPro = styled.label`
+  text-align: left;
   width: 150px;
   padding-right: 20px;
 `;
@@ -328,8 +406,15 @@ const PwdCheckLabelPro = styled.label`
   font-size: 15px;
 `;
 
+const PwdChangeButton = styled.button`
+  width: 110px;
+  height: 30px;
+  padding-bottom: 5px;
+  margin-right: 20px;
+`;
+
 const UserSignupButton = styled.button`
-  margin: 50px 0px 30px 0px;
+  margin: 10px 0px 30px 0px;
   color: white;
   font-weight: bold;
   font-size: 15px;
