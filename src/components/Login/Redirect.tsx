@@ -12,7 +12,7 @@ const Redirect: React.FC<RedirectProps> = ({ updateIsToken }) => {
   const hostname = window.location.hostname;
   const port = window.location.port;
 
-  const currentUrl = `${protocol}//${hostname}:${port}/auth/signup`;
+  const currentUrl = `${protocol}//${hostname}:${port}/signup`;
 
   const navigator = useNavigate();
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -29,9 +29,11 @@ const Redirect: React.FC<RedirectProps> = ({ updateIsToken }) => {
 
           const token = res.headers.token;
           const nickName = res.data.data.nickName;
+          const userId = res.data.data.userId;
 
           localStorage.setItem("token", token);
           localStorage.setItem("nickName", nickName);
+          localStorage.setItem("userId", userId);
 
           updateIsToken(true);
 

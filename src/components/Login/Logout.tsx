@@ -36,6 +36,7 @@ const Logout: React.FC<LogoutProps> = ({ nickName, updateIsToken }) => {
           //로그아웃 성공
           localStorage.removeItem("nickName");
           localStorage.removeItem("token");
+          localStorage.removeItem("userId");
           updateIsToken(false);
           console.log(res);
 
@@ -46,6 +47,7 @@ const Logout: React.FC<LogoutProps> = ({ nickName, updateIsToken }) => {
           //로그아웃에 실패하면 err 출력
           localStorage.removeItem("nickName");
           localStorage.removeItem("token");
+          localStorage.removeItem("userId");
           updateIsToken(false);
 
           console.log(err);
