@@ -5,17 +5,21 @@ import Header from "../../shared/Header";
 import Footer from "../../shared/Footer";
 import MainSecondSliderTest from "../../components/mainPageLayout/MainSecondSliderTest";
 import ScrollToTopButton from "../../shared/ScrollTopButton";
-import {media} from "../../styles/media";
+import { media } from "../../styles/media";
 import MainSliderTitle from "../../components/mainPageLayout/MainSliderTitle";
 import MainSwiper from "../../components/mainPageLayout/MainSwiper";
-
+import TestBanner from "../../components/mainPageLayout/TestBanner";
 
 const MainPage: React.FC = () => {
+  const handlePageSelection = (selectedPage:any) => {
+  };
+
   return (
     <StyledMainPage>
       <Header></Header>
-      <MainSliderTitle/>
-      <MainSwiper/>
+      <TestBanner setSelectedPage={handlePageSelection} />
+      <MainSliderTitle />
+      <MainSwiper />
       <MainSecondSliderTest />
       <ScrollToTopButton />
       <Footer />
@@ -32,17 +36,14 @@ const StyledMainPage = styled.div`
   flex-direction: column;
 
   ${media.mobile} {
-    /*NOTE: 모바일 화면에 대한 스타일 */
     font-size: 11px;
   }
 
   ${media.tablet} {
-    /*NOTE: 태블릿 화면에 대한 스타일 */
     font-size: 12px;
   }
 
   ${media.desktop} {
-    /*NOTE: 데스크톱 화면에 대한 스타일 */
     font-size: 14px;
   }
 `;
