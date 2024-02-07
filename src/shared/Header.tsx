@@ -5,6 +5,7 @@ import LogoImage from "../assets/icon/logo.png";
 import SearchBar from "../components/mainPageLayout/SearchBar";
 import DarkmodeBtn from "../components/mainPageLayout/DarkModeToggleButton";
 import UserMenu from "../components/mainPageLayout/UserMenu";
+import { media } from "../styles/media";
 
 const Header = () => {
   return (
@@ -61,6 +62,12 @@ const TopNavBar = styled.div`
   @media (min-width: 1024px) {
     height: 8rem;
   }
+
+  @media (max-width: 1023.9px) {
+    flex-direction: column; /* 모바일 환경에서 세로로 요소를 배치 */
+    height: auto; /* 높이를 자동으로 설정하여 내용에 맞게 조절 */
+    align-items: flex-start; /* 요소를 왼쪽 정렬 */
+  }
 `;
 
 const UnderLine = styled.div`
@@ -82,15 +89,23 @@ const ButtonsWrapper = styled.div`
       gap: 3rem;
       align-items: center;
 
+
       /* NOTE: 오른쪽 여백 만든 것 CATEGORY 추가되면 수정해야함 */
       @media (min-width: 1024px) {
         margin-right: 10rem; 
       }
 
+      @media (max-width: 1023.9px) {
+        flex-direction: column; /* 모바일 환경에서 세로로 요소를 배치 */
+        align-items: flex-start; 
       }
     `;
 
 const Logo = styled.img`
   width: 100px;
-  height: 100px; //NOTE: 가로 길이에 맞추어 세로 길이를 조절
+  height: auto; //NOTE: 가로 길이에 맞추어 세로 길이를 조절
+
+  ${media.mobile} {
+    width: 30px;
+    height: auto; 
 `;

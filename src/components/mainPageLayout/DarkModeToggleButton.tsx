@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { toggleDarkMode } from "../../store/slices/darkModeSlices";
 import { RootState } from "../../store/store";
-
 import Image from "./DarkModeImage";
 
 const DarkmodeBtn = ({ isMobile }: { isMobile: boolean }) => {
@@ -14,7 +13,6 @@ const DarkmodeBtn = ({ isMobile }: { isMobile: boolean }) => {
 
   const toggleDarkModeHandler = () => {
     dispatch(toggleDarkMode()); // Redux에서 액션 디스패치
-    // 나머지 코드는 동일
     localStorage.setItem("darkMode", JSON.stringify(!isDarkMode));
   };
 
@@ -24,11 +22,7 @@ const DarkmodeBtn = ({ isMobile }: { isMobile: boolean }) => {
       isMobile={isMobile}
       isDarkMode={isDarkMode}
     >
-      <Image
-        isDarkMode={isDarkMode}
-        width={15}
-        height={15}
-      />
+      <Image isDarkMode={isDarkMode} width={15} height={15} />
       <ToggleBtn isDarkMode={isDarkMode} />
     </ToggleContainer>
   );
@@ -37,7 +31,7 @@ const DarkmodeBtn = ({ isMobile }: { isMobile: boolean }) => {
 export default DarkmodeBtn;
 
 //NOTE: 뺌  position: relative;
- 
+
 const ToggleContainer = styled.div<{ isMobile: boolean; isDarkMode: boolean }>`
   display: ${(props) => (props.isMobile ? "flex" : "none")};
   align-items: center;
@@ -49,7 +43,6 @@ const ToggleContainer = styled.div<{ isMobile: boolean; isDarkMode: boolean }>`
   padding: 0.25rem;
   cursor: pointer;
 
-  
   @media (min-width: 1024px) {
     display: flex;
   }

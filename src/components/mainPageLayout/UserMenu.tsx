@@ -30,6 +30,7 @@ const UserMenuContainer = styled.div`
   font-weight: 500;
   color: #4f3d21;
   align-items: center;
+
 `;
 
 const ProfileButton = styled.div`
@@ -47,7 +48,6 @@ const ProfileButton = styled.div`
         box-shadow: 0px 0px 1px 4px rgb(230, 230, 230);
       }
       transform: scale(1.1);
-
       transition: all 0.3s;
     }
   }

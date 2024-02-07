@@ -6,7 +6,6 @@ import Footer from "../../shared/Footer";
 import MainSecondSliderTest from "../../components/mainPageLayout/MainSecondSliderTest";
 import ScrollToTopButton from "../../shared/ScrollTopButton";
 import { media } from "../../styles/media";
-import MainSliderTitle from "../../components/mainPageLayout/MainSliderTitle";
 import MainSwiper from "../../components/mainPageLayout/MainSwiper";
 import TestBanner from "../../components/mainPageLayout/TestBanner";
 
@@ -18,7 +17,6 @@ const MainPage: React.FC = () => {
     <StyledMainPage>
       <Header></Header>
       <TestBanner setSelectedPage={handlePageSelection} />
-      <MainSliderTitle />
       <MainSwiper />
       <MainSecondSliderTest />
       <ScrollToTopButton />

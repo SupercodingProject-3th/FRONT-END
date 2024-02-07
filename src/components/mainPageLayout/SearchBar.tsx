@@ -1,7 +1,6 @@
-  import React from "react";
   import styled from "styled-components";
   import searchIcon from "../../assets/icon/searchIcon.png";
-
+  import { media } from "../../styles/media";
 
 
   const SearchBar = () => {
@@ -23,11 +22,9 @@
       };
 
 
-
   export default SearchBar;
 
   const SearchBarContainer = styled.div`
-      display: none;
       position: relative;
       align-items: center;
       padding: 0.8rem 1.6rem;
@@ -36,11 +33,11 @@
       gap: 1.6rem;
       max-width: 36rem;
       z-index: 999;
-    
       border: 0.1rem solid
-      
       background-color: "fff"
       color: "#000";
+      border: 0.2rem solid #feaa00;
+      border-radius: 0.8rem 0.8rem 0.8rem 0.8rem;
     
       @media (min-width: 1024px) {
         display: flex;
@@ -49,19 +46,26 @@
         box-sizing: border-box;
         width: 36rem;
         top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        border-radius: 10rem;
-        border: 0.2rem solid #feaa00;
-        border-radius: 0.8rem 0.8rem 0.8rem 0.8rem;
-        padding: 0.7rem 1.5rem";
+        left: 55%;
+        transform: translate(-30%, -50%);
 
+        padding: 0.7rem 1.5rem;
+        left: 40%; /* NOTE: 원하는 만큼 이동할 거리 설정 + Header Container에 relative 요소 추가함 Category 요소 들어오면 수정해야함 */
+      }
 
+      ${media.mobile} {
+        font-size: 11px;
+      }
 
-      
-        left: 40rem; /* NOTE: 원하는 만큼 이동할 거리 설정 + Header Container에 relative 요소 추가함 Category 요소 들어오면 수정해야함 */
-        
-
+      /* 모바일 화면 스타일 */
+      @media (max-width: 1024px) {
+        display: flex;
+        justify-content: center; /* 가운데 정렬 */
+        position: static; /* 기본 위치로 설정 */
+        margin-top: 1rem; /* 다른 요소와의 간격 조절 */
+        left: auto; /* 모바일에서는 left 속성을 초기화하여 가운데 정렬 */
+        transform: none; /* 모바일에서는 transform 속성을 초기화하여 가운데 정렬 */
+        width: 40%; /* 화면이 작아질수록 80%의 너비를 가지도록 설정 */
       }
     `;
 
@@ -73,6 +77,7 @@
 
   const SearchBarInputWrapper = styled.div`
     width: 100%;
+    
   `;
 
   const SearchBarInput = styled.input`
@@ -84,8 +89,11 @@
       outline: none;
       border: none;
     }
+
+    ${media.mobile} {
+      width: 80%; /* 화면이 작아질수록 80%의 너비를 가지도록 설정 */
+    }
   `;
 
   const Image = styled.img`
-
   `
