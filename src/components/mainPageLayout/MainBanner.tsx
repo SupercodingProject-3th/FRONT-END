@@ -36,20 +36,15 @@ const TestBanner = ({ setSelectedPage, showSecondBanner }: Props) => {
             <div className="mt-32 md:basis-3/5">
               <StyledContentContainer>
                 <Image alt="home-pageGraphic" src={FoodMap} />
-                <span>맛집 지도 테스트</span>
               </StyledContentContainer>
             </div>
           </BannerArea>
         ) : (
-          <BannerArea
-            className="mx-auto w-5/6 md:flex md:h-5/6"
-            style={{ backgroundColor: DEEP_YELLOW }}
-          >
+          <BannerArea>
             {/* 맛집 목록이 클릭되었을 때 표시할 내용 */}
             <StyledBannerWrapper>
-              <StyledContentContainer className="mt-8">
+              <StyledContentContainer>
                 <Image alt="home-pageGraphic" src={FoodImage} />
-                <span>맛집 목록 테스트</span>
               </StyledContentContainer>
             </StyledBannerWrapper>
           </BannerArea>
@@ -60,16 +55,14 @@ const TestBanner = ({ setSelectedPage, showSecondBanner }: Props) => {
 };
 
 const StyledSection = styled.section<{ showSecondBanner?: boolean }>`
-  background-color: ${({ showSecondBanner }) =>
-    showSecondBanner ? DEEP_YELLOW : "#fff"};
+  background-color: #fff;
   padding: 10px;
 `;
 
 const BannerArea = styled.div``;
 
 const StyledContentContainer = styled.div`
-  height: 52vh; /* 페이지의 40% 높이로 설정 */
-
+  height: 52vh; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -78,13 +71,28 @@ const StyledContentContainer = styled.div`
 
 const Image = styled.img`
   height: 50vh;
-  weight: 50vw;
+  width: 50vw;
+  cursor:pointer;
+
+  ${media.tablet} {
+    height: 50vh;
+    width: 50vw;
+  }
+
+  ${media.mobile} {
+    height: 50vh;
+    width: 50vw;
+  }
 `;
 
 const ButtonWrapper = styled.div`
   display: flex;
-  justify-content: flex-start; 
+  justify-content: flex-start;
   margin-left: 20vw;
+
+  ${media.mobile} {
+    margin-left: 2vw;
+  }
 `;
 
 const Button = styled.button`
