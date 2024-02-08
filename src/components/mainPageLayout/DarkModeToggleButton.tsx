@@ -38,8 +38,7 @@ const ToggleContainer = styled.div<{ isMobile: boolean; isDarkMode: boolean }>`
   width: 5.5rem;
   height: 3rem;
   border-radius: 10rem;
-  background-color: ${(props) =>
-    props.isDarkMode ? props.theme.lightNavy : "#aaa"};
+  background-color: ${(props) => (props.isDarkMode ? "#000" : "#aaa")};
   padding: 0.25rem;
   cursor: pointer;
 

@@ -7,16 +7,20 @@ import MainSecondSliderTest from "../../components/mainPageLayout/MainSecondSlid
 import ScrollToTopButton from "../../shared/ScrollTopButton";
 import { media } from "../../styles/media";
 import MainSwiper from "../../components/mainPageLayout/MainSwiper";
-import TestBanner from "../../components/mainPageLayout/TestBanner";
+import MainBanner from "../../components/mainPageLayout/MainBanner";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { DARK_GREY, WHITE } from "../../styles/colors";
 
-const MainPage: React.FC = () => {
+const MainPage: React.FC = () => {  
   const handlePageSelection = (selectedPage:any) => {
   };
+  const isDarkMode = useSelector((state: RootState) => state.darkMode.isDarkMode);
 
   return (
-    <StyledMainPage>
-      <Header></Header>
-      <TestBanner setSelectedPage={handlePageSelection} />
+    <StyledMainPage isDarkMode={isDarkMode}>
+      <Header/>
+      <MainBanner setSelectedPage={handlePageSelection} />
       <MainSwiper />
       <MainSecondSliderTest />
       <ScrollToTopButton />
@@ -27,8 +31,9 @@ const MainPage: React.FC = () => {
 
 export default MainPage;
 
-const StyledMainPage = styled.div`
-  background-color: #fff;
+
+const StyledMainPage = styled.div<{ isDarkMode: boolean }>`
+  background-color: ${(props) => (props.isDarkMode ? DARK_GREY : WHITE)};
   width: 100vw;
   display: flex;
   flex-direction: column;
