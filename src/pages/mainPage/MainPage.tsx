@@ -11,18 +11,21 @@ import MainBanner from "../../components/mainPageLayout/MainBanner";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { DARK_GREY, WHITE } from "../../styles/colors";
+import GoodPlaceBanner from "../../components/mainPageLayout/GoodPlaceBanner";
 
-const MainPage: React.FC = () => {  
-  const handlePageSelection = (selectedPage:any) => {
-  };
-  const isDarkMode = useSelector((state: RootState) => state.darkMode.isDarkMode);
+const MainPage: React.FC = () => {
+  const handlePageSelection = (selectedPage: any) => {};
+  const isDarkMode = useSelector(
+    (state: RootState) => state.darkMode.isDarkMode
+  );
 
   return (
     <StyledMainPage isDarkMode={isDarkMode}>
-      <Header/>
+      <Header />
       <MainBanner setSelectedPage={handlePageSelection} />
       <MainSwiper />
-      <MainSecondSliderTest />
+      <MainSecondSliderTest></MainSecondSliderTest>
+      <GoodPlaceBanner />
       <ScrollToTopButton />
       <Footer />
     </StyledMainPage>
@@ -30,7 +33,6 @@ const MainPage: React.FC = () => {
 };
 
 export default MainPage;
-
 
 const StyledMainPage = styled.div<{ isDarkMode: boolean }>`
   background-color: ${(props) => (props.isDarkMode ? DARK_GREY : WHITE)};
