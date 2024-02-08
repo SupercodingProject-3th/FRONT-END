@@ -10,8 +10,9 @@ import MainSwiper from "../../components/mainPageLayout/MainSwiper";
 import MainBanner from "../../components/mainPageLayout/MainBanner";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { DARK_GREY, WHITE } from "../../styles/colors";
+import { DARK_GREY, WHITE, SOFT_BEIGE } from "../../styles/colors";
 import GoodPlaceBanner from "../../components/mainPageLayout/GoodPlaceBanner";
+import PostBanner from "../../components/mainPageLayout/PostBanner";
 
 const MainPage: React.FC = () => {
   const handlePageSelection = (selectedPage: any) => {};
@@ -24,8 +25,9 @@ const MainPage: React.FC = () => {
       <Header />
       <MainBanner setSelectedPage={handlePageSelection} />
       <MainSwiper />
-      <MainSecondSliderTest></MainSecondSliderTest>
       <GoodPlaceBanner />
+      <PostBanner/>
+      <MainSecondSliderTest></MainSecondSliderTest>
       <ScrollToTopButton />
       <Footer />
     </StyledMainPage>

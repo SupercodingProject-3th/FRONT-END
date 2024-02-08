@@ -16,12 +16,10 @@ const GoodPlaceBanner = () => {
       <ImageContainer>
         <Image src={FoodImage} alt="foodImage" />
       </ImageContainer>
-
       <TextContainer>
         <h1 className="hero__title">
           우리들만의 맛집 플레이스를 구경하고 저장하기
         </h1>
-
         <Button>맛집목록 탐험하기</Button>
       </TextContainer>
     </BannerContainer>
@@ -36,7 +34,7 @@ const BannerContainer = styled.div`
   justify-content: center;
   border: 1px solid ${DEEP_YELLOW};
   max-width: 80%; /* 최대 너비를 화면 너비의 80%로 제한 */
-  margin: 0 auto; /* 가운데 정렬을 위해 margin을 auto로 설정 */
+  margin: 5vh auto; /* 가운데 정렬을 위해 margin을 auto로 설정 */
 `;
 
 const ImageContainer = styled.div`
