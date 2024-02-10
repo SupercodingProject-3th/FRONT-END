@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import Header from "../../shared/Header";
 import Footer from "../../shared/Footer";
+import PageTitle from "../../components/goodRestaurantEnrollPage/PageTitle";
 import RestaurantInfoSection from "../../components/goodRestaurantEnrollPage/RestaurantInfoSection";
 import RestaurantInfoInput from "../../components/goodRestaurantEnrollPage/RestaurantInfoInput";
 import CategorySelect from "../../components/goodRestaurantEnrollPage/CategorySelect";
@@ -34,6 +35,7 @@ const GoodRestaurantEnrollPage: React.FC = () => {
       <Header />
       <Wrapper>
         <RestaurantInfoSectionWrapper>
+          <PageTitle />
           <RestaurantInfoSection>
             <RestaurantInfoInput
               label="게시글 제목"
@@ -140,7 +142,7 @@ const QuillAndFileUploadWrapper = styled.div`
   flex-direction: row;
   justify-content: center; /* 가로 중앙 정렬 */
   align-items: center; /* 세로 중앙 정렬 */
-  gap: 20px; 
+  gap: 20px;
 `;
 
 const FileUploadWrapper = styled.div`

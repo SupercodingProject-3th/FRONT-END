@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import NowOpenImage from "../../assets/images/mainPage/nowopen.jpg";
-import PostBannerSecond from "../../components/mainPageLayout/PostBannerSecond"
 
 const PostBanner: React.FC = () => {
   return (
@@ -13,11 +12,11 @@ const PostBanner: React.FC = () => {
         <BannerTextContainer>
           <h2>찐맛집 고수의 맛집</h2>
           <p>
-            찐 맛집
+            찐 맛집 맛집 맛집 맛집 오늘 의 건강 맛집 소개 찐 맛집 고수 의 맛집
+            을 소개 합니다 .
           </p>
         </BannerTextContainer>
       </BannerContent>
-      <PostBannerSecond/>
     </StyledBanner>
   );
 };
@@ -45,18 +44,13 @@ const BannerImageContainer = styled.div`
   position: relative;
   width: 280px;
   height: 280px;
-  border-radius: 50%;
   overflow: hidden;
   margin-right: 2vw;
 `;
 
 const BannerImage = styled.img`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 100%;
-  height: auto;
+  height: 100%;
 `;
 
 const BannerTextContainer = styled.div``;

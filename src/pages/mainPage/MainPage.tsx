@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 import Header from "../../shared/Header";
 import Footer from "../../shared/Footer";
-import MainSecondSliderTest from "../../components/mainPageLayout/MainSecondSliderTest";
 import ScrollToTopButton from "../../shared/ScrollTopButton";
 import { media } from "../../styles/media";
 import MainSwiper from "../../components/mainPageLayout/MainSwiper";
@@ -13,6 +12,7 @@ import { RootState } from "../../store/store";
 import { DARK_GREY, WHITE, SOFT_BEIGE } from "../../styles/colors";
 import GoodPlaceBanner from "../../components/mainPageLayout/GoodPlaceBanner";
 import PostBanner from "../../components/mainPageLayout/PostBanner";
+
 
 const MainPage: React.FC = () => {
   const handlePageSelection = (selectedPage: any) => {};
@@ -27,7 +27,6 @@ const MainPage: React.FC = () => {
       <MainSwiper />
       <GoodPlaceBanner />
       <PostBanner/>
-      <MainSecondSliderTest></MainSecondSliderTest>
       <ScrollToTopButton />
       <Footer />
     </StyledMainPage>

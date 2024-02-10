@@ -62,7 +62,7 @@ const SearchButton = styled.button`
 `;
 
 const Label = styled.label`
-  flex: 0.5; /* 남은 공간을 모두 채우도록 함 */
+  flex: 0.7; /* 남은 공간을 모두 채우도록 함 */
   display: block;
   margin-bottom: 5px;
   font-size: 14px;

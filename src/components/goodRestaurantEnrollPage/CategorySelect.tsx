@@ -10,7 +10,9 @@ const CategorySelect: React.FC = () => {
 
   return (
     <CategorySelectWrapper>
-      <Label htmlFor="category">카테고리</Label>
+      <LabelWrapper>
+        <Label htmlFor="category">카테고리</Label>
+      </LabelWrapper>
       <StyledSelect
         id="category"
         name="category"
@@ -28,24 +30,35 @@ const CategorySelect: React.FC = () => {
 };
 
 const CategorySelectWrapper = styled.div`
+  display: flex; /* 수직 가운데 정렬을 위해 flex 사용 */
+  align-items: center; /* 수직 가운데 정렬 */
+  justify-content: center; /* 수평 가운데 정렬 */
+  font-size: 14px;
+  font-weight: bold;
+  gap: 10px;
+  flex-direction: row;
   margin-bottom: 80px;
 `;
 
+const LabelWrapper = styled.div`
+  display: flex; /* 수직 가운데 정렬을 위해 flex 사용 */
+  align-items: center; /* 수직 가운데 정렬 */
+  justify-content: center; /* 수평 가운데 정렬 */
+`;
+
 const Label = styled.label`
-  margin-bottom: 100px;
-  padding-right: 100px;
+  margin-left: 40px;
+  padding-right: 40px;
   font-size: 14px;
   font-weight: bold;
 `;
 
-
 const StyledSelect = styled.select`
-  width: 500px; 
-  padding: 8px; 
+  flex:1;
+  width: 100%; /* 부모 요소의 너비를 모두 채우도록 함 */
+  padding: 8px;
 `;
 
-const StyledOption = styled.option`
- 
-`;
+const StyledOption = styled.option``;
 
 export default CategorySelect;
