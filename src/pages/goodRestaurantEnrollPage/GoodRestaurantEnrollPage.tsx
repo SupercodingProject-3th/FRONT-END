@@ -23,6 +23,13 @@ const GoodRestaurantEnrollPage: React.FC = () => {
     category: "",
   });
 
+
+  const [overallRating, setOverallRating] = useState<number | null>(0);
+
+  const handleOverallRatingChange = (value: number | null) => {
+    setOverallRating(value);
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRestaurantInfo({
       ...restaurantInfo,
@@ -64,7 +71,7 @@ const GoodRestaurantEnrollPage: React.FC = () => {
             <FileUpload />
           </FileUploadWrapper>
         </QuillAndFileUploadWrapper>
-        <MenuReviewSection />
+        <MenuReviewSection rating={overallRating} onChange={handleOverallRatingChange} />
         <ButtonSection />
         <ScrollToTopButton />
       </Wrapper>
