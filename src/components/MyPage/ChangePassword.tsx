@@ -126,7 +126,11 @@ const ChangePassword: React.FC = () => {
           })
           .catch(function (err) {
             console.log(err);
-            setAxiosErrorMessage(err.message);
+            if (err.response) {
+              setAxiosErrorMessage(err.response.data.detailMessage);
+            } else {
+              setAxiosErrorMessage(err.message);
+            }
           });
       }
     }

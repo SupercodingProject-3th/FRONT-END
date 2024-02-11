@@ -40,7 +40,11 @@ const FindEmail: React.FC = () => {
       })
       .catch(function (err) {
         console.log(err);
-        setFindFailMessage(err.message);
+        if (err.response) {
+          setFindFailMessage(err.response.data.detailMessage);
+        } else {
+          setFindFailMessage(err.message);
+        }
       });
   };
 

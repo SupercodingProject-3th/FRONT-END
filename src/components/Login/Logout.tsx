@@ -27,7 +27,7 @@ const Logout: React.FC<LogoutProps> = ({ nickName, updateIsToken }) => {
 
     if (token !== null) {
       await axios
-        .post("https://www.onesol.shop/auth/logout", {
+        .post("https://www.onesol.shop/auth/logout", null, {
           headers: {
             Token: token,
           },
@@ -40,7 +40,6 @@ const Logout: React.FC<LogoutProps> = ({ nickName, updateIsToken }) => {
           updateIsToken(false);
           console.log(res);
 
-          alert("로그아웃 되셨습니다!");
           navigator("/");
         })
         .catch((err) => {
