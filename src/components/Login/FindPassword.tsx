@@ -20,20 +20,7 @@ const FindPassword: React.FC = () => {
     setConfirmPassword(e.target.value);
   };
 
-  const OnChangeClickHandler = async () => {
-    /*  await axios
-      .post("https://www.onesol.shop/auth/find-email", {
-        nick_name: nickName,
-        date_of_birth: dateOfBirth,
-      })
-      .then(function (res) {
-        console.log(res);
-      })
-      .catch(function (err) {
-        console.log(err);
-      });
-*/
-  };
+  const OnChangeClickHandler = async () => {};
 
   return (
     <MainPass>

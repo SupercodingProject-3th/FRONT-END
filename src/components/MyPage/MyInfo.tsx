@@ -1,16 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const MyInfo = () => {
+interface likingNumberProps {
+  likingNumber: number;
+  image2: string;
+}
+
+const MyInfo: React.FC<likingNumberProps> = ({ likingNumber, image2 }) => {
   const navigator = useNavigate();
 
   return (
     <MainInfo>
       <ContainerInfo>
         <CenterInfo>
-          <ImageInfo src="" alt=""></ImageInfo>
+          <ImageInfo src={image2} alt=""></ImageInfo>
         </CenterInfo>
         <CenterInfo>
           <h3>Seho</h3>
@@ -35,7 +39,7 @@ const MyInfo = () => {
                 <CounterInfo>
                   <b>찜한 맛집</b>
                 </CounterInfo>
-                <CounterInfo>7</CounterInfo>
+                <CounterInfo> {likingNumber} </CounterInfo>
               </FavoriteInfo>
             </LinkInfo>
           </RestrauntInfo>

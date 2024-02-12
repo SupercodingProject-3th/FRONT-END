@@ -7,8 +7,8 @@ import MyPage from "../MyPage/MyPage";
 import Signup from "../Signup/Signup";
 import FindPassword from "./FindPassword";
 import FindEmail from "./FindEmail";
-import GetMyPosts from "../MyPage/GetMyPosts";
 import ChangePassword from "../MyPage/ChangePassword";
+import GetMyPosts from "../MyPage/GetMyPosts";
 import Redirect from "./Redirect";
 
 interface IsTokenProps {
