@@ -11,19 +11,22 @@ const AddressInput: React.FC = () => {
   };
 
   const handleSelectedAddress = (data: any) => {
-    setAddress(data.address); // 선택한 주소로 주소 상태 업데이트
-    handleCloseModal(); // 팝업 닫기
+    setAddress(data.address); 
+    handleCloseModal(); 
   };
 
   const handleCloseModal = () => {
-    // 팝업을 닫을 때 팝업이 열려 있는 상태를 변경
     setIsModalOpen(false);
   };
 
-
+  const handleSearchAddress = () => {
+    if (!isModalOpen) {
+      setIsModalOpen(true);
+    }
+  };
 
   return (
-    <AddressInputWrapper>
+    <Wrapper>
       <Label htmlFor="address">주소</Label>
       <Input
         type="text"
@@ -32,13 +35,12 @@ const AddressInput: React.FC = () => {
         value={address}
         onChange={handleAddressChange}
       />
-      <SearchButton type="button" onClick={() => setIsModalOpen(true)}>
+      <Button type="button" onClick={handleSearchAddress}>
         주소 검색
-      </SearchButton>
+      </Button>
 
-      {/* 팝업을 열 때만 Postcode 컴포넌트 렌더링 */}
       {isModalOpen && (
-        <ModalContainer >
+        <ModalContainer>
           <PostcodeModal>
             <Postcode
               style={{ width: 400, height: 100 }}
@@ -46,20 +48,20 @@ const AddressInput: React.FC = () => {
               onSelected={(data) => {
                 alert(JSON.stringify(data));
                 handleSelectedAddress(data);
-                handleCloseModal(); // 주소 선택 후 팝업을 닫음
+                handleCloseModal();
               }}
               onError={(error) => {
                 console.error("Error occurred while fetching address:", error);
-                // 오류 처리 로직을 추가할 수 있음
               }}
             />
           </PostcodeModal>
         </ModalContainer>
       )}
-    </AddressInputWrapper>
+    </Wrapper>
   );
 };
-const AddressInputWrapper = styled.div`
+
+const Wrapper = styled.div`
   font-size: 14px;
   font-weight: bold;
   display: flex;
@@ -70,7 +72,7 @@ const AddressInputWrapper = styled.div`
 `;
 
 const Input = styled.input`
-  flex: 1; /* 남은 공간을 모두 채우도록 함 */
+  flex: 1;
   width: 50%;
   padding: 0px 100px 0 0px;
   border-radius: 5px;
@@ -81,8 +83,8 @@ const Input = styled.input`
   }
 `;
 
-const SearchButton = styled.button`
-  flex: 0.5; /* 남은 공간을 모두 채우도록 함 */
+const Button = styled.button`
+  flex: 0.5;
   padding: 8px 16px;
   font-size: 14px;
   background-color: #007bff;
@@ -93,7 +95,7 @@ const SearchButton = styled.button`
 `;
 
 const Label = styled.label`
-  flex: 0.7; /* 남은 공간을 모두 채우도록 함 */
+  flex: 0.7;
   display: block;
   margin-bottom: 5px;
   font-size: 14px;
@@ -107,21 +109,16 @@ const ModalContainer = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.5
-  ); /* 모달 배경에 투명한 검은색 배경 적용 */
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 const PostcodeModal = styled.div`
-  background-color: #fff; /* 모달 내부 배경색 */
-  padding: 20px; /* 내부 여백 */
-  border-radius: 8px; /* 모달 테두리 둥글게 */
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
 `;
 
 export default AddressInput;
