@@ -8,7 +8,6 @@ import RestaurantInfoSection from "../../components/goodRestaurantEnrollPage/Res
 import RestaurantInfoInput from "../../components/goodRestaurantEnrollPage/RestaurantInfoInput";
 import CategorySelect from "../../components/goodRestaurantEnrollPage/CategorySelect";
 import AddressInput from "../../components/goodRestaurantEnrollPage/AddressInput";
-import MapSection from "../../components/goodRestaurantEnrollPage/MapSection";
 import MenuReviewSection from "../../components/goodRestaurantEnrollPage/MenuReviewSection";
 import ButtonSection from "../../components/goodRestaurantEnrollPage/ButtonSection";
 import ScrollToTopButton from "../../shared/ScrollTopButton";
@@ -59,7 +58,6 @@ const GoodRestaurantEnrollPage: React.FC = () => {
             />
             <AddressInput />
           </RestaurantInfoSection>
-          <MapSection />
         </RestaurantInfoSectionWrapper>
         <QuillAndFileUploadWrapper>
           <QuillEditorWrapper>
