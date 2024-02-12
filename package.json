@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@actbase/react-daum-postcode": "^1.0.4",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@reduxjs/toolkit": "^2.1.0",
     "@testing-library/jest-dom": "^5.17.0",
