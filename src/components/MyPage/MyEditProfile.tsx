@@ -10,6 +10,7 @@ interface MyEditProps {
   onTogglePwdShowHandler: any;
   onPasswordHandler: any;
   isShowPwd: any;
+  prevImage: any;
   image2: any;
   joinDate: string;
   onPicHandler: any;
@@ -32,6 +33,7 @@ const MyEditProfile: React.FC<MyEditProps> = ({
   onTogglePwdShowHandler,
   onPasswordHandler,
   isShowPwd,
+  prevImage,
   image2,
   joinDate,
   onPicHandler,
@@ -129,7 +131,11 @@ const MyEditProfile: React.FC<MyEditProps> = ({
           </BirthDateContainerPro>
           <InputContainerPro>
             <LabelPro htmlFor="user_image">프로필 사진:</LabelPro>
-            <ImagePro src={image2} alt="" />
+            {prevImage.length > 0 ? (
+              <ImagePro src={prevImage} alt="" />
+            ) : (
+              <ImagePro src={image2} alt="" />
+            )}
             <InputPro
               type="file"
               accept="image/*"
