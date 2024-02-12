@@ -4,6 +4,7 @@ import Postcode from "@actbase/react-daum-postcode";
 
 const AddressInput: React.FC = () => {
   const [address, setAddress] = useState("");
+  const [detailAddress, setDetailAddress] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -11,8 +12,8 @@ const AddressInput: React.FC = () => {
   };
 
   const handleSelectedAddress = (data: any) => {
-    setAddress(data.address); 
-    handleCloseModal(); 
+    setAddress(data.address);
+    handleCloseModal();
   };
 
   const handleCloseModal = () => {
@@ -27,17 +28,22 @@ const AddressInput: React.FC = () => {
 
   return (
     <Wrapper>
-      <Label htmlFor="address">주소</Label>
-      <Input
-        type="text"
-        id="address"
-        name="address"
-        value={address}
-        onChange={handleAddressChange}
-      />
-      <Button type="button" onClick={handleSearchAddress}>
-        주소 검색
-      </Button>
+      <AddressWrapper>
+        <Label htmlFor="address">주소</Label>
+        <Input
+          type="text"
+          id="address"
+          name="address"
+          value={address}
+          onChange={handleAddressChange}
+        />
+
+          <Button type="button" onClick={handleSearchAddress}>
+            주소 검색
+          </Button>
+      </AddressWrapper>
+
+
 
       {isModalOpen && (
         <ModalContainer>
@@ -71,6 +77,19 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
+const AddressWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+`;
+
+const DetailAddressWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+`;
+
+
 const Input = styled.input`
   flex: 1;
   width: 50%;
@@ -88,6 +107,7 @@ const Button = styled.button`
   padding: 8px 16px;
   font-size: 14px;
   background-color: #007bff;
+  margin-left: 4px;
   color: #fff;
   border: none;
   border-radius: 4px;

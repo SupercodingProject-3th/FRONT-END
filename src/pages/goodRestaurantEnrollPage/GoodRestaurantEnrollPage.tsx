@@ -8,6 +8,7 @@ import RestaurantInfoSection from "../../components/goodRestaurantEnrollPage/Res
 import RestaurantInfoInput from "../../components/goodRestaurantEnrollPage/RestaurantInfoInput";
 import CategorySelect from "../../components/goodRestaurantEnrollPage/CategorySelect";
 import AddressInput from "../../components/goodRestaurantEnrollPage/AddressInput";
+import  DetailAddressInfoInput from "../../components/goodRestaurantEnrollPage/DetailAddressInfoInput"
 import MenuReviewSection from "../../components/goodRestaurantEnrollPage/MenuReviewSection";
 import ButtonSection from "../../components/goodRestaurantEnrollPage/ButtonSection";
 import ScrollToTopButton from "../../shared/ScrollTopButton";
@@ -20,6 +21,7 @@ const GoodRestaurantEnrollPage: React.FC = () => {
     contact: "",
     address: "",
     category: "",
+    detailAddress: ""
   });
 
 
@@ -57,6 +59,12 @@ const GoodRestaurantEnrollPage: React.FC = () => {
               onChange={handleInputChange}
             />
             <AddressInput />
+            < DetailAddressInfoInput
+               label= "상세주소"
+               name="detailAddress"
+               value={restaurantInfo.detailAddress}
+               onChange={handleInputChange}
+            />
           </RestaurantInfoSection>
         </RestaurantInfoSectionWrapper>
         <QuillAndFileUploadWrapper>
