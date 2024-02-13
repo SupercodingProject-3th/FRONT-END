@@ -80,6 +80,7 @@ const StarReviewWrapper = styled.div`
   justify-content: center; 
   background-color: ${SOFT_BEIGE};
   width: 100%;
+  padding-bottom: 5%;
 `;
 
 const Title = styled.h4`

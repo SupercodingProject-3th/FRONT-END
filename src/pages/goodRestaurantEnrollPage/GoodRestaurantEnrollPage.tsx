@@ -107,14 +107,12 @@ const RestaurantInfoSectionWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-
   height: 80vh;
   width: 80vw;
   justify-content: center;
   align-items: center;
   margin: auto; /* 부모 컨테이너에 대해 가운데 정렬 */
   justify-content: space-evenly; /* 세로 방향 여백을 동일하게 설정 */
-  margin-bottom: 1.5rem;
 `;
 
 const Wrapper = styled.div`
@@ -132,9 +130,10 @@ const Title = styled.h1`
 `;
 
 const QuillEditorWrapper = styled.div`
-  height: 28vh;
+  height: 33vh;
   width: 30vw;
   overflow-y: auto; /* NOTE: 내용이 넘칠 때 스크롤이 생성되도록 설정합니다. */
+  margin-right: 2%;
 `;
 
 const QuillAndFileUploadWrapper = styled.div`
@@ -142,7 +141,7 @@ const QuillAndFileUploadWrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  background-color: ${SOFT_BEIGE};
 `;
 
 const FileUploadWrapper = styled.div`
