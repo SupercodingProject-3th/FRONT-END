@@ -15,8 +15,15 @@ import ScrollToTopButton from "../../shared/ScrollTopButton";
 import QuillEditor from "../../components/goodRestaurantEnrollPage/QuillEditor";
 import FileUpload from "../../components/goodRestaurantEnrollPage/FileUpload";
 import { DEEP_YELLOW, DARK_GREY, WHITE, SOFT_BEIGE } from "../../styles/colors";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 const GoodRestaurantEnrollPage: React.FC = () => {
+
+  const isDarkMode = useSelector(
+    (state: RootState) => state.darkMode.isDarkMode
+  );
+
   const [restaurantInfo, setRestaurantInfo] = useState({
     title: "",
     contact: "",
@@ -39,7 +46,7 @@ const GoodRestaurantEnrollPage: React.FC = () => {
   };
 
   return (
-    <StyledGoodRestrauntPage>
+    <StyledGoodRestrauntPage isDarkMode={isDarkMode}>
       <Header />
       <Wrapper>
         <RestaurantInfoSectionWrapper>
@@ -91,13 +98,14 @@ const GoodRestaurantEnrollPage: React.FC = () => {
 
 export default GoodRestaurantEnrollPage;
 
-const StyledGoodRestrauntPage = styled.div`
+const StyledGoodRestrauntPage = styled.div<{ isDarkMode: boolean }>`
   width: 100vw;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: ${(props) => (props.isDarkMode ? DARK_GREY : WHITE)};
 `;
 
 const RestaurantInfoSectionWrapper = styled.div`

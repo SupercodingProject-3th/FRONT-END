@@ -45,6 +45,7 @@ const Image = styled.img`
   flex: 1;
   max-width: 50%; /* 이미지가 화면의 반쪽을 차지하도록 설정 */
   height: auto;
+  cursor: pointer;
 `;
 
 const TextContainer = styled.div`

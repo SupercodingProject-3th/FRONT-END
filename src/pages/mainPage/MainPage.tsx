@@ -9,7 +9,7 @@ import MainSwiper from "../../components/mainPageLayout/MainSwiper";
 import MainBanner from "../../components/mainPageLayout/MainBanner";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { DARK_GREY, WHITE, SOFT_BEIGE } from "../../styles/colors";
+import { DARK_GREY, WHITE, SOFT_BEIGE, BLACK } from "../../styles/colors";
 import GoodPlaceBanner from "../../components/mainPageLayout/GoodPlaceBanner";
 import PostBanner from "../../components/mainPageLayout/PostBanner";
 
@@ -37,6 +37,7 @@ export default MainPage;
 
 const StyledMainPage = styled.div<{ isDarkMode: boolean }>`
   background-color: ${(props) => (props.isDarkMode ? DARK_GREY : WHITE)};
+  color: ${(props) => (props.isDarkMode ? WHITE : BLACK)};
   width: 100vw;
   display: flex;
   flex-direction: column;

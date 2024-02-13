@@ -11,12 +11,12 @@ export default function Card({ title, data }: { title: any; data: any[] }) {
     slideCount,
     ...props
   }) => (
-      <img
-        src={LeftArrow}
-        alt="prevArrow"
-        {...props}
-        style={{ width: "30px", height: "30px" }}
-      />
+    <img
+      src={LeftArrow}
+      alt="prevArrow"
+      {...props}
+      style={{ width: "30px", height: "30px" }}
+    />
   );
 
   const SlickArrowRight: React.FC<any> = ({
@@ -83,10 +83,8 @@ const CardContainer = styled.div`
 `;
 
 const CardItem = styled.div`
-backgroundColor: "#FFB6C1"
-  &:hover {
-    cursor: pointer;
-  }
+  backgroundColor: "#FFB6C1"
+  
 `;
 
 const ImageWrapper = styled.div`
@@ -98,14 +96,12 @@ const ImageWrapper = styled.div`
 const FoodImage = styled.img`
   width: 80%;
   height: auto;
+  cursor: pointer;
 `;
 
 const CardContainerInner = styled.div``;
-
-const slider = styled.div``;
 
 const SliderContainer = styled.div`
   width: 80%;
   margin: 0 auto;
 `;
-

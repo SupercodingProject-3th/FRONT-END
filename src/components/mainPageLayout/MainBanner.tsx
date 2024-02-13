@@ -3,8 +3,10 @@ import styled from "styled-components";
 import FoodMap from "../../assets/images/mainPage/foodmap.jpg";
 import FoodImage from "../../assets/images/mainPage/food.jpg";
 import { media } from "../../styles/media";
-import { DEEP_YELLOW } from "../../styles/colors";
+import { DEEP_YELLOW, WHITE, BLACK, DARK_GREY} from "../../styles/colors";
 import { useState } from "react";
+import { RootState } from "../../store/store";
+import { useSelector } from "react-redux";
 
 type Props = {
   setSelectedPage: (value: string) => void;
@@ -23,15 +25,19 @@ const TestBanner = ({ setSelectedPage, showSecondBanner }: Props) => {
       setIsSecondBannerShown(!isSecondBannerShown);
     };
 
+    const isDarkMode = useSelector(
+      (state: RootState) => state.darkMode.isDarkMode
+    );
+
     return (
-      <StyledSection id="home" showSecondBanner={showSecondBanner}>
+      <StyledSection id="home" showSecondBanner={showSecondBanner} isDarkMode={isDarkMode} >
         <ButtonWrapper>
           <Button onClick={toggleSecondBanner}>맛집 목록</Button>
           <Button onClick={toggleSecondBanner}>맛집 지도</Button>
         </ButtonWrapper>
 
         {isSecondButtonClicked ? (
-          <BannerArea>
+          <BannerArea >
             {/* 맛집 지도가 클릭되었을 때 표시할 내용 */}
             <div className="mt-32 md:basis-3/5">
               <StyledContentContainer>
@@ -54,8 +60,8 @@ const TestBanner = ({ setSelectedPage, showSecondBanner }: Props) => {
   }
 };
 
-const StyledSection = styled.section<{ showSecondBanner?: boolean }>`
-  background-color: #fff;
+const StyledSection = styled.section<{ showSecondBanner?: boolean; isDarkMode:boolean }>`
+background-color: ${(props) => (props.isDarkMode ? DARK_GREY : WHITE)};
   padding: 10px;
 `;
 
