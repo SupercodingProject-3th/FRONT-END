@@ -2,16 +2,16 @@ import React from "react";
 import styled from "styled-components";
 
 interface likingProps {
-  liking: Array<any>;
+  liked: Array<any>;
 }
 
-const MyFavoriteRestaurant: React.FC<likingProps> = ({ liking }) => {
+const MyFavoriteRestaurant: React.FC<likingProps> = ({ liked }) => {
   return (
     <>
       <hr />
       <MyMain>
         <MyFavoriteContainer>
-          {liking.length === 0 && <div>찜한 맛집이 없습니다!</div>}
+          {liked.length === 0 && <div>찜한 맛집이 없습니다!</div>}
         </MyFavoriteContainer>
       </MyMain>
     </>

@@ -24,6 +24,7 @@ const MyPage: React.FC<MyPageProps> = ({ updateIsToken }) => {
 
   const [email, setEmail] = useState<string>("");
   const [joinDate, setJoinDate] = useState<string>("");
+  const [prevImage, setPrevImage] = useState<any>([]);
   const [image2, setImage2] = useState<any>([]);
   const [errMessage, setErrMessage] = useState<string>("");
   const [dateOfBirthObj, setDateOfBirthObj] = useState<any>(null);
@@ -159,12 +160,14 @@ const MyPage: React.FC<MyPageProps> = ({ updateIsToken }) => {
     let file = e.target.files[0];
 
     if (file) {
+      setImage2(file);
+
       const reader = new FileReader();
       reader.readAsDataURL(file);
 
       return new Promise<void>((resolve) => {
         reader.onload = () => {
-          setImage2(reader.result || null);
+          setPrevImage(reader.result || null);
           resolve();
         };
       });
@@ -182,9 +185,35 @@ const MyPage: React.FC<MyPageProps> = ({ updateIsToken }) => {
   };
 
   const onInfoChangeHander = async () => {
+    const nickName2 = localStorage.getItem("nickName");
     const token = localStorage.getItem("token");
+    let nickNameBool = true;
 
-    if (token !== null) {
+    await axios
+      .get(
+        `https://www.onesol.shop/auth/sign-up/check-nickname?nickname=${formData.nickName}`
+      )
+      .then(function (res) {
+        console.log(res.data.data);
+
+        if (res.data.data) {
+          setErrMessage("");
+          nickNameBool = true;
+        } else {
+          if (formData.nickName === nickName2) {
+            setErrMessage("");
+            nickNameBool = true;
+          } else {
+            setErrMessage("등록된 다른분의 닉네임이 이미 있습니다!");
+            nickNameBool = false;
+          }
+        }
+      })
+      .catch(function (err) {
+        setErrMessage(err.message);
+      });
+
+    if (nickNameBool && token !== null) {
       const formDataToSend = new FormData();
       formDataToSend.append("image", image2);
       formDataToSend.append(
@@ -203,6 +232,8 @@ const MyPage: React.FC<MyPageProps> = ({ updateIsToken }) => {
         )
         .then((res) => {
           console.log(res);
+          localStorage.setItem("nickName", formData.nickName);
+
           alert("회원정보수정에 성공했습니다.");
           window.location.reload();
         })
@@ -250,7 +281,11 @@ const MyPage: React.FC<MyPageProps> = ({ updateIsToken }) => {
         <MyPageMenu />
         <MyMain>
           <MyPageContainer>
-            <MyInfo likingNumber={liked.length} image2={image2} />
+            <MyInfo
+              likedNumber={liked.length}
+              prevImage={prevImage}
+              image2={image2}
+            />
             <MyRestaurant />
           </MyPageContainer>
         </MyMain>
@@ -262,8 +297,12 @@ const MyPage: React.FC<MyPageProps> = ({ updateIsToken }) => {
         <MyPageMenu />
         <MyMain>
           <MyPageContainer>
-            <MyInfo likingNumber={liked.length} image2={image2} />
-            <MyFavoriteRestaurant liking={liked} />
+            <MyInfo
+              likedNumber={liked.length}
+              prevImage={prevImage}
+              image2={image2}
+            />
+            <MyFavoriteRestaurant liked={liked} />
           </MyPageContainer>
         </MyMain>
       </>
@@ -274,13 +313,18 @@ const MyPage: React.FC<MyPageProps> = ({ updateIsToken }) => {
         <MyPageMenu />
         <MyMain>
           <MyPageContainer>
-            <MyInfo likingNumber={liked.length} image2={image2} />
+            <MyInfo
+              likedNumber={liked.length}
+              prevImage={prevImage}
+              image2={image2}
+            />
             <MyEditProfile
               formData={formData}
               getUserInfo={getUserInfo}
               updateIsToken={updateIsToken}
               email={email}
               joinDate={joinDate}
+              prevImage={prevImage}
               image2={image2}
               isShowPwd={isShowPwd}
               errMessage={errMessage}
@@ -306,7 +350,11 @@ const MyPage: React.FC<MyPageProps> = ({ updateIsToken }) => {
         <MyPageMenu />
         <MyMain>
           <MyPageContainer>
-            <MyInfo likingNumber={liked.length} image2={image2} />
+            <MyInfo
+              likedNumber={liked.length}
+              prevImage={prevImage}
+              image2={image2}
+            />
             <ChangePassword />
           </MyPageContainer>
         </MyMain>

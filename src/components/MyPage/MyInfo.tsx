@@ -3,18 +3,27 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 
 interface likingNumberProps {
-  likingNumber: number;
-  image2: string;
+  likedNumber: number;
+  prevImage: any;
+  image2: any;
 }
 
-const MyInfo: React.FC<likingNumberProps> = ({ likingNumber, image2 }) => {
+const MyInfo: React.FC<likingNumberProps> = ({
+  likedNumber,
+  prevImage,
+  image2,
+}) => {
   const navigator = useNavigate();
 
   return (
     <MainInfo>
       <ContainerInfo>
         <CenterInfo>
-          <ImageInfo src={image2} alt=""></ImageInfo>
+          {prevImage.length > 0 ? (
+            <ImageInfo src={prevImage} alt=""></ImageInfo>
+          ) : (
+            <ImageInfo src={image2} alt=""></ImageInfo>
+          )}
         </CenterInfo>
         <CenterInfo>
           <h3>Seho</h3>
@@ -39,7 +48,7 @@ const MyInfo: React.FC<likingNumberProps> = ({ likingNumber, image2 }) => {
                 <CounterInfo>
                   <b>찜한 맛집</b>
                 </CounterInfo>
-                <CounterInfo> {likingNumber} </CounterInfo>
+                <CounterInfo> {likedNumber} </CounterInfo>
               </FavoriteInfo>
             </LinkInfo>
           </RestrauntInfo>
