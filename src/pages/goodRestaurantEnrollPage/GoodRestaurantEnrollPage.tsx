@@ -8,11 +8,13 @@ import RestaurantInfoSection from "../../components/goodRestaurantEnrollPage/Res
 import RestaurantInfoInput from "../../components/goodRestaurantEnrollPage/RestaurantInfoInput";
 import CategorySelect from "../../components/goodRestaurantEnrollPage/CategorySelect";
 import AddressInput from "../../components/goodRestaurantEnrollPage/AddressInput";
+import DetailAddressInfoInput from "../../components/goodRestaurantEnrollPage/DetailAddressInfoInput";
 import MenuReviewSection from "../../components/goodRestaurantEnrollPage/MenuReviewSection";
 import ButtonSection from "../../components/goodRestaurantEnrollPage/ButtonSection";
 import ScrollToTopButton from "../../shared/ScrollTopButton";
 import QuillEditor from "../../components/goodRestaurantEnrollPage/QuillEditor";
 import FileUpload from "../../components/goodRestaurantEnrollPage/FileUpload";
+import { DEEP_YELLOW, DARK_GREY, WHITE, SOFT_BEIGE } from "../../styles/colors";
 
 const GoodRestaurantEnrollPage: React.FC = () => {
   const [restaurantInfo, setRestaurantInfo] = useState({
@@ -20,8 +22,8 @@ const GoodRestaurantEnrollPage: React.FC = () => {
     contact: "",
     address: "",
     category: "",
+    detailAddress: "",
   });
-
 
   const [overallRating, setOverallRating] = useState<number | null>(0);
 
@@ -57,6 +59,12 @@ const GoodRestaurantEnrollPage: React.FC = () => {
               onChange={handleInputChange}
             />
             <AddressInput />
+            <DetailAddressInfoInput
+              label="상세주소"
+              name="detailAddress"
+              value={restaurantInfo.detailAddress}
+              onChange={handleInputChange}
+            />
           </RestaurantInfoSection>
         </RestaurantInfoSectionWrapper>
         <QuillAndFileUploadWrapper>
@@ -69,7 +77,10 @@ const GoodRestaurantEnrollPage: React.FC = () => {
             <FileUpload />
           </FileUploadWrapper>
         </QuillAndFileUploadWrapper>
-        <MenuReviewSection rating={overallRating} onChange={handleOverallRatingChange} />
+        <MenuReviewSection
+          rating={overallRating}
+          onChange={handleOverallRatingChange}
+        />
         <ButtonSection />
         <ScrollToTopButton />
       </Wrapper>
@@ -81,7 +92,6 @@ const GoodRestaurantEnrollPage: React.FC = () => {
 export default GoodRestaurantEnrollPage;
 
 const StyledGoodRestrauntPage = styled.div`
-  background-color: #fff;
   width: 100vw;
   min-height: 100vh;
   display: flex;
@@ -91,34 +101,27 @@ const StyledGoodRestrauntPage = styled.div`
 `;
 
 const RestaurantInfoSectionWrapper = styled.div`
-  background-color: #feaa00;
+  background-color: ${SOFT_BEIGE};
   padding: 20px;
   border-radius: 5px;
   width: 100%;
   display: flex;
   flex-direction: column;
-
-  /*NOTE: TEST  */
   height: 80vh;
   width: 80vw;
-  justify-content: center; /* 세로 중앙 정렬 */
-  align-items: center; /* 가로 중앙 정렬 */
+  justify-content: center;
+  align-items: center;
   margin: auto; /* 부모 컨테이너에 대해 가운데 정렬 */
   justify-content: space-evenly; /* 세로 방향 여백을 동일하게 설정 */
-  margin-bottom: 1.5rem;
 `;
 
 const Wrapper = styled.div`
-  background-color: #fff;
   padding: 50px 0px 50px 0px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-  //NOTE: 테스트용
   justify-content: center;
   align-items: center;
-  //NOTE: TEST
-  margin: 0 auto; // 가운데 정렬을 위해 추가된 스타일
+  margin: 0 auto;
 `;
 
 const Title = styled.h1`
@@ -126,28 +129,19 @@ const Title = styled.h1`
   margin-bottom: 20px;
 `;
 
-const Button = styled.button`
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-`;
-
 const QuillEditorWrapper = styled.div`
-  background-color: red;
-  height: 30vh;
+  height: 33vh;
   width: 30vw;
+  overflow-y: auto; /* NOTE: 내용이 넘칠 때 스크롤이 생성되도록 설정합니다. */
+  margin-right: 2%;
 `;
 
 const QuillAndFileUploadWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center; /* 가로 중앙 정렬 */
-  align-items: center; /* 세로 중앙 정렬 */
-  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  background-color: ${SOFT_BEIGE};
 `;
 
 const FileUploadWrapper = styled.div`

@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { DEEP_YELLOW, DARK_GREY, WHITE, SOFT_BEIGE } from "../../styles/colors";
 
 const ButtonSection: React.FC = () => {
   const handleRegister = () => {
-
   };
 
   const handleModify = () => {
@@ -30,15 +30,15 @@ export default ButtonSection;
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 200px; 
-  background-color: green;
+  background-color: ${SOFT_BEIGE};  
+  padding-bottom: 50px;
 `;
 
 const StyledButton = styled.button`
   padding: 15px 30px; 
   font-size: 16px;
   background-color: #feaa00; 
-  color: #fff;
+  color:  ${WHITE};
   border: none;
   border-radius: 4px;
   cursor: pointer;
