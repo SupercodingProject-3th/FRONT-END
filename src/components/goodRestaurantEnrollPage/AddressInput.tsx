@@ -43,8 +43,6 @@ const AddressInput: React.FC = () => {
           </Button>
       </AddressWrapper>
 
-
-
       {isModalOpen && (
         <ModalContainer>
           <PostcodeModal>
@@ -88,7 +86,6 @@ const DetailAddressWrapper = styled.div`
   flex-direction: column;
   flex: 1;
 `;
-
 
 const Input = styled.input`
   flex: 1;
@@ -136,7 +133,6 @@ const ModalContainer = styled.div`
 `;
 
 const PostcodeModal = styled.div`
-  background-color: #fff;
   padding: 20px;
   border-radius: 8px;
 `;

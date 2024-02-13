@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const ButtonSection: React.FC = () => {
   const handleRegister = () => {
-
   };
 
   const handleModify = () => {
@@ -31,7 +30,6 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 200px; 
-  background-color: green;
 `;
 
 const StyledButton = styled.button`

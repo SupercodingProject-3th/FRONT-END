@@ -24,8 +24,6 @@ const QuillTest = () => {
     setText(value);
   };
 
-
-
   return (
     <div>
       <ReactQuill
@@ -41,3 +39,4 @@ const QuillTest = () => {
 };
 
 export default QuillTest;
+
