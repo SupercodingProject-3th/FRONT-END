@@ -1,14 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import NowOpenImage from "../../assets/images/mainPage/nowopen.jpg";
-import PostBannerSecond from "../../components/mainPageLayout/PostBannerSecond"
+import PostBannerSecond from "../../components/mainPageLayout/PostBannerSecond";
 import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
-import { DARK_GREY, WHITE} from "../../styles/colors";
-
+import { DARK_GREY, WHITE } from "../../styles/colors";
 
 const PostBanner: React.FC = () => {
-
   const isDarkMode = useSelector(
     (state: RootState) => state.darkMode.isDarkMode
   );
@@ -21,12 +19,10 @@ const PostBanner: React.FC = () => {
         </BannerImageContainer>
         <BannerTextContainer>
           <h2>찐맛집 고수의 맛집</h2>
-          <p>
-            찐 맛집
-          </p>
+          <p>찐 맛집</p>
         </BannerTextContainer>
       </BannerContent>
-      <PostBannerSecond/>
+      <PostBannerSecond />
     </StyledBanner>
   );
 };
@@ -42,9 +38,9 @@ const StyledBanner = styled.div<{ isDarkMode: boolean }>`
 `;
 
 const BannerContent = styled.div`
-  display: flex; 
+  display: flex;
   justify-content: center;
-  align-items: center;  
+  align-items: center;
   flex: 1;
   width: 70%; /* NOTE: 부모요소의 너비 70%로 */
   margin-right: 10rem;
@@ -66,8 +62,11 @@ const BannerImage = styled.img`
   transform: translate(-50%, -50%);
   width: 100%;
   height: auto;
+  cursor: pointer;
 `;
 
-const BannerTextContainer = styled.div``;
+const BannerTextContainer = styled.div`
+  cursor: pointer;
+`;
 
 export default PostBanner;

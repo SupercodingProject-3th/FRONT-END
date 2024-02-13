@@ -6,7 +6,6 @@ import { RootState } from "../../store/store";
 import { DARK_GREY, WHITE } from "../../styles/colors";
 
 const PostBanner: React.FC = () => {
-
   const isDarkMode = useSelector(
     (state: RootState) => state.darkMode.isDarkMode
   );
@@ -39,9 +38,9 @@ const StyledBanner = styled.div<{ isDarkMode: boolean }>`
 `;
 
 const BannerContent = styled.div`
-  display: flex; 
+  display: flex;
   justify-content: center;
-  align-items: center;  
+  align-items: center;
   flex: 1;
   width: 70%; /* NOTE: 부모요소의 너비 70%로 */
   margin-right: 10rem;
@@ -58,8 +57,11 @@ const BannerImageContainer = styled.div`
 const BannerImage = styled.img`
   width: 100%;
   height: 100%;
+  cursor: pointer;
 `;
 
-const BannerTextContainer = styled.div``;
+const BannerTextContainer = styled.div`
+  cursor: pointer;
+`;
 
 export default PostBanner;
