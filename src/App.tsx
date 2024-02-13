@@ -1,7 +1,7 @@
 import { useLayoutEffect, useState } from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import MyPageButton from "./components/MyPage/MyPageButton";
+
 import React from "react";
 import { Provider } from "react-redux";
 import store from "./store/store";
@@ -35,7 +35,6 @@ function App() {
         {isToken ? (
           <>
             {/* 임시로 설정 : MyPageButton*/}
-            <MyPageButton isToken={isToken} />
             <Routes>
               {/* 물론 메인페이지는 담당자 분이 바꾸셔도 됩니다 */}
               <Route
@@ -71,7 +70,6 @@ function App() {
         ) : (
           // 로그인 안되었을때 페이지
           <>
-            <MyPageButton isToken={isToken} />
             <Routes>
               <Route
                 path="/"
