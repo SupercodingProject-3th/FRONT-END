@@ -2,10 +2,19 @@ import React from "react";
 import styled from "styled-components";
 import NowOpenImage from "../../assets/images/mainPage/nowopen.jpg";
 import PostBannerSecond from "../../components/mainPageLayout/PostBannerSecond"
+import { RootState } from "../../store/store";
+import { useSelector } from "react-redux";
+import { DARK_GREY, WHITE} from "../../styles/colors";
+
 
 const PostBanner: React.FC = () => {
+
+  const isDarkMode = useSelector(
+    (state: RootState) => state.darkMode.isDarkMode
+  );
+
   return (
-    <StyledBanner>
+    <StyledBanner isDarkMode={isDarkMode}>
       <BannerContent>
         <BannerImageContainer>
           <BannerImage src={NowOpenImage} />
@@ -22,12 +31,12 @@ const PostBanner: React.FC = () => {
   );
 };
 
-const StyledBanner = styled.div`
+const StyledBanner = styled.div<{ isDarkMode: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  background-color: #f5f5f5;
+  background-color: ${(props) => (props.isDarkMode ? DARK_GREY : WHITE)};
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
