@@ -6,10 +6,17 @@ import SearchBar from "../components/mainPageLayout/SearchBar";
 import DarkmodeBtn from "../components/mainPageLayout/DarkModeToggleButton";
 import UserMenu from "../components/mainPageLayout/UserMenu";
 import { media } from "../styles/media";
+import { DARK_GREY, WHITE, SOFT_BEIGE } from "../styles/colors";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 const Header = () => {
+  const isDarkMode = useSelector(
+    (state: RootState) => state.darkMode.isDarkMode
+  );
+
   return (
-    <HeaderLayout>
+    <HeaderLayout isDarkMode={isDarkMode}>
       <HeaderContainer>
         <TopNavBar>
           <LogoWrapper>
@@ -31,9 +38,9 @@ const Header = () => {
 
 export default Header;
 
-const HeaderLayout = styled.div`
+const HeaderLayout = styled.div<{ isDarkMode: boolean }>`
   width: 100%;
-  background-color: #fff;
+  background-color: ${(props) => (props.isDarkMode ? DARK_GREY : WHITE)};
   z-index: 9990;
   font-size: 16px;
   transition: transform 0.3s ease-in-out;

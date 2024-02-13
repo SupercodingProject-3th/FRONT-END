@@ -8,16 +8,23 @@ import {
   FaMapMarkerAlt,
 } from "react-icons/fa";
 import styled from "styled-components";
+import { DARK_GREY, WHITE, SOFT_BEIGE, BLACK} from "../styles/colors";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 //   import { mobile } from "../responsive";
 
 const Footer = () => {
+  const isDarkMode = useSelector(
+    (state: RootState) => state.darkMode.isDarkMode
+  );
+
   return (
-    <FooterContainer>
+    <FooterContainer isDarkMode={isDarkMode}>
       <FooterLayout>
         <Left>
-          <Logo>또간지도</Logo>
-          <Desc>
+          <Title isDarkMode={isDarkMode}>또간지도</Title>
+          <Desc isDarkMode={isDarkMode}>
             There are many variations of passages of Lorem Ipsum available, but
             the majority have suffered alteration in some form, by injected
             humour, or randomised words which don’t look even slightly
@@ -39,15 +46,15 @@ const Footer = () => {
           </SocialContainer>
         </Left>
         <Right>
-          <Title>Contact</Title>
-          <ContactItem>
+          <Title isDarkMode={isDarkMode}>Contact</Title>
+          <ContactItem isDarkMode={isDarkMode}>
             <FaMapMarkerAlt style={{ marginRight: "10px" }} /> Mapo-gu, Seoul,
             South of Korea
           </ContactItem>
-          <ContactItem>
+          <ContactItem isDarkMode={isDarkMode}>
             <FaPhone style={{ marginRight: "10px" }} /> +82-010-000-0000
           </ContactItem>
-          <ContactItem>
+          <ContactItem isDarkMode={isDarkMode}>
             <FaEnvelope style={{ marginRight: "10px" }} />{" "}
             againfoodmap@naver.com
           </ContactItem>
@@ -57,7 +64,8 @@ const Footer = () => {
   );
 };
 
-const FooterContainer = styled.div`
+const FooterContainer = styled.div<{ isDarkMode: boolean }>`
+  background-color: ${(props) => (props.isDarkMode ? DARK_GREY : WHITE)};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -67,13 +75,12 @@ const FooterContainer = styled.div`
     flex-direction: row; /*NORE: 화면이 768px 이상이면 가로로 나열 */
   }
 
-  position: relative;   /*NOTE: 문제생기면 여기서 해결할 것 fixed에서 변경*/
+  position: relative; /*NOTE: 문제생기면 여기서 해결할 것 fixed에서 변경*/
   bottom: 0;
   left: 50%; /* NOTE:가로 중앙 정렬을 위해 left 속성 추가 */
   transform: translateX(-50%); /* NOTE:가로 중앙 정렬을 위해 transform 추가 */
   width: 100%;
-  background-color: #fff;
-  z-index: 9990;    
+  z-index: 9990;
 `;
 
 const FooterLayout = styled.div`
@@ -88,11 +95,14 @@ const Left = styled.div`
   padding: 20px;
 `;
 
-const Logo = styled.h1``;
+const Title = styled.h1<{ isDarkMode: boolean }>`
+  color: ${(props) => (props.isDarkMode ? WHITE : BLACK)};
+`;
 
-const Desc = styled.p`
+const Desc = styled.p<{ isDarkMode: boolean }>`
   margin: 20px 0px;
   font-size: 20px;
+  color: ${(props) => (props.isDarkMode ? WHITE : BLACK)};
 `;
 
 const SocialContainer = styled.div`
@@ -111,19 +121,16 @@ const SocialIcon = styled.div`
   margin-right: 20px;
 `;
 
-const Title = styled.h3`
-  margin-bottom: 30px;
-`;
-
 const Right = styled.div`
   flex: 1;
   padding: 20px;
 `;
 
-const ContactItem = styled.div`
+const ContactItem = styled.div<{ isDarkMode: boolean }>`
   margin-bottom: 20px;
   display: flex;
   align-items: center;
+  color: ${(props) => (props.isDarkMode ? WHITE : BLACK)};
 `;
 
 const Payment = styled.img`
