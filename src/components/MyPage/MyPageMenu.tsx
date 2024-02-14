@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { DEEP_YELLOW, SOFT_BEIGE } from "../../styles/colors";
 
 const MyPageMenu = () => {
   return (
@@ -37,30 +38,30 @@ const MenuMyPage = styled.div`
 
 const MyRestaurantMypage = styled.div`
   padding: 20px;
-  &:hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
 
 const FavoriteRestaurantsMypage = styled.div`
   padding: 20px;
-  &:hover {
-    cursor: pointer;
+  cursor: pointer;
 `;
 
 const EditProfileMypage = styled.div`
   padding: 20px;
-  &:hover {
-    cursor: pointer;
+  cursor: pointer;
 `;
 
 const LinkMypage = styled(Link)`
   margin: 5px;
   width: 150px;
+  color: black;
   font-weight: 600;
   padding: 10px;
+  text-decoration: none;
   cursor: pointer;
-  border-radius: 12px;
+
+  border: 1px solid ${DEEP_YELLOW};
+  background-color: ${SOFT_BEIGE};
 `;
 
 export default MyPageMenu;

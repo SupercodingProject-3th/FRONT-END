@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.module.css";
 import { useNavigate } from "react-router-dom";
+import { DEEP_YELLOW, SOFT_BEIGE, DEEP_BROWN } from "../../styles/colors";
 
 interface MyEditProps {
   errMessage: string;
@@ -193,14 +194,16 @@ const UserInfoPro = styled.div`
 `;
 
 const UserInfoContainerPro = styled.div`
-  width: 500px;
+  width: 450px;
   padding: 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: ${SOFT_BEIGE};
 
-  border: 1px solid gray;
+  border: 1px solid ${DEEP_YELLOW};
+  border-radius: 8px;
 `;
 
 const DeleteMyAccountDiv = styled.div`
@@ -216,14 +219,31 @@ const GetInfoButton = styled.button`
   height: 30px;
   margin-right: 20px;
   padding-bottom: 5px;
-  border: none;
-  background-color: black;
+  border: 1px solid ${SOFT_BEIGE};
+  background-color: ${DEEP_BROWN};
+
+  cursor: pointer;
 `;
 
 const DeleteMyAccountButton = styled.button`
   width: 90px;
   height: 30px;
   padding-bottom: 5px;
+
+  border: 1px solid ${DEEP_YELLOW};
+
+  cursor: pointer;
+`;
+
+const PwdChangeButton = styled.button`
+  width: 110px;
+  height: 30px;
+  padding-bottom: 5px;
+  margin-right: 20px;
+
+  border: 1px solid ${DEEP_YELLOW};
+
+  cursor: pointer;
 `;
 
 const InputContainerPro = styled.div`
@@ -236,7 +256,7 @@ const InputContainerPro = styled.div`
 
 const LabelPro = styled.label`
   text-align: left;
-  width: 150px;
+  width: 100px;
   padding-right: 20px;
 `;
 
@@ -248,14 +268,16 @@ const ImagePro = styled.img`
 `;
 
 const InputPro = styled.input`
-  height: 25px;
-  color: rgb(200, 200, 200);
-  font-size: 13px;
+  height: 25px; 
   width: 300px;
-  border-radius: 10px;
+    
+  font-size: 13px;
+  
+  //border: 1px solid ${DEEP_YELLOW};
 
-  border-width: 1px;
-  border-color: rgb(250, 250, 250);
+  &::placeholder {
+    padding-left: 5px;
+    color: rgb(200, 200, 200);
 `;
 
 const BirthDateContainerPro = styled.div`
@@ -281,13 +303,6 @@ const PwdCheckLabelPro = styled.label`
   font-size: 15px;
 `;
 
-const PwdChangeButton = styled.button`
-  width: 110px;
-  height: 30px;
-  padding-bottom: 5px;
-  margin-right: 20px;
-`;
-
 const UserSignupButton = styled.button`
   margin: 10px 0px 30px 0px;
   color: white;
@@ -297,12 +312,13 @@ const UserSignupButton = styled.button`
   height: 50px;
 
   border: none;
-  border-radius: 5px;
-  background-color: rgb(48, 192, 224);
+  border-radius: 8px;
+  background-color: ${DEEP_BROWN};
+
+  cursor: pointer;
 
   &:hover {
-    background-color: rgb(40, 182, 214);
-    cursor: pointer;
+    background-color: ${DEEP_BROWN};
   }
 `;
 

@@ -5,6 +5,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.module.css";
 import useInputs from "./SignupUseInputs";
+import { DEEP_YELLOW, SOFT_BEIGE, DEEP_BROWN } from "../../styles/colors";
 
 const Signup = () => {
   //카카오 회원가입 미완성시
@@ -181,7 +182,10 @@ const UserSignup = styled.div`
   justify-content: center;
   align-items: center;
 
-  border: 1px solid pink;
+  background-color: ${SOFT_BEIGE};
+
+  border: 1px solid ${DEEP_YELLOW};
+  border-radius: 8px;
 `;
 
 const UserTitleSignup = styled.div`
@@ -202,20 +206,13 @@ const InputSignup = styled.input`
   height: 30px;
   color: rgb(200, 200, 200);
   font-size: 13px;
-  width: 260px;
-  border-radius: 10px;
-
-  border-width: 1px;
-  border-color: rgb(250, 250, 250);
+  width: 260px;  
+  
+  //border: 1px solid ${DEEP_YELLOW};
 
   &::placeholder {
     padding-left: 5px;
     color: rgb(200, 200, 200);
-  }
-
-  &:hover {
-    background-color: rgb(250, 250, 250);
-  }
 `;
 
 const RadioSignup = styled.div`
@@ -256,10 +253,10 @@ const UserSignupButton = styled.button`
 
   border: none;
   border-radius: 5px;
-  background-color: rgb(48, 192, 224);
+  background-color: ${DEEP_BROWN};
 
   &:hover {
-    background-color: rgb(40, 182, 214);
+    background-color: ${DEEP_BROWN};
     cursor: pointer;
   }
 `;
