@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import backgroundImage from "../../shared/images/LoginPage/logout-background.jpg";
 import axios from "axios";
-//import axios from "axios";
+import { DEEP_BROWN } from "../../styles/colors";
+
 interface LogoutProps {
   nickName: string;
   updateIsToken: any;
@@ -131,7 +132,7 @@ const ButtonLogout = styled.button`
   font-weight: 600;
   width: 200px;
   height: 80px;
-  background-color: black;
+  background-color: ${DEEP_BROWN};
   cursor: pointer;
   border: none;
   border-radius: 20px;

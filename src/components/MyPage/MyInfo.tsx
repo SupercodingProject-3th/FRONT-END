@@ -1,14 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
+import { DEEP_YELLOW, SOFT_BEIGE } from "../../styles/colors";
 
 interface likingNumberProps {
+  nickName: any;
   likedNumber: number;
   prevImage: any;
   image2: any;
 }
 
 const MyInfo: React.FC<likingNumberProps> = ({
+  nickName,
   likedNumber,
   prevImage,
   image2,
@@ -26,7 +29,7 @@ const MyInfo: React.FC<likingNumberProps> = ({
           )}
         </CenterInfo>
         <CenterInfo>
-          <h3>Seho</h3>
+          <h3>{nickName}</h3>
         </CenterInfo>
         <CenterInfo>
           <ButtonInfo onClick={() => navigator("/mypage/2")}>
@@ -82,7 +85,8 @@ const ContainerInfo = styled.div`
   justify-content: center;
   align-items: center;
 
-  border: 3px solid black;
+  background-color: ${SOFT_BEIGE};
+  border: 2px solid ${DEEP_YELLOW};
   border-radius: 30px;
 `;
 
@@ -105,8 +109,12 @@ const ImageInfo = styled.img`
 const ButtonInfo = styled.button`
   width: 160px;
   height: 40px;
-  border-radius: 7px;
   margin: 20px;
+
+  background-color: ${SOFT_BEIGE};
+  border: 1px solid ${DEEP_YELLOW};
+  border-radius: 7px;
+
   cursor: pointer;
 `;
 
