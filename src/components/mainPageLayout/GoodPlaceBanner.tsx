@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DEEP_YELLOW, DARK_GREY, WHITE, SOFT_BEIGE } from "../../styles/colors";
+import { DEEP_YELLOW, DARK_GREY, WHITE } from "../../styles/colors";
 import FoodImage from "../../assets/images/mainPage/omelette.jpg";
 
 const GoodPlaceBanner = () => {

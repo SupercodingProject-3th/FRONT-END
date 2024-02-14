@@ -9,6 +9,7 @@ import MainPage from "./pages/mainPage/MainPage";
 import GoodRestaurantEnrollPage from "./pages/goodRestaurantEnrollPage/GoodRestaurantEnrollPage";
 import AuthRouter from "./components/Login/AuthRouter";
 import PlacesList from "./pages/PlacesList";
+import GoodRestaurantEditPage from "./pages/goodRestaurantEditPage/GoodRestaurantEditPage";
 
 function App() {
   const [isToken, setIsToken] = useState(false);
@@ -45,14 +46,14 @@ function App() {
                   </div>
                 }
               />
+
               <Route
                 path="/goodrestaurantenroll"
-                element={
-                  <div>
-                    <GoodRestaurantEnrollPage />
-                  </div>
-                }
+                element={<GoodRestaurantEnrollPage />}
               />
+
+              <Route path="/edit/:postId" element={<GoodRestaurantEditPage />} />
+
               <Route
                 path="/*"
                 element={

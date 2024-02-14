@@ -3,7 +3,7 @@ import styled from "styled-components";
 import FoodMap from "../../assets/images/mainPage/foodmap.jpg";
 import FoodImage from "../../assets/images/mainPage/food.jpg";
 import { media } from "../../styles/media";
-import { DEEP_YELLOW, WHITE, BLACK, DARK_GREY} from "../../styles/colors";
+import { DEEP_YELLOW, WHITE, DARK_GREY} from "../../styles/colors";
 import { useState } from "react";
 import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
