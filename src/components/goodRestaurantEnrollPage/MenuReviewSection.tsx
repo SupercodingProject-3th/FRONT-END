@@ -5,7 +5,7 @@ import StarRating from "./StarRating";
 import filledStar from "../../assets/icon/filled-star.svg";
 import halfStar from "../../assets/icon/half-star.svg";
 import outlineStar from "../../assets/icon/outline-star.svg";
-import { DEEP_YELLOW, DARK_GREY, WHITE, SOFT_BEIGE } from "../../styles/colors";
+import { SOFT_BEIGE } from "../../styles/colors";
 
 interface MenuReviewSectionProps {
   rating: number | null;

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
+
 
 import Header from "../../shared/Header";
 import Footer from "../../shared/Footer";
@@ -14,7 +16,7 @@ import ButtonSection from "../../components/goodRestaurantEnrollPage/ButtonSecti
 import ScrollToTopButton from "../../shared/ScrollTopButton";
 import QuillEditor from "../../components/goodRestaurantEnrollPage/QuillEditor";
 import FileUpload from "../../components/goodRestaurantEnrollPage/FileUpload";
-import { DEEP_YELLOW, DARK_GREY, WHITE, SOFT_BEIGE } from "../../styles/colors";
+import { DARK_GREY, WHITE, SOFT_BEIGE } from "../../styles/colors";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 
@@ -31,6 +33,9 @@ const GoodRestaurantEnrollPage: React.FC = () => {
     category: "",
     detailAddress: "",
   });
+
+  const { postId = '' } = useParams<{ postId?: string }>(); // postId의 초기값을 ''로 설정
+
 
   const [overallRating, setOverallRating] = useState<number | null>(0);
 
@@ -88,7 +93,7 @@ const GoodRestaurantEnrollPage: React.FC = () => {
           rating={overallRating}
           onChange={handleOverallRatingChange}
         />
-        <ButtonSection />
+        <ButtonSection postId={postId} />
         <ScrollToTopButton />
       </Wrapper>
       <Footer />
@@ -132,10 +137,6 @@ const Wrapper = styled.div`
   margin: 0 auto;
 `;
 
-const Title = styled.h1`
-  font-size: 24px;
-  margin-bottom: 20px;
-`;
 
 const QuillEditorWrapper = styled.div`
   height: 33vh;

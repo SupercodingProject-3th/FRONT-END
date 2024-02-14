@@ -3,7 +3,6 @@ import Slider from "react-slick";
 import LeftArrow from "../../assets/icon/mainPage/left-arrow.svg";
 import RightArrow from "../../assets/icon/mainPage/right-arrow.svg";
 import styled from "styled-components";
-import { DEEP_YELLOW } from "../../styles/colors";
 
 export default function Card({ title, data }: { title: any; data: any[] }) {
   const SlickArrowLeft: React.FC<any> = ({

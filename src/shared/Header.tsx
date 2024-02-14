@@ -6,7 +6,7 @@ import SearchBar from "../components/mainPageLayout/SearchBar";
 import DarkmodeBtn from "../components/mainPageLayout/DarkModeToggleButton";
 import UserMenu from "../components/mainPageLayout/UserMenu";
 import { media } from "../styles/media";
-import { DARK_GREY, WHITE, SOFT_BEIGE } from "../styles/colors";
+import { DARK_GREY, WHITE } from "../styles/colors";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 

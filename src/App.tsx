@@ -9,6 +9,7 @@ import MainPage from "./pages/mainPage/MainPage";
 import GoodRestaurantEnrollPage from "./pages/goodRestaurantEnrollPage/GoodRestaurantEnrollPage";
 import AuthRouter from "./components/Login/AuthRouter";
 import PlacesList from "./pages/PlacesList";
+import GoodRestaurantEditPage from "./pages/goodRestaurantEditPage/GoodRestaurantEditPage";
 
 function App() {
   const [isToken, setIsToken] = useState(false);
@@ -37,22 +38,18 @@ function App() {
             {/* 임시로 설정 : MyPageButton*/}
             <Routes>
               {/* 물론 메인페이지는 담당자 분이 바꾸셔도 됩니다 */}
-              <Route
-                path="/"
-                element={
-                  <div>
-                    <MainPage />
-                  </div>
-                }
-              />
+              <Route path="/" element={<MainPage />} />
+
               <Route
                 path="/goodrestaurantenroll"
-                element={
-                  <div>
-                    <GoodRestaurantEnrollPage />
-                  </div>
-                }
+                element={<GoodRestaurantEnrollPage />}
               />
+
+              <Route
+                path="/edit/:postId"
+                element={<GoodRestaurantEditPage />}
+              />
+
               <Route
                 path="/*"
                 element={

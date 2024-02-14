@@ -8,7 +8,7 @@ import {
   FaMapMarkerAlt,
 } from "react-icons/fa";
 import styled from "styled-components";
-import { DARK_GREY, WHITE, SOFT_BEIGE, BLACK} from "../styles/colors";
+import { DARK_GREY, WHITE, BLACK} from "../styles/colors";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 
