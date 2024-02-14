@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
-
 import Header from "../../shared/Header";
 import Footer from "../../shared/Footer";
 import PageTitle from "../../components/goodRestaurantEnrollPage/PageTitle";
@@ -19,8 +18,44 @@ import FileUpload from "../../components/goodRestaurantEnrollPage/FileUpload";
 import { DARK_GREY, WHITE, SOFT_BEIGE } from "../../styles/colors";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import axios from "axios";
 
 const GoodRestaurantEnrollPage: React.FC = () => {
+  const [selectedimageFiles, setSelectedImageFiles] = useState<File[]>([]);
+
+  const handleFileChange = (files: FileList | null) => {
+    if (files) {
+      setSelectedImageFiles([...selectedimageFiles, ...Array.from(files)]); 
+    }
+  };
+
+  const handleRegister = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("name", restaurantInfo.title);
+      formData.append("address", restaurantInfo.address);
+      formData.append("detailAddress", restaurantInfo.detailAddress);
+      formData.append("latitude", "33.25144684054");
+      formData.append("longitude", "126.50972692876");
+      formData.append("category", restaurantInfo.category);
+      formData.append("contactNum", restaurantInfo.contact);
+      formData.append("menu", restaurantInfo.menu);
+      formData.append("content", "맛있어요");
+
+      selectedimageFiles.forEach((file, index) => {
+        formData.append(`images[${index}]`, file);
+      });
+
+      const response = await axios.post("/v1/api/reg-post", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log("백엔드로부터의 응답:", response.data);
+    } catch (error) {
+      console.error("오류 발생:", error);
+    }
+  };
 
   const isDarkMode = useSelector(
     (state: RootState) => state.darkMode.isDarkMode
@@ -28,25 +63,39 @@ const GoodRestaurantEnrollPage: React.FC = () => {
 
   const [restaurantInfo, setRestaurantInfo] = useState({
     title: "",
+    name: "",
     contact: "",
     address: "",
     category: "",
     detailAddress: "",
+    menu: "",
   });
 
-  const { postId = '' } = useParams<{ postId?: string }>(); // postId의 초기값을 ''로 설정
-
-
+  const { postId = "" } = useParams<{ postId?: string }>(); // postId의 초기값을 ''로 설정
   const [overallRating, setOverallRating] = useState<number | null>(0);
 
   const handleOverallRatingChange = (value: number | null) => {
-    setOverallRating(value);
+    setOverallRating(value);  
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRestaurantInfo({
+      ...restaurantInfo,
+      [e.target.title]: e.target.value,
+    });
+  };
+
+  const handleInputChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRestaurantInfo({
       ...restaurantInfo,
       [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleInputChangeDetailAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRestaurantInfo({
+      ...restaurantInfo,
+      detailAddress: e.target.value,
     });
   };
 
@@ -61,21 +110,21 @@ const GoodRestaurantEnrollPage: React.FC = () => {
               label="게시글 제목"
               name="title"
               value={restaurantInfo.title}
-              onChange={handleInputChange}
+              onChange={handleInputChangeTitle}
             />
             <CategorySelect />
             <RestaurantInfoInput
               label="가게명"
-              name="contact"
-              value={restaurantInfo.contact}
-              onChange={handleInputChange}
+              name="name"
+              value={restaurantInfo.name}
+              onChange={handleInputChangeName}
             />
             <AddressInput />
             <DetailAddressInfoInput
               label="상세주소"
               name="detailAddress"
               value={restaurantInfo.detailAddress}
-              onChange={handleInputChange}
+              onChange={handleInputChangeDetailAddress}
             />
           </RestaurantInfoSection>
         </RestaurantInfoSectionWrapper>
@@ -84,16 +133,25 @@ const GoodRestaurantEnrollPage: React.FC = () => {
             <QuillEditor />
           </QuillEditorWrapper>
           <FileUploadWrapper>
-            <FileUpload />
-            <FileUpload />
-            <FileUpload />
+            <FileUpload
+              selectedFiles={selectedimageFiles}
+              onFileSelect={handleFileChange}
+            />
+             <FileUpload
+              selectedFiles={selectedimageFiles}
+              onFileSelect={handleFileChange}
+            />
+             <FileUpload
+              selectedFiles={selectedimageFiles}
+              onFileSelect={handleFileChange}
+            />
           </FileUploadWrapper>
         </QuillAndFileUploadWrapper>
         <MenuReviewSection
           rating={overallRating}
           onChange={handleOverallRatingChange}
         />
-        <ButtonSection postId={postId} />
+        <ButtonSection postId={postId} onRegister={handleRegister} />
         <ScrollToTopButton />
       </Wrapper>
       <Footer />
@@ -136,7 +194,6 @@ const Wrapper = styled.div`
   align-items: center;
   margin: 0 auto;
 `;
-
 
 const QuillEditorWrapper = styled.div`
   height: 33vh;
