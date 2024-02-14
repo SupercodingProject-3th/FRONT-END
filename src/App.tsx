@@ -38,21 +38,17 @@ function App() {
             {/* 임시로 설정 : MyPageButton*/}
             <Routes>
               {/* 물론 메인페이지는 담당자 분이 바꾸셔도 됩니다 */}
-              <Route
-                path="/"
-                element={
-                  <div>
-                    <MainPage />
-                  </div>
-                }
-              />
+              <Route path="/" element={<MainPage />} />
 
               <Route
                 path="/goodrestaurantenroll"
                 element={<GoodRestaurantEnrollPage />}
               />
 
-              <Route path="/edit/:postId" element={<GoodRestaurantEditPage />} />
+              <Route
+                path="/edit/:postId"
+                element={<GoodRestaurantEditPage />}
+              />
 
               <Route
                 path="/*"
