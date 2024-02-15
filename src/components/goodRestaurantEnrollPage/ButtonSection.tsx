@@ -3,20 +3,24 @@ import styled from "styled-components";
 import { WHITE, SOFT_BEIGE } from "../../styles/colors";
 import { Link } from "react-router-dom";
 
-const ButtonSection: React.FC<{ postId: string }> = ({ postId }) => {
-  const handleRegister = () => {};
+
+interface ButtonSectionProps {
+  postId: string;
+  onRegister: () => void;
+}
+
+const ButtonSection: React.FC<ButtonSectionProps> = ({ postId, onRegister }) => {
 
   return (
     <ButtonContainer>
-      <StyledButton type="button" onClick={handleRegister}>
-        등록
-      </StyledButton>
-      <StyledButton type="button" as={Link} to={`/edit/${postId}`}>
-        {" "}
-        {/* 수정 버튼을 Link 컴포넌트로 변경 */}
-        수정
-      </StyledButton>
-    </ButtonContainer>
+    <StyledButton type="button" onClick={onRegister}>
+      등록
+    </StyledButton>
+    <StyledButton type="button" as={Link} to={`/edit/${postId}`}> {/* 수정 버튼을 Link 컴포넌트로 변경 */}
+      수정
+    </StyledButton>
+  </ButtonContainer>
+
   );
 };
 
