@@ -28,7 +28,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
       const fileReader = new FileReader();
       fileReader.onload = (e) => {
         if (e.target && e.target.result) {
-          setPreviewImage(e.target.result as string); 
+          setPreviewImage(e.target.result as string);
         }
       };
       fileReader.readAsDataURL(files[0]); // 선택된 파일의 URL을 읽어옴
@@ -70,6 +70,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
 export default FileUpload;
 
 const StyledProductUpload = styled.div`
+  position: relative; // //NOTE: 사진 미리보기 되면 + 밀리는 현상 방지
   background-color: transparent;
   height: 10vh;
   width: 10vw;
@@ -79,6 +80,13 @@ const StyledProductUpload = styled.div`
   justify-content: center;
   margin-bottom: 1vh;
 
+  label {
+    position: absolute; /* 버튼을 절대적인 위치로 설정 */
+    top: 50%; /* 부모 요소의 중앙에 위치시키기 위해 */
+    left: 50%; /* 부모 요소의 중앙에 위치시키기 위해 */
+    transform: translate(-50%, -50%); /* 수평 및 수직 가운데 정렬 */
+  }
+
   button {
     width: 100%; /* 버튼의 너비를 100%로 설정하여 부모 컨테이너에 맞게 확장 */
     height: 100%; /* 버튼의 높이를 100%로 설정하여 부모 컨테이너에 맞게 확장 */
@@ -87,6 +95,7 @@ const StyledProductUpload = styled.div`
     border: none;
     background-color: transparent;
     cursor: pointer;
+    z-index: 3; //NOTE: 사진 미리보기 되면 + 밀리는 현상 방지
   }
 `;
 
