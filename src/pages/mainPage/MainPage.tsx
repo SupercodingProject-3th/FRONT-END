@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 import Header from "../../shared/Header";
 import Footer from "../../shared/Footer";
 import ScrollToTopButton from "../../shared/ScrollTopButton";
 import { media } from "../../styles/media";
-import MainSwiper from "../../components/mainPageLayout/MainSwiper";
+import MainSwiper from "../../components/mainPageLayout/MainSwiperData";
 import MainBanner from "../../components/mainPageLayout/MainBanner";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
@@ -13,8 +14,34 @@ import { DARK_GREY, WHITE, BLACK } from "../../styles/colors";
 import GoodPlaceBanner from "../../components/mainPageLayout/GoodPlaceBanner";
 import PostBanner from "../../components/mainPageLayout/PostBanner";
 
-
 const MainPage: React.FC = () => {
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    // API 엔드포인트와 요청에 필요한 데이터 설정
+
+    const size = 7; // 한 페이지에 표시할 아이템 수
+    const page = 0; // 페이지 번호 (0부터 시작)
+    const apiUrl = "https://www.onesol.shop/v1/api/post/post-list?page=0&size=10";
+
+    // 요청 보내기
+    axios
+      .post(apiUrl, {
+        params: {
+          size,
+          page,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log("Response data:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []); 
+
   const handlePageSelection = (selectedPage: any) => {};
   const isDarkMode = useSelector(
     (state: RootState) => state.darkMode.isDarkMode
@@ -26,7 +53,7 @@ const MainPage: React.FC = () => {
       <MainBanner setSelectedPage={handlePageSelection} />
       <MainSwiper />
       <GoodPlaceBanner />
-      <PostBanner/>
+      <PostBanner />
       <ScrollToTopButton />
       <Footer />
     </StyledMainPage>

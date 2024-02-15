@@ -30,8 +30,6 @@ const DarkmodeBtn = ({ isMobile }: { isMobile: boolean }) => {
 
 export default DarkmodeBtn;
 
-//NOTE: 뺌  position: relative;
-
 const ToggleContainer = styled.div<{ isMobile: boolean; isDarkMode: boolean }>`
   display: ${(props) => (props.isMobile ? "flex" : "none")};
   align-items: center;
