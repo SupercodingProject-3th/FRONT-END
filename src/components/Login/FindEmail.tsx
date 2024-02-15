@@ -4,6 +4,7 @@ import ReactDatePicker from "react-datepicker";
 import moment from "moment";
 import axios from "axios";
 import { BaseSyntheticEvent } from "react";
+import { DEEP_YELLOW, SOFT_BEIGE, DEEP_BROWN } from "../../styles/colors";
 
 const FindEmail: React.FC = () => {
   const [nickName, setNickName] = useState<string>("");
@@ -99,7 +100,11 @@ const UserFind = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid pink;
+
+  background-color: ${SOFT_BEIGE};
+
+  border: 1px solid ${DEEP_YELLOW};
+  border-radius: 8px;
 `;
 
 const LabelFind = styled.label`
@@ -112,14 +117,31 @@ const LabelFind = styled.label`
 
 const InputFind = styled.input`
   width: 170px;
+  height: 20px;
+  color: rgb(200, 200, 200);
+  font-size: 13px;
+
+  //border: 1px solid ${DEEP_YELLOW};
+
+  &::placeholder {
+    padding-left: 5px;
+    color: rgb(200, 200, 200);
+  }
+
+  &:hover {
+    background-color: rgb(250, 250, 250);
+  }
 `;
 
 const ButtonFind = styled.button`
   marign: 20px;
   width: 100px;
   height: 30px;
+  color: white;
 
-  border: none;
+  margin-top: 20px;
+
+  background-color: ${DEEP_BROWN};
   cursor: pointer;
 `;
 

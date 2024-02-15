@@ -13,7 +13,6 @@ const MyPageButton: React.FC<MyPageButtonProps> = ({ isToken }) => {
         <>
           <LinkPage to="/logout">로그아웃 페이지로 이동</LinkPage>
           <LinkPage to="/mypage/0">마이 페이지로 이동</LinkPage>
-          <LinkPage to="/myposts">내가 쓴 포스트 조회</LinkPage>
         </>
       ) : (
         <>
@@ -34,6 +33,9 @@ const DivMainPost = styled.div`
 
 const LinkPage = styled(Link)`
   margin: 10px;
+  color: black;
+
+  cursor: pointer;
 `;
 
 export default MyPageButton;

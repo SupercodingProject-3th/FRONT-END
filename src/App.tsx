@@ -33,72 +33,29 @@ function App() {
   return (
     <Provider store={store}>
       <div className="App">
-        {isToken ? (
-          <>
-            {/* 임시로 설정 : MyPageButton*/}
-            <Routes>
-              {/* 물론 메인페이지는 담당자 분이 바꾸셔도 됩니다 */}
-              <Route path="/" element={<MainPage />} />
+        <Routes>
+          <Route path="/" element={<MainPage />} />
 
-              <Route
-                path="/goodrestaurantenroll"
-                element={<GoodRestaurantEnrollPage />}
-              />
+          <Route
+            path="/goodrestaurantenroll"
+            element={<GoodRestaurantEnrollPage />}
+          />
 
-              <Route
-                path="/edit/:postId"
-                element={<GoodRestaurantEditPage />}
-              />
+          <Route path="/edit/:postId" element={<GoodRestaurantEditPage />} />
 
-              <Route
-                path="/*"
-                element={
-                  <AuthRouter
-                    isToken={isToken}
-                    userNickName={userNickName}
-                    updateIsToken={setIsToken}
-                  />
-                }
+          <Route
+            path="/*"
+            element={
+              <AuthRouter
+                isToken={isToken}
+                userNickName={userNickName}
+                updateIsToken={setIsToken}
               />
-              <Route path="/detail/:id" element={<div>상세페이지</div>} />
-              <Route path="*" element={<div>404페이지</div>} />
-            </Routes>
-          </>
-        ) : (
-          // 로그인 안되었을때 페이지
-          <>
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <div>
-                    <MainPage />
-                  </div>
-                }
-              />
-              <Route
-                path="/goodrestaurantenroll"
-                element={
-                  <div>
-                    <GoodRestaurantEnrollPage />
-                  </div>
-                }
-              />
-              <Route
-                path="/*"
-                element={
-                  <AuthRouter
-                    isToken={isToken}
-                    userNickName={userNickName}
-                    updateIsToken={setIsToken}
-                  />
-                }
-              />
-              <Route path="/detail/:id" element={<div>상세페이지</div>} />
-              <Route path="*" element={<div>404페이지</div>} />
-            </Routes>
-          </>
-        )}
+            }
+          />
+          <Route path="/detail/:id" element={<div>상세페이지</div>} />
+          <Route path="*" element={<div>404페이지</div>} />
+        </Routes>
       </div>
     </Provider>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MyPageMenu from "./MyPageMenu";
-import MyRestaurant from "./MyRestaurant";
+//import MyRestaurant from "./MyRestaurant";
 import MyFavoriteRestaurant from "./MyFavoriteRestaurant";
 import MyEditProfile from "./MyEditProfile";
 import { useParams } from "react-router-dom";
@@ -11,6 +11,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { BaseSyntheticEvent } from "react";
 import moment from "moment";
+import GetMyPosts from "./GetMyPosts";
 
 interface MyPageProps {
   updateIsToken: any;
@@ -282,11 +283,12 @@ const MyPage: React.FC<MyPageProps> = ({ updateIsToken }) => {
         <MyMain>
           <MyPageContainer>
             <MyInfo
+              nickName={formData.nickName}
               likedNumber={liked.length}
               prevImage={prevImage}
               image2={image2}
             />
-            <MyRestaurant />
+            <GetMyPosts />
           </MyPageContainer>
         </MyMain>
       </>
@@ -298,6 +300,7 @@ const MyPage: React.FC<MyPageProps> = ({ updateIsToken }) => {
         <MyMain>
           <MyPageContainer>
             <MyInfo
+              nickName={formData.nickName}
               likedNumber={liked.length}
               prevImage={prevImage}
               image2={image2}
@@ -314,6 +317,7 @@ const MyPage: React.FC<MyPageProps> = ({ updateIsToken }) => {
         <MyMain>
           <MyPageContainer>
             <MyInfo
+              nickName={formData.nickName}
               likedNumber={liked.length}
               prevImage={prevImage}
               image2={image2}
@@ -351,6 +355,7 @@ const MyPage: React.FC<MyPageProps> = ({ updateIsToken }) => {
         <MyMain>
           <MyPageContainer>
             <MyInfo
+              nickName={formData.nickName}
               likedNumber={liked.length}
               prevImage={prevImage}
               image2={image2}

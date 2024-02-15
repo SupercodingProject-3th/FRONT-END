@@ -4,6 +4,7 @@ import styled from "styled-components";
 import validator from "validator";
 import { BaseSyntheticEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import { DEEP_YELLOW, SOFT_BEIGE } from "../../styles/colors";
 
 const ChangePassword: React.FC = () => {
   const [oldPassword, setOldPassword] = useState<string>("");
@@ -212,7 +213,9 @@ const UserChange = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid pink;
+  background-color: ${SOFT_BEIGE};
+  border: 2px solid ${DEEP_YELLOW}};
+  border-radius: 8px;
 `;
 
 const LabelChange = styled.label`
@@ -225,6 +228,17 @@ const LabelChange = styled.label`
 
 const InputChange = styled.input`
   width: 170px;
+  height: 25px;
+
+  color: rgb(200, 200, 200);
+  font-size: 13px;
+  width: 260px;
+  
+  //border: 1px solid ${DEEP_YELLOW};
+
+  &::placeholder {
+    padding-left: 5px;
+    color: rgb(200, 200, 200);
 `;
 
 const PwdCheckDivChange = styled.div`
@@ -246,7 +260,8 @@ const ButtonChange = styled.button`
   width: 130px;
   height: 40px;
 
-  border: none;
+  background-color: white;
+  border: 1px solid ${DEEP_YELLOW};
   cursor: pointer;
 `;
 
@@ -265,8 +280,9 @@ const BackButtonChange = styled.button`
   width: 120px;
   height: 40px;
 
-  border: none;
-  border-radius: 5px;
+  background-color: white;
+  border: 2px solid ${DEEP_YELLOW};
+  cursor: pointer;
 `;
 
 export default ChangePassword;
