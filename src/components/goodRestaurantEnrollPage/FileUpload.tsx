@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 
 interface FileUploadProps {
@@ -6,14 +6,21 @@ interface FileUploadProps {
   onFileSelect: (files: FileList | null) => void;
 }
 
-const FileUpload: React.FC<FileUploadProps> = ({ selectedFiles, onFileSelect }) => {
+const FileUpload: React.FC<FileUploadProps> = ({
+  selectedFiles,
+  onFileSelect,
+}) => {
   const [previewImage, setPreviewImage] = useState(""); // 미리보기 이미지 URL을 관리하는 상태
   const inputRef = useRef<HTMLInputElement | null>(null); // useRef를 함수 외부에서 선언
   const [isFileInputDisabled, setIsFileInputDisabled] = useState(false);
 
-  if (selectedFiles.length >= 3) {
-    setIsFileInputDisabled(true);
-  }
+  useEffect(() => {
+    if (selectedFiles.length >= 3) {
+      setIsFileInputDisabled(true);
+    } else {
+      setIsFileInputDisabled(false);
+    }
+  }, [selectedFiles]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -21,7 +28,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ selectedFiles, onFileSelect }) 
       const fileReader = new FileReader();
       fileReader.onload = (e) => {
         if (e.target && e.target.result) {
-          setPreviewImage(e.target.result as string); // 파일의 URL을 previewImage 상태에 저장
+          setPreviewImage(e.target.result as string);
         }
       };
       fileReader.readAsDataURL(files[0]); // 선택된 파일의 URL을 읽어옴
@@ -38,8 +45,8 @@ const FileUpload: React.FC<FileUploadProps> = ({ selectedFiles, onFileSelect }) 
   };
 
   return (
-    <StyledProductUpload className="productUpload">
-      <img src={previewImage} alt="" className="productUploadImg" />
+    <StyledProductUpload>
+      <ImgProductUpload src={previewImage} alt="" />
       <label htmlFor="file">
         <button
           style={{ width: "2vw", height: "3vh", opacity: 1 }}
@@ -63,6 +70,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ selectedFiles, onFileSelect }) 
 export default FileUpload;
 
 const StyledProductUpload = styled.div`
+  position: relative; // //NOTE: 사진 미리보기 되면 + 밀리는 현상 방지
   background-color: transparent;
   height: 10vh;
   width: 10vw;
@@ -72,6 +80,13 @@ const StyledProductUpload = styled.div`
   justify-content: center;
   margin-bottom: 1vh;
 
+  label {
+    position: absolute; /* 버튼을 절대적인 위치로 설정 */
+    top: 50%; /* 부모 요소의 중앙에 위치시키기 위해 */
+    left: 50%; /* 부모 요소의 중앙에 위치시키기 위해 */
+    transform: translate(-50%, -50%); /* 수평 및 수직 가운데 정렬 */
+  }
+
   button {
     width: 100%; /* 버튼의 너비를 100%로 설정하여 부모 컨테이너에 맞게 확장 */
     height: 100%; /* 버튼의 높이를 100%로 설정하여 부모 컨테이너에 맞게 확장 */
@@ -80,5 +95,12 @@ const StyledProductUpload = styled.div`
     border: none;
     background-color: transparent;
     cursor: pointer;
+    z-index: 3; //NOTE: 사진 미리보기 되면 + 밀리는 현상 방지
   }
+`;
+
+//NOTE:  부모 요소의 최대 너비와 최대 높이를 각각 80%로 설정
+const ImgProductUpload = styled.img`
+  max-width: 80%;
+  max-height: 80%;
 `;
