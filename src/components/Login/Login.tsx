@@ -6,18 +6,18 @@ import axios from "axios";
 import loginButton from "../../shared/images/LoginPage/kakao-login-button.jpg";
 import { BaseSyntheticEvent } from "react";
 import { DEEP_YELLOW, SOFT_BEIGE, DEEP_BROWN } from "../../styles/colors";
+import { useDispatch } from "react-redux";
+import { login } from "../../store/slices/authSlices";
 
-interface IsTokenProps {
-  updateIsToken: any;
-}
-
-const Login: React.FC<IsTokenProps> = ({ updateIsToken }) => {
+const Login: React.FC = () => {
   const [userId, setUserId] = useState<string>("");
   const [userPassword, setUserPassword] = useState<string>("");
 
   const [idMessage, setIdMessage] = useState<string>("");
   const [passMessage, setPassMessage] = useState<string>("");
   const [failMessage, setFailMessage] = useState<string>("");
+
+  const dispatch = useDispatch();
 
   const navigator = useNavigate();
 
@@ -89,7 +89,7 @@ const Login: React.FC<IsTokenProps> = ({ updateIsToken }) => {
           localStorage.setItem("nickName", nickName);
           localStorage.setItem("userId", userId);
 
-          updateIsToken(true);
+          dispatch(login());
 
           navigator("/");
         })
