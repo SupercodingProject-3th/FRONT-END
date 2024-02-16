@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { ReactComponent as RegisterIcon } from "../../assets/icon/mainPage/register.svg";
 import { ReactComponent as LogInIcon } from "../../assets/icon/mainPage/login.svg";
+import { ReactComponent as MyPageIcon } from "../../assets/icon/user-gear.svg";
 import { Link } from "react-router-dom";
 
 const UserMenu = () => {
@@ -8,15 +9,24 @@ const UserMenu = () => {
     <UserMenuContainer>
       <>
         <LoginButton isDarkMode={false} onClick={() => {}}>
-          <Link to="/login">
+          <StyledLink to="/login">
             <LogInIcon />
-          </Link>
+            LogIn/LogOut
+          </StyledLink>
         </LoginButton>
-        <Link to="/signup">
+        <StyledLink to="/signup">
           <SignupButton isDarkMode={false}>
             <RegisterIcon />
+            Register
           </SignupButton>
-        </Link>
+        </StyledLink>
+
+        <SignupButton isDarkMode={false}>
+          <StyledLink to="/mypage/0">
+            <MyPageIcon />
+            MyPage
+          </StyledLink>
+        </SignupButton>
       </>
     </UserMenuContainer>
   );
@@ -30,7 +40,6 @@ const UserMenuContainer = styled.div`
   font-weight: 500;
   color: #4f3d21;
   align-items: center;
-
 `;
 
 const ProfileButton = styled.div`
@@ -55,6 +64,7 @@ const ProfileButton = styled.div`
 
 const LoginButton = styled.button<{ isDarkMode: boolean }>`
   display: none;
+  text-decoration: none;
 
   @media (min-width: 1024px) {
     display: flex;
@@ -79,6 +89,7 @@ const LoginButton = styled.button<{ isDarkMode: boolean }>`
 
 const SignupButton = styled.button<{ isDarkMode: boolean }>`
   display: none;
+  text-decoration: none;
 
   @media (min-width: 1024px) {
     display: flex;
@@ -120,10 +131,12 @@ const IconButton = styled.div<{ isDarkMode: boolean }>`
     &:hover {
       transform: scale(1.05);
       
-  
     transition: all 0.3s;
-  
   }
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
 `;
 
 export default UserMenu;
