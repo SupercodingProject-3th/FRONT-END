@@ -7,8 +7,7 @@ import { PostContent } from "../../types/PostContent";
 
 export default function Card({ title, posts }: { title: any; posts: PostContent[] }) {
 
-  const contentData = posts; // data[0].content로 수정
-  console.log(contentData, "찍히나 test")
+  const contentData = posts; 
 
   const SlickArrowLeft: React.FC<any> = ({
     currentSlide,
@@ -65,10 +64,10 @@ export default function Card({ title, posts }: { title: any; posts: PostContent[
                 <p>
                   위치: <span>{item.neighborhood}</span>
                 </p>
-                <i
-                  className="far fa-heart"
-                  style={{ width: "50px", height: "50px" }}
-                ></i>
+                <HeartIcon>
+                  <i className="far fa-heart" />
+                  {item.favoriteCount}
+                </HeartIcon>
               </CardItem>
             );
           })}
@@ -108,4 +107,11 @@ const CardContainerInner = styled.div``;
 const SliderContainer = styled.div`
   width: 80%;
   margin: 0 auto;
+`;
+
+const HeartIcon = styled.div`
+  i {
+    width: 50px;
+    height: 50px;
+  }
 `;
