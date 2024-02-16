@@ -6,13 +6,14 @@ import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 import { DARK_GREY, WHITE } from "../../styles/colors";
 
+
 const PostBanner: React.FC = () => {
   const isDarkMode = useSelector(
     (state: RootState) => state.darkMode.isDarkMode
   );
 
   return (
-    <StyledBanner isDarkMode={isDarkMode}>
+    <StyledBanner isDarkMode={isDarkMode}>  
       <BannerContent>
         <BannerImageContainer>
           <BannerImage src={NowOpenImage} />

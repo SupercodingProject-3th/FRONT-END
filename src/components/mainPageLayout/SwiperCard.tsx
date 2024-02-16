@@ -3,8 +3,13 @@ import Slider from "react-slick";
 import LeftArrow from "../../assets/icon/mainPage/left-arrow.svg";
 import RightArrow from "../../assets/icon/mainPage/right-arrow.svg";
 import styled from "styled-components";
+import { PostContent } from "../../types/PostContent";
 
-export default function Card({ title, data }: { title: any; data: any[] }) {
+export default function Card({ title, posts }: { title: any; posts: PostContent[] }) {
+
+  const contentData = posts; // data[0].content로 수정
+  console.log(contentData, "찍히나 test")
+
   const SlickArrowLeft: React.FC<any> = ({
     currentSlide,
     slideCount,
@@ -47,18 +52,18 @@ export default function Card({ title, data }: { title: any; data: any[] }) {
       <h1>{title}</h1>
       <SliderContainer>
         <Slider {...settings}>
-          {data.map((item: any, index: number) => {
+          {contentData.map((item: any, index: number) => {
             return (
               <CardItem key={index}>
                 <ImageWrapper>
-                  <FoodImage src={item.url} alt="food_img" />
+                  <FoodImage src={item.mainPhoto} alt="food_img" />
                 </ImageWrapper>
                 <CardContainerInner>
-                  <p>한식</p>
+                  <p>{item.category}</p>
                 </CardContainerInner>
-                <h2>우래옥 본점</h2>
+                <h2>{item.name}</h2>
                 <p>
-                  위치: <span>서울</span>
+                  위치: <span>{item.neighborhood}</span>
                 </p>
                 <i
                   className="far fa-heart"
