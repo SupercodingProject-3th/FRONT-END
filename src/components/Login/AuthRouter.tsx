@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Login from "./Login";
 import LoginError from "./LoginError";
 import Logout from "../Login/Logout";
@@ -12,16 +13,12 @@ import GetMyPosts from "../MyPage/GetMyPosts";
 import Redirect from "./Redirect";
 
 interface IsTokenProps {
-  isToken: boolean;
   userNickName: string;
-  updateIsToken: any;
 }
 
-const AuthRouter: React.FC<IsTokenProps> = ({
-  isToken,
-  userNickName,
-  updateIsToken,
-}) => {
+const AuthRouter: React.FC<IsTokenProps> = ({ userNickName }) => {
+  const isToken = useSelector((state: any) => state.auth.isAuthenticated);
+
   return (
     <Routes>
       {isToken ? (
@@ -51,16 +48,8 @@ const AuthRouter: React.FC<IsTokenProps> = ({
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/findpassword" element={<FindPassword />} />
 
-          <Route
-            path="/logout"
-            element={
-              <Logout nickName={userNickName} updateIsToken={updateIsToken} />
-            }
-          />
-          <Route
-            path="/mypage/:pagenumber"
-            element={<MyPage updateIsToken={updateIsToken} />}
-          />
+          <Route path="/logout" element={<Logout nickName={userNickName} />} />
+          <Route path="/mypage/:pagenumber" element={<MyPage />} />
         </>
       ) : (
         <>
@@ -98,15 +87,9 @@ const AuthRouter: React.FC<IsTokenProps> = ({
             }
           />
           <Route path="/find-email" element={<FindEmail />} />
-          <Route
-            path="/login"
-            element={<Login updateIsToken={updateIsToken} />}
-          />
+          <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route
-            path="/redirect"
-            element={<Redirect updateIsToken={updateIsToken} />}
-          />
+          <Route path="/redirect" element={<Redirect />} />
         </>
       )}
     </Routes>

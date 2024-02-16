@@ -24,8 +24,6 @@ interface MyEditProps {
   onNickNameHandler: any;
   formData: any;
   onDeleteMyAccount: any;
-  getUserInfo: any;
-  updateIsToken: any;
 }
 
 const MyEditProfile: React.FC<MyEditProps> = ({
@@ -47,7 +45,6 @@ const MyEditProfile: React.FC<MyEditProps> = ({
   onNickNameHandler,
   formData,
   onDeleteMyAccount,
-  getUserInfo,
 }) => {
   const navigator = useNavigate();
 
@@ -58,7 +55,7 @@ const MyEditProfile: React.FC<MyEditProps> = ({
         <UserInfoContainerPro>
           <h1>회원정보 수정 페이지</h1>
           <DeleteMyAccountDiv>
-            <GetInfoButton onClick={getUserInfo}>
+            <GetInfoButton onClick={() => navigator(0)}>
               회원 정보 새로 가져오기
             </GetInfoButton>
             <PwdChangeButton onClick={() => navigator("/mypage/3")}>

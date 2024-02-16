@@ -2,12 +2,10 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect } from "react";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { login } from "../../store/slices/authSlices";
 
-interface RedirectProps {
-  updateIsToken: any;
-}
-
-const Redirect: React.FC<RedirectProps> = ({ updateIsToken }) => {
+const Redirect: React.FC = () => {
   const protocol = window.location.protocol;
   const hostname = window.location.hostname;
   const port = window.location.port;
@@ -17,6 +15,8 @@ const Redirect: React.FC<RedirectProps> = ({ updateIsToken }) => {
   const navigator = useNavigate();
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [searchParams] = useSearchParams();
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getCode = async () => {
@@ -35,7 +35,7 @@ const Redirect: React.FC<RedirectProps> = ({ updateIsToken }) => {
           localStorage.setItem("nickName", nickName);
           localStorage.setItem("userId", userId);
 
-          updateIsToken(true);
+          dispatch(login());
 
           navigator("/");
         })
