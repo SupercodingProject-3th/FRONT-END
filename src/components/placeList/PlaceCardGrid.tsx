@@ -15,33 +15,33 @@ const PlaceCardGrid: React.FC<PlaceCardGridProps> = ({ selectedLocation, selecte
     const [places, setPlaces] = useState<Place[]>([]);
   
     useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const { data } = await axios.post('https://www.onesol.shop/v1/api/post/post-list?page=0&size=10', {
-              neighborhood: selectedLocation, category: selectedCategory, order: selectedOrder
-            }, {
+      const fetchData = async () => {
+        try {
+          const response = await axios.post(
+            "https://www.onesol.shop/v1/api/post/post-list", {
+              params: { neighborhood: selectedLocation, category: selectedCategory, order: selectedOrder,
+                page: 0, size: 10,
+              }
+            },{
               headers: {
                 'Content-Type': 'application/json',
               }
-            });
-            if (Array.isArray(data.content) && data.content.length > 0) {
-              const transformedPlaces = data.content.map((item: any) => ({
-                title: item.name,
-                category: item.category,
-                image: item.mainPhoto,
-                liked: false,
-              }));
-              setPlaces(transformedPlaces);
-            } else {
-              console.log("데이터가 비어있거나 예상한 형식이 아닙니다.");
-              setPlaces([]); 
             }
-          } catch (error) {
-            console.error('Fetching places failed:', error);
-          }
-        };
-        fetchData();
-      }, [selectedLocation, selectedCategory, selectedOrder]);
+          );
+          console.log("Response data:", response.data);
+          const transformedPlaces = response.data.data.content.map((item: any) => ({
+            title: item.name,
+            category: item.category,
+            image: item.mainPhoto,
+            liked: false,
+          }));
+          setPlaces(transformedPlaces);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+      fetchData();
+    }, [selectedLocation, selectedCategory, selectedOrder]);
 
 
   return (

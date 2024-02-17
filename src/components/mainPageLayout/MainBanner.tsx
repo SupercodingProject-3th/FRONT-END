@@ -7,6 +7,7 @@ import { DEEP_YELLOW, WHITE, DARK_GREY} from "../../styles/colors";
 import { useState } from "react";
 import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   setSelectedPage: (value: string) => void;
@@ -15,16 +16,21 @@ type Props = {
 
 const TestBanner = ({ setSelectedPage, showSecondBanner }: Props) => {
   {
+    const navigate = useNavigate();
     const [isSecondBannerShown, setIsSecondBannerShown] = useState(
       showSecondBanner || false
     );
     const [isSecondButtonClicked, setIsSecondButtonClicked] = useState(false);
-
-    const toggleSecondBanner = () => {
+    // NOTE: 맛집 목록 연동
+    const handleButtonClick = (action: string) => {
+      if (action === 'list') {  // "맛집 목록" 버튼 클릭 시
+        navigate('/placeslist'); 
+      } else if (action === 'map') { // "맛집 지도" 버튼 클릭 시 
+        
+      }
       setIsSecondButtonClicked(!isSecondButtonClicked);
       setIsSecondBannerShown(!isSecondBannerShown);
     };
-
     const isDarkMode = useSelector(
       (state: RootState) => state.darkMode.isDarkMode
     );
@@ -32,8 +38,8 @@ const TestBanner = ({ setSelectedPage, showSecondBanner }: Props) => {
     return (
       <StyledSection id="home" showSecondBanner={showSecondBanner} isDarkMode={isDarkMode} >
         <ButtonWrapper>
-          <Button onClick={toggleSecondBanner}>맛집 목록</Button>
-          <Button onClick={toggleSecondBanner}>맛집 지도</Button>
+          <Button onClick={() => handleButtonClick('list')}>맛집 목록</Button>
+          <Button onClick={() => handleButtonClick('map')}>맛집 지도</Button>
         </ButtonWrapper>
 
         {isSecondButtonClicked ? (
