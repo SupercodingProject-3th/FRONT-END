@@ -13,11 +13,13 @@ import { BaseSyntheticEvent } from "react";
 import moment from "moment";
 import GetMyPosts from "./GetMyPosts";
 
+
 interface MyPageProps {
   updateIsToken: any;
 }
 
 const MyPage: React.FC<MyPageProps> = ({ updateIsToken }) => {
+
   const { pagenumber } = useParams();
   const [liked, setLiked] = useState([]);
 

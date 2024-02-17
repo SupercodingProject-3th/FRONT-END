@@ -4,30 +4,41 @@ import { ReactComponent as LogInIcon } from "../../assets/icon/mainPage/login.sv
 import { ReactComponent as MyPageIcon } from "../../assets/icon/user-gear.svg";
 import { Link } from "react-router-dom";
 
-const UserMenu = () => {
+const UserMenu = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   return (
     <UserMenuContainer>
-      <>
-        <LoginButton isDarkMode={false} onClick={() => {}}>
-          <StyledLink to="/login">
-            <LogInIcon />
-            LogIn/LogOut
+      {isLoggedIn ? (
+        <>
+          <StyledLink to="/logout">
+            <LoginButton isDarkMode={false}>
+              <LogInIcon />
+              LogOut
+            </LoginButton>
           </StyledLink>
-        </LoginButton>
-        <StyledLink to="/signup">
-          <SignupButton isDarkMode={false}>
-            <RegisterIcon />
-            Register
-          </SignupButton>
-        </StyledLink>
-
-        <SignupButton isDarkMode={false}>
+          
           <StyledLink to="/mypage/0">
-            <MyPageIcon />
-            MyPage
+            <IconButton isDarkMode={false}>
+              <MyPageIcon />
+              MyPage
+            </IconButton>
           </StyledLink>
-        </SignupButton>
-      </>
+        </>
+      ) : (
+        <>
+          <StyledLink to="/login">
+            <LoginButton isDarkMode={false}>
+              <LogInIcon />
+              LogIn
+            </LoginButton>
+          </StyledLink>
+          <StyledLink to="/signup">
+            <SignupButton isDarkMode={false}>
+              <RegisterIcon />
+              Register
+            </SignupButton>
+          </StyledLink>
+        </>
+      )}
     </UserMenuContainer>
   );
 };
