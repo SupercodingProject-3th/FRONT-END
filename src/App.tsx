@@ -6,7 +6,7 @@ import { login, logout } from "./store/slices/authSlices";
 import React from "react";
 import MainPage from "./pages/mainPage/MainPage";
 import GoodRestaurantEnrollPage from "./pages/goodRestaurantEnrollPage/GoodRestaurantEnrollPage";
-import AuthRouter from "./components/login/AuthRouter";
+import AuthRouter from "./components/Login/AuthRouter";
 import PlacesList from "./pages/PlacesList";
 import GoodRestaurantEditPage from "./pages/goodRestaurantEditPage/GoodRestaurantEditPage";
 
@@ -46,7 +46,6 @@ function App() {
         <Route path="/*" element={<AuthRouter userNickName={userNickName} />} />
         <Route path="/detail/:id" element={<div>상세페이지</div>} />
         <Route path="*" element={<div>404페이지</div>} />
-        <Route path="/placeslist" element={<PlacesList />} />
       </Routes>
     </div>
   );
