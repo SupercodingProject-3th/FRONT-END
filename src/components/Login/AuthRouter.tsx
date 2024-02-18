@@ -3,13 +3,13 @@ import { Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Login from "./Login";
 import LoginError from "./LoginError";
-import Logout from "../Login/Logout";
-import MyPage from "../MyPage/MyPage";
+import Logout from "./Logout";
+import MyPage from "../myPage/MyPage";
 import Signup from "../Signup/Signup";
 import FindPassword from "./FindPassword";
 import FindEmail from "./FindEmail";
-import ChangePassword from "../MyPage/ChangePassword";
-import GetMyPosts from "../MyPage/GetMyPosts";
+import ChangePassword from "../myPage/ChangePassword";
+import GetMyPosts from "../myPage/GetMyPosts";
 import Redirect from "./Redirect";
 
 interface IsTokenProps {

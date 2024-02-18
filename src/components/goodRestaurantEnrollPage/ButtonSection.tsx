@@ -30,6 +30,7 @@
     display: flex;
     justify-content: center;
     background-color: ${SOFT_BEIGE};
+    padding-top: 50px;
     padding-bottom: 50px;
     gap:0.2rem;
   `;

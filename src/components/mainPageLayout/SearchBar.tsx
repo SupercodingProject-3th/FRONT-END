@@ -96,4 +96,5 @@
   `;
 
   const Image = styled.img`
+    cursor: pointer;
   `

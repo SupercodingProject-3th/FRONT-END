@@ -6,7 +6,7 @@ import { login, logout } from "./store/slices/authSlices";
 import React from "react";
 import MainPage from "./pages/mainPage/MainPage";
 import GoodRestaurantEnrollPage from "./pages/goodRestaurantEnrollPage/GoodRestaurantEnrollPage";
-import AuthRouter from "./components/Login/AuthRouter";
+import AuthRouter from "./components/login/AuthRouter";
 import PlacesList from "./pages/PlacesList";
 import GoodRestaurantEditPage from "./pages/goodRestaurantEditPage/GoodRestaurantEditPage";
 
