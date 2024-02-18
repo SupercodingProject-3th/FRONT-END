@@ -47,7 +47,7 @@ const TestBanner = ({ setSelectedPage, showSecondBanner }: Props) => {
             {/* 맛집 지도가 클릭되었을 때 표시할 내용 */}
             <div className="mt-32 md:basis-3/5">
               <StyledContentContainer>
-                <Image alt="home-pageGraphic" src={FoodMap} />
+                <Image alt="home-pageGraphic" src={FoodMap} onClick={() => navigate('/map')} />
               </StyledContentContainer>
             </div>
           </BannerArea>
