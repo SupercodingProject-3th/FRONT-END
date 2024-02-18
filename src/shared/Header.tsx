@@ -15,6 +15,8 @@ const Header = () => {
     (state: RootState) => state.darkMode.isDarkMode
   );
 
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isAuthenticated);
+
   return (
     <HeaderLayout isDarkMode={isDarkMode}>
       <HeaderContainer>
@@ -27,7 +29,7 @@ const Header = () => {
           <SearchBar />
           <ButtonsWrapper>
             <DarkmodeBtn isMobile={false} />
-            <UserMenu />
+            <UserMenu isLoggedIn={isLoggedIn} />
           </ButtonsWrapper>
         </TopNavBar>
       </HeaderContainer>

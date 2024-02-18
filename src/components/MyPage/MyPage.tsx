@@ -15,7 +15,9 @@ import GetMyPosts from "./GetMyPosts";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/slices/authSlices";
 
+
 const MyPage: React.FC = () => {
+
   const { pagenumber } = useParams();
   const [liked, setLiked] = useState([]);
 
