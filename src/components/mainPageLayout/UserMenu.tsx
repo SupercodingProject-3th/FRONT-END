@@ -15,12 +15,12 @@ const UserMenu = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
               LogOut
             </LoginButton>
           </StyledLink>
-          
+
           <StyledLink to="/mypage/0">
-            <IconButton isDarkMode={false}>
+            <LoginButton isDarkMode={false}>
               <MyPageIcon />
               MyPage
-            </IconButton>
+            </LoginButton>
           </StyledLink>
         </>
       ) : (
