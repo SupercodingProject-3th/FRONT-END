@@ -1,12 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-interface MyPageButtonProps {
-  isToken: boolean;
-}
-
-const MyPageButton: React.FC<MyPageButtonProps> = ({ isToken }) => {
+const MyPageButton: React.FC = () => {
+  const isToken = useSelector((state: any) => state.auth.isAuthenticated);
   return (
     <DivMainPost>
       {isToken ? (

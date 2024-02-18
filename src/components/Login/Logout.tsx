@@ -4,15 +4,18 @@ import styled from "styled-components";
 import backgroundImage from "../../shared/images/LoginPage/logout-background.jpg";
 import axios from "axios";
 import { DEEP_BROWN } from "../../styles/colors";
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/slices/authSlices";
 
 interface LogoutProps {
   nickName: string;
-  updateIsToken: any;
 }
 
-const Logout: React.FC<LogoutProps> = ({ nickName, updateIsToken }) => {
+const Logout: React.FC<LogoutProps> = ({ nickName }) => {
   const navigator = useNavigate();
   const [userToken, setUserToken] = useState<string>("");
+
+  const dispatch = useDispatch();
 
   useLayoutEffect(() => {
     if (nickName === "") {
@@ -38,7 +41,7 @@ const Logout: React.FC<LogoutProps> = ({ nickName, updateIsToken }) => {
           localStorage.removeItem("nickName");
           localStorage.removeItem("token");
           localStorage.removeItem("userId");
-          updateIsToken(false);
+          dispatch(logout());
           console.log(res);
 
           navigator("/");
@@ -48,7 +51,7 @@ const Logout: React.FC<LogoutProps> = ({ nickName, updateIsToken }) => {
           localStorage.removeItem("nickName");
           localStorage.removeItem("token");
           localStorage.removeItem("userId");
-          updateIsToken(false);
+          dispatch(logout());
 
           console.log(err);
 
