@@ -25,8 +25,8 @@ const categoryList: Category[] = [
           {categoryList.map((category) => (
             <StyledItem
               key={category.id}
-              selected={selectedCategory === category.name}
-              onClick={() => handleCategoryClick(category.name)}
+              selected={selectedCategory === category.text}
+              onClick={() => handleCategoryClick(category.text)}
             >
               <CategoryName>{category.text}</CategoryName>
             </StyledItem>
