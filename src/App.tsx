@@ -46,7 +46,6 @@ function App() {
         <Route path="/*" element={<AuthRouter userNickName={userNickName} />} />
         <Route path="/detail/:id" element={<div>상세페이지</div>} />
         <Route path="*" element={<div>404페이지</div>} />
-        <Route path="/placeslist" element={<PlacesList />} />
       </Routes>
     </div>
   );

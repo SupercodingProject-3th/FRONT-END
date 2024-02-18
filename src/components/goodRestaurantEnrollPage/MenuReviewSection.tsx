@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import StarRating from "./StarRating";
 
-import filledStar from "../../assets/icon/filled-star.svg";
-import halfStar from "../../assets/icon/half-star.svg";
-import outlineStar from "../../assets/icon/outline-star.svg";
 import { SOFT_BEIGE } from "../../styles/colors";
 
 interface MenuReviewSectionProps {
@@ -28,30 +24,6 @@ const MenuReviewSection: React.FC<MenuReviewSectionProps> = ({
         <Title>추천메뉴 조합</Title>
         <MenuTextarea placeholder="메뉴를 입력하세요" />
       </RecommendMenuWrapper>
-
-      <StarReviewWrapper>
-        <Title>리뷰 총평</Title>
-        <StarRating
-          rating={overallRating || 0}
-          onChange={handleOverallRatingChange}
-        />
-        <StarRatingUI>
-          {/* 별점에 따라 SVG 아이콘을 렌더링 */}
-          {[...Array(5)].map((_, index) => (
-            <StarImage
-              key={index}
-              src={
-                overallRating !== null && index < Math.floor(overallRating)
-                  ? filledStar
-                  : overallRating !== null && index < overallRating
-                  ? halfStar
-                  : outlineStar
-              }
-              alt="star"
-            />
-          ))}
-        </StarRatingUI>
-      </StarReviewWrapper>
     </StyledMenuReviewSection>
   );
 };
