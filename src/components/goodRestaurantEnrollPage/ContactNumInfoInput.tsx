@@ -1,31 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface RestaurantInfoInputProps {
+interface ContactNumInfoInputProps  {
   label: string;
   name: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const RestaurantInfoInput: React.FC<RestaurantInfoInputProps> = ({
-  label,  
+const  ContactNumInfoInput: React.FC<ContactNumInfoInputProps > = ({
+  label,
   name,
   value,
   onChange,
 }) => {
   return (
-    <RestaurantInfoInputWrapper>
+    <ContactNumInfoInputWrapper>
       <>
       <Label htmlFor={name}>{label}</Label>
       <Input type="text" id={name} name={name} value={value} onChange={onChange} />
       </>
-    </RestaurantInfoInputWrapper>
+    </ContactNumInfoInputWrapper>
   );
 };
 
-
-export default RestaurantInfoInput;
+export default  ContactNumInfoInput;
 
 const Label = styled.label`
   display: block;
@@ -49,7 +48,7 @@ const Input = styled.input`
 `;
 
 
-const RestaurantInfoInputWrapper = styled.div`
+const ContactNumInfoInputWrapper = styled.div`
   display: flex;
   gap: 10px; 
   flex-direction: row;
