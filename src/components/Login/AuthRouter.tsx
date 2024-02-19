@@ -12,6 +12,7 @@ import GetMyPosts from "../MyPage/GetMyPosts";
 import Redirect from "./Redirect";
 import Header from "../../shared/Header";
 import Footer from "../../shared/Footer";
+import MyPage from "../MyPage/MyPage";
 
 interface IsTokenProps {
   userNickName: string;
