@@ -9,8 +9,12 @@ import GoodRestaurantEnrollPage from "./pages/goodRestaurantEnrollPage/GoodResta
 import AuthRouter from "./components/Login/AuthRouter";
 import PlacesList from "./pages/PlacesList";
 import GoodRestaurantEditPage from "./pages/goodRestaurantEditPage/GoodRestaurantEditPage";
+
 import MapMainPage from "./components/kakaoMapMainPage/MapMainPage"
 import DetailPage from "./pages/detailPage";
+
+import MapMainPage from "./components/kakaoMapMainPage/MapMainPage";
+
 
 function App() {
   const [userNickName, setUserNickName] = useState("");
@@ -42,10 +46,14 @@ function App() {
           path="/goodrestaurantenroll"
           element={<GoodRestaurantEnrollPage />}
         />
+
         <Route
           path="/map"
           element={<MapMainPage/>}
         />
+
+
+        <Route path="/map" element={<MapMainPage />} />
 
         <Route path="/edit/:postId" element={<GoodRestaurantEditPage />} />
 
