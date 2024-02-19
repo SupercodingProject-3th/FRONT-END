@@ -8,7 +8,7 @@ import { deleteCommentData } from "./uselogic/deleteData";
 import { CommentBox, CommentContainer, CommentLeftBox, CommentLikeBox, CommentModifyBox, CommentRightBox, CommentTextBox } from "./CommentLayout";
 import { HeartIcon } from "../../shared/HeartIcon";
 import ChildCommentList from "./ChildCommentList";
-import { version } from "react-dom";
+import styled from "styled-components";
 
 
 interface CommentType{
@@ -45,22 +45,17 @@ const Comment = ({
   :CommentType
 ) => {
 
-  const [like, setLike] = useState<boolean|null>(null);
+  const [like, setLike] = useState<boolean|null>(user_like);
   const [modify, setModify] = useState<boolean>(false);
   const [replyContent, setReplyContent] = useState<string>(""); //수정창 인풋값
   const [showReply, setShowReply] = useState<boolean>(false);
-  console.log(user_like,comment_id,like)
   useEffect(()=>{
-    console.log(user_like,comment_id,like,page)
     setShowReply(false);}
 
     ,[page])
   //좋아요 클릭
   const clickLike = () => {
-    if(like===null){
-    setLike(!user_like);
-    }else{setLike(!like);
-   }
+    setLike(like);
    fetchCommentLikeData(comment_id)
   };
  
@@ -102,16 +97,9 @@ const Comment = ({
           <BlackText size={"18px"}>{user_id}</BlackText>
           {(modify && (
             <div style={{ display: "flex", width: "100%", gap: "5px" }}>
-              <input value={replyContent} onChange={handleReplyChange}
-                style={{
-                  display: "flex",
-                  width: "80%",
-                  height: "50%",
-                  borderStyle: "none",
-                  border: "none",
-                  fontSize: "20px",
-                }}
-              ></input>
+              <ModifyInputContent value={replyContent} onChange={handleReplyChange}
+             
+              ></ModifyInputContent>
               <GrayBtn  onClick={clickSendComment}>수정</GrayBtn>
             </div>
           )) || <BlackText size={"15px"}>{content}</BlackText>}
@@ -150,3 +138,15 @@ const Comment = ({
 
 
 export default Comment
+
+
+ const ModifyInputContent =styled.input`
+ display:flex;
+ width:80%;
+ height:50%;
+  border-style: none;
+  border: none;
+  font-size: 20px;
+:focus{
+  outline: none;
+}`

@@ -6,7 +6,7 @@ const RelativePosting = ({postId}:{postId:number}) => {
   return (
     <Box>
     <div style={{width:'100%', display:"flex",alignItems:'end',gap:'10px'}}>
-      <div style={{fontSize:"30px",fontWeight:'bolder',color:"#FEAA00"}}>떡도리탕</div>
+      <YellowText > 맛집</YellowText>
       <BlackText bold={true} size={'20px'}>관련글...</BlackText>
     </div>
       <RelativePostingBox postId={postId}></RelativePostingBox>
@@ -26,4 +26,10 @@ const Box = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+`;
+
+const YellowText = styled.span`
+font-size:30px;
+font-weight:bolder;
+color: #FEAA00;
 `;

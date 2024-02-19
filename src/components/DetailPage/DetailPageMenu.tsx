@@ -44,7 +44,7 @@ const DetailPageMenu:React.FC<DetailPageMenuType>  = ({postId,viewCount,favorite
             <StyledLink to="/">수정</StyledLink>
               <BlackBtn>삭제</BlackBtn>
             </StyledDiv>}
-            <div>{updateAt!==null?updateAt:createAt}</div>
+            <div>{updateAt!==null?updateAt.slice(0, 10):createAt.slice(0, 10)}</div>
           </StyledDiv>
           <StyledDiv>
           <StyledDiv>

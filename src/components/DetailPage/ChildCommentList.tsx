@@ -56,7 +56,6 @@ const ChildCommentList: React.FC<CommentListProps> = ({
 
 
   const backchangePage=()=>{
-    console.log("작동중")
       setPage(page-1)
       console.log(page)
     }

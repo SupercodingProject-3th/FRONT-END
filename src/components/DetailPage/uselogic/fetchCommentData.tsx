@@ -87,15 +87,16 @@ export async function postComment(
   comment_id?:number
 ){
   const token =localStorage.getItem("token");
-  if(typeof comment_id !==undefined){
+  if(typeof comment_id ==="number"){
+    console.log(typeof comment_id,comment_id)
 
   try {
     const response: AxiosResponse<putAndPostCommentType> =
       await axios.post<putAndPostCommentType>(
         `https://www.onesol.shop/v1/api/comment/add`, {
           postId:postId,
-          content:content,
-          parentCommentId:comment_id
+          parentCommentId:comment_id,
+          content:content
         },
         {headers: {
           Token: token

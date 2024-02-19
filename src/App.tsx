@@ -8,7 +8,6 @@ import store from "./store/store";
 import MainPage from "./pages/mainPage/MainPage";
 import GoodRestaurantEnrollPage from "./pages/goodRestaurantEnrollPage/GoodRestaurantEnrollPage";
 import AuthRouter from "./components/Login/AuthRouter";
-import PlacesList from "./pages/PlacesList";
 import DetailPage from "./pages/detailPage";
 
 function App() {

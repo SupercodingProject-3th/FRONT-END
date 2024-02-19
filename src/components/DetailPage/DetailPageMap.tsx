@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect } from 'react';
 
 declare global {
   interface Window {
@@ -18,7 +18,7 @@ const DetailPageMap:React.FC<DetailPageMap> = ({latitude,longitude,name}) => {
       // 이미지 지도에 표시할 마커는 Object 형태입니다
       var marker = {
           position: markerPosition,
-          text:name// text 옵션을 설정하면 마커 위에 텍스트를 함께 표시할 수 있습니다
+          text:name
 
       };
       var staticMapContainer  = document.getElementById('staticMap'); // 이미지 지도를 표시할 div  
@@ -29,9 +29,6 @@ const DetailPageMap:React.FC<DetailPageMap> = ({latitude,longitude,name}) => {
           };    
 
       var staticMap = new window.kakao.maps.StaticMap(staticMapContainer, staticMapOption);
-
-      console.log(latitude,longitude)
-
   }, [latitude,longitude])
 
 return (

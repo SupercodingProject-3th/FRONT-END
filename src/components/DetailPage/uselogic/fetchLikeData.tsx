@@ -23,7 +23,6 @@ export async function fetchCommentLikeData(
           Token: token
       }}
       );
-      console.log("데이터를 가져오기 성공", response);
   } catch (error) {
     console.error("데이터를 가져오는 중에 오류 발생:", error);
     throw error;
@@ -50,7 +49,6 @@ export async function checkPostLikeData(
       {headers:{
         Token: token}
     });
-      console.error("데이터를 가져오기 성공! ",response);
       return response.data
   } catch (error) {
     console.error("데이터를 가져오는 중에 오류 발생:", error);

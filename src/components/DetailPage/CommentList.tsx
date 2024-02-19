@@ -1,38 +1,13 @@
 
 import React, { useEffect, useState } from "react";
 import {useSearchParams } from 'react-router-dom';
-
-import { ImgBox } from "../../shared/Imgbox";
-import { BlackText, GrayBtn, GrayText } from "../../shared/Text";
 import { useNavigate } from "react-router-dom";
 import { CommentResponse, fetchCommetData } from "./uselogic/fetchCommentData";
 import Comment from "./Comment";
 import { PageNationBox } from "./PageNationBtn";
 import CommentInput from "./CommentInput";
-import styled from "styled-components";
-import ChildCommentList from "./ChildCommentList";
-import { Link } from "react-router-dom";
 
 
-interface CommentType {
-  user_id: number;
-  comment_id: number;
-  parent_comment_id?: number;
-  content: string;
-  like_count: number;
-  create_date: string;
-  update_date: string | null;
-  postId: number;
-  toggleReplyInput?: () => void;
-  clickLike?: () => void;
-  clickModify?: () => void;
-  contact_user:number;
-  like: boolean;
-  profile_img?: string;
-  showReplyInput?: boolean;
-  modify?: Boolean
-  user_like:boolean;
-}
 
 interface  CommentListProps {
   postId: number;
@@ -118,9 +93,7 @@ const CommentList: React.FC<CommentListProps> = ({
       
         )})}
         <PageNationBox last={commentpageDataLast} first={commentpageDataFirst} commentpageData={commentpageData} backchangePage={backchangePage} frontchangePage={frontchangePage}></PageNationBox>
-        {child?<CommentInput postId={postId} comment_id={comment_id} user_id={contact_user} ></CommentInput>:<CommentInput postId={postId} user_id={contact_user} ></CommentInput>}
-
-
+        <CommentInput postId={postId} user_id={contact_user} ></CommentInput>
     </div>
   );
 };

@@ -4,7 +4,6 @@ import DetailPageSimpleData from './DetailPageSimpleData';
 import { DetailPageDetailData, DetailPageDetailDataType } from './DetailPageDetailData';
 import DetailPageMap from './DetailPageMap';
 import { DetailDataType, fetchDetailData } from './uselogic/fetchDetailData';
-import makeDetailData from './uselogic/makeDetailData';
 import DetailPageImgBox from './DetailPageImgBox';
 
 const DetailPageSummary: React.FC<{postId:number,userId:number}>  = ({postId,userId}) => {
