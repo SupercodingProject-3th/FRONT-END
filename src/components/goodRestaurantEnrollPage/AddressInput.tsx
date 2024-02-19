@@ -92,9 +92,11 @@ const AddressInput: React.FC<AddressInputProps> = ({
       .then((data) => {
         // 여기서 받은 데이터를 처리합니다.
         console.log("경도 위도 테스트 data", data);
-        console.log("경도 위도 테스트 data.documents[0].x", data.documents[0].x); //드디어됨...
-        console.log("경도 위도 테스트 data.documents[0].y", data.documents[0].y); //드디어됨...
+        console.log("경도 위도 테스트 data.documents[0].x", data.documents[0].x); 
+        console.log("경도 위도 테스트 data.documents[0].y", data.documents[0].y); 
+        console.log("경도 위도 테스트 data.documents[0].address_name", data.documents[0].address_name); 
         onCoordinateChange({ latitude: data.documents[0].y, longitude: data.documents[0].x });
+        onChange(data.documents[0].address_name);
         
       })
       .catch((error) => {
