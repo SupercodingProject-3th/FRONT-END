@@ -1,13 +1,11 @@
-export interface PostContent {
-    category: string;
-    createAt: string;
-    favoriteCount: number;
-    favoriteYn: string;
-    mainPhoto: string;
-    menu: string;
+ export interface PostContent {
     name: string;
-    neighborhood: string;
-    postId: number;
-    userId: null;
-    viewCount: number;
+    address: string;
+    detailAddress: string;
+    latitude: string;
+    longitude: string;
+    category: string;
+    contactNum: string;
+    menu: string;
+    content: string;
   }

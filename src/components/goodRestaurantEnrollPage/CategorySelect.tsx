@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const CategorySelect: React.FC = () => {
+const CategorySelect: React.FC<{ onCategoryChange: (selectedCategory: string) => void }> = ({ onCategoryChange }) => {
   const [category, setCategory] = useState("");
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCategory(e.target.value);
+    const selectedCategory = e.target.value;
+    setCategory(selectedCategory); // 카테고리 상태 업데이트
+    onCategoryChange(selectedCategory); // 부모 컴포넌트로 선택된 카테고리 전달
   };
 
   return (
@@ -17,7 +19,7 @@ const CategorySelect: React.FC = () => {
         id="category"
         name="category"
         value={category}
-        onChange={handleCategoryChange}
+        onChange={handleCategoryChange} 
       >
         <StyledOption value="">카테고리를 선택하세요</StyledOption>
         <StyledOption value="한식">한식</StyledOption>

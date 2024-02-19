@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import axios from "axios";
 
 import Header from "../../shared/Header";
 import Footer from "../../shared/Footer";
@@ -16,44 +19,98 @@ import ScrollToTopButton from "../../shared/ScrollTopButton";
 import QuillEditor from "../../components/goodRestaurantEnrollPage/QuillEditor";
 import FileUpload from "../../components/goodRestaurantEnrollPage/FileUpload";
 import { DARK_GREY, WHITE, SOFT_BEIGE } from "../../styles/colors";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
-import axios from "axios";
+import ContactNumInfoInput from "../../components/goodRestaurantEnrollPage/ContactNumInfoInput";
 
 const GoodRestaurantEnrollPage: React.FC = () => {
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
+
+  const token = localStorage.getItem("token");
   const [selectedimageFiles, setSelectedImageFiles] = useState<File[]>([]);
+
+  const handleCategoryChange = (selectedCategory: string) => {
+    setRestaurantInfo({
+      ...restaurantInfo,
+      category: selectedCategory,
+    });
+  };
+
+  const [selectedAddress, setSelectedAddress] = useState("");
+
+  const [selectedCoordinates, setSelectedCoordinates] = useState<{
+    latitude: string;
+    longitude: string;
+  }>({
+    latitude: "",
+    longitude: "",
+  });
+
+  const handleContentChange = (content: string) => {
+    setRestaurantInfo({
+      ...restaurantInfo,
+      content: content, // 사용자가 작성한 내용을 content로 업데이트합니다.
+    });
+  };
 
   const handleFileChange = (files: FileList | null) => {
     if (files) {
-      setSelectedImageFiles([...selectedimageFiles, ...Array.from(files)]); 
+      setSelectedImageFiles([...selectedimageFiles, ...Array.from(files)]);
     }
   };
 
+  const formData = new FormData();
+
+  selectedimageFiles.forEach((file, index) => {
+    formData.append(`images[${index}]`, file);
+    formData.append(
+      "images",
+      new Blob([JSON.stringify(formData)], { type: "application/json" })
+    );
+  });
+
+  // JSON 데이터를 formData에 추가합니다.
+  const jsonData = {
+    name: "간장떡볶이",
+    address: "대전광역시 강남구 강남대로152길 64",
+    detailAddress: "B103호",
+    latitude: "33.25144684054",
+    longitude: "126.50972692876",
+    category: "한식",
+    contactNum: "02-738-3383",
+    menu: "떡볶이",
+    content: "맛있어요",
+  };
+
+  formData.append(
+    "data",
+    new Blob([JSON.stringify(jsonData)], { type: "application/json" })
+  );
+
   const handleRegister = async () => {
     try {
-      const formData = new FormData();
-      formData.append("name", restaurantInfo.title);
-      formData.append("address", restaurantInfo.address);
-      formData.append("detailAddress", restaurantInfo.detailAddress);
-      formData.append("latitude", "33.25144684054");
-      formData.append("longitude", "126.50972692876");
-      formData.append("category", restaurantInfo.category);
-      formData.append("contactNum", restaurantInfo.contact);
-      formData.append("menu", restaurantInfo.menu);
-      formData.append("content", "맛있어요");
-
-      selectedimageFiles.forEach((file, index) => {
-        formData.append(`images[${index}]`, file);
-      });
-
-      const response = await axios.post("/v1/api/reg-post", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.post(
+        "https://www.onesol.shop/v1/api/reg-post",
+        formData,
+        {
+          headers: {
+            Token: token,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       console.log("백엔드로부터의 응답:", response.data);
-    } catch (error) {
+      alert("맛집목록등록에 성공했습니다.");
+      window.location.reload();
+    } catch (error: any) {
       console.error("오류 발생:", error);
+
+      if (error.response) {
+        console.log("에러 응답:", error.response.data);
+        console.log("사용자 입력 내용:", restaurantInfo);
+      } else {
+        console.log("오류 응답이 없습니다.");
+      }
     }
   };
 
@@ -62,28 +119,16 @@ const GoodRestaurantEnrollPage: React.FC = () => {
   );
 
   const [restaurantInfo, setRestaurantInfo] = useState({
-    title: "",
     name: "",
-    contact: "",
     address: "",
     category: "",
+    contactNum: "",
     detailAddress: "",
     menu: "",
+    content: "",
   });
 
   const { postId = "" } = useParams<{ postId?: string }>(); // postId의 초기값을 ''로 설정
-  const [overallRating, setOverallRating] = useState<number | null>(0);
-
-  const handleOverallRatingChange = (value: number | null) => {
-    setOverallRating(value);  
-  };
-
-  const handleInputChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRestaurantInfo({
-      ...restaurantInfo,
-      [e.target.title]: e.target.value,
-    });
-  };
 
   const handleInputChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRestaurantInfo({
@@ -92,10 +137,35 @@ const GoodRestaurantEnrollPage: React.FC = () => {
     });
   };
 
-  const handleInputChangeDetailAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChangeAddress = (newAddress: string) => {
+    setRestaurantInfo({
+      ...restaurantInfo,
+      address: newAddress,
+    });
+  };
+
+  const handleInputChangeDetailAddress = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRestaurantInfo({
       ...restaurantInfo,
       detailAddress: e.target.value,
+    });
+  };
+
+  const handleInputChangeContactNum = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setRestaurantInfo({
+      ...restaurantInfo,
+      contactNum: e.target.value,
+    });
+  };
+
+  const handleInputChangeMenu = (updatedMenu: string) => {
+    setRestaurantInfo({
+      ...restaurantInfo,
+      menu: updatedMenu,
     });
   };
 
@@ -106,20 +176,23 @@ const GoodRestaurantEnrollPage: React.FC = () => {
         <RestaurantInfoSectionWrapper>
           <PageTitle />
           <RestaurantInfoSection>
-            <RestaurantInfoInput
-              label="게시글 제목"
-              name="title"
-              value={restaurantInfo.title}
-              onChange={handleInputChangeTitle}
-            />
-            <CategorySelect />
+            <CategorySelect onCategoryChange={handleCategoryChange} />
             <RestaurantInfoInput
               label="가게명"
               name="name"
               value={restaurantInfo.name}
               onChange={handleInputChangeName}
             />
-            <AddressInput />
+            <ContactNumInfoInput
+              label="연락처"
+              name="contactNum"
+              value={restaurantInfo.contactNum}
+              onChange={handleInputChangeContactNum}
+            />
+            <AddressInput
+              onCoordinateChange={setSelectedCoordinates}
+              onChange={handleInputChangeAddress}
+            />
             <DetailAddressInfoInput
               label="상세주소"
               name="detailAddress"
@@ -130,27 +203,24 @@ const GoodRestaurantEnrollPage: React.FC = () => {
         </RestaurantInfoSectionWrapper>
         <QuillAndFileUploadWrapper>
           <QuillEditorWrapper>
-            <QuillEditor />
+            <QuillEditor onContentChange={handleContentChange} />
           </QuillEditorWrapper>
           <FileUploadWrapper>
             <FileUpload
               selectedFiles={selectedimageFiles}
               onFileSelect={handleFileChange}
             />
-             <FileUpload
+            <FileUpload
               selectedFiles={selectedimageFiles}
               onFileSelect={handleFileChange}
             />
-             <FileUpload
+            <FileUpload
               selectedFiles={selectedimageFiles}
               onFileSelect={handleFileChange}
             />
           </FileUploadWrapper>
         </QuillAndFileUploadWrapper>
-        <MenuReviewSection
-          rating={overallRating}
-          onChange={handleOverallRatingChange}
-        />
+        <MenuReviewSection onChange={handleInputChangeMenu} />
         <ButtonSection postId={postId} onRegister={handleRegister} />
         <ScrollToTopButton />
       </Wrapper>

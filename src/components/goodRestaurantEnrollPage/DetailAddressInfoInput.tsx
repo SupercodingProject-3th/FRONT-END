@@ -24,7 +24,6 @@ const  DetailAddressInfoInput: React.FC<DetailAddressInfoInputProps > = ({
   );
 };
 
-
 export default  DetailAddressInfoInput;
 
 const Label = styled.label`
