@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { BlackText } from "../../shared/Text";
 import { HeartIcon } from "../../shared/HeartIcon";
 
@@ -11,9 +12,10 @@ interface  PostingCardType {
   viewCount: number;
 
 }
-const RelativePostingCard: React.FC<PostingCardType>= ({name,category,mainPhoto,viewCount}:PostingCardType) => {
+const RelativePostingCard: React.FC<PostingCardType>= ({name,category,mainPhoto,viewCount,postid}:PostingCardType) => {
+  const navigate = useNavigate();
   return (
-    <Box>
+    <Box onClick={()=>{navigate(`/detail?postId=${postid}&page=0`);}}>
       <ImgBox>
         <img src={mainPhoto}/>
       </ImgBox>

@@ -10,7 +10,7 @@ type DetailPageImgBoxType = {postPhotoDtos:{
 
 const DetailPageImgBox: React.FC<DetailPageImgBoxType> = ({postPhotoDtos}) => {
   return (
-    <div  style={{display:'flex',gap:"10px",width:"100%",height:"100%"}}>
+    <div  style={{display:'flex',gap:"10px",width:"100%",height:"100%",paddingBottom:"30px"}}>
       {postPhotoDtos.map((item, index) => (
         <div key={index}  style={{width:"15%",height:"20%"}}>
         <img src={item.photo}  style={{width:"100%",height:"100%"}}></img>

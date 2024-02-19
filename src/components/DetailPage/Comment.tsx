@@ -55,7 +55,7 @@ const Comment = ({
     ,[page])
   //좋아요 클릭
   const clickLike = () => {
-    setLike(like);
+    setLike(!like);
    fetchCommentLikeData(comment_id)
   };
  
@@ -84,6 +84,7 @@ const Comment = ({
   //삭제 클릭
   const clickDelete=()=>{
     deleteCommentData(comment_id)
+    window.location.reload();
   }
   return ( 
   <CommentContainer>
@@ -143,7 +144,7 @@ export default Comment
  const ModifyInputContent =styled.input`
  display:flex;
  width:80%;
- height:50%;
+ height:80%;
   border-style: none;
   border: none;
   font-size: 20px;

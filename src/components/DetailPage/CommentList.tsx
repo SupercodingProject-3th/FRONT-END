@@ -28,25 +28,20 @@ const CommentList: React.FC<CommentListProps> = ({
   const [searchParams, setSearchParams] = useSearchParams();
   const page=Number(searchParams.get('page'))
     const navigate = useNavigate();
+
+  //이전 페이지로 
     const backchangePage=()=>{
     const nextPage =`${page -1}`;
     const currebtPostId = `${postId}`;
     //changePage(currebtPostId,nextPage);
     navigate(`/detail?postId=${currebtPostId}&page=${nextPage}`); // URL 경로 변경
-
-    ;
-
-    
-      ;}
-
+  ;}
+  //다음 페이지로 
     const frontchangePage=()=>{
       const nextPage =`${page + 1}`;
       const currebtPostId = `${postId}`;
       //changePage(currebtPostId,nextPage);
       navigate(`/detail?postId=${currebtPostId}&page=${nextPage}`); // URL 경로 변경
-
-      ;
-
     }
 
  

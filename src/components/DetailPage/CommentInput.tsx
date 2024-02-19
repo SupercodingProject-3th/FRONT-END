@@ -29,6 +29,8 @@ const CommentInput: React.FC<CommentInputProps> = ({
     const sendPutComment=()=>{
       postComment(postId,replyContent,comment_id)
       setReplyContent("")
+      window.location.reload();
+
     }
   return (
     <CommentInputBox
