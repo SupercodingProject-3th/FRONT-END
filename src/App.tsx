@@ -9,7 +9,12 @@ import GoodRestaurantEnrollPage from "./pages/goodRestaurantEnrollPage/GoodResta
 import AuthRouter from "./components/Login/AuthRouter";
 import PlacesList from "./pages/PlacesList";
 import GoodRestaurantEditPage from "./pages/goodRestaurantEditPage/GoodRestaurantEditPage";
+
+import MapMainPage from "./components/kakaoMapMainPage/MapMainPage"
+import DetailPage from "./pages/detailPage";
+
 import MapMainPage from "./components/kakaoMapMainPage/MapMainPage";
+
 
 function App() {
   const [userNickName, setUserNickName] = useState("");
@@ -42,12 +47,18 @@ function App() {
           element={<GoodRestaurantEnrollPage />}
         />
 
+        <Route
+          path="/map"
+          element={<MapMainPage/>}
+        />
+
+
         <Route path="/map" element={<MapMainPage />} />
 
         <Route path="/edit/:postId" element={<GoodRestaurantEditPage />} />
 
         <Route path="/*" element={<AuthRouter userNickName={userNickName} />} />
-        <Route path="/detail/:id" element={<div>상세페이지</div>} />
+        <Route path="/detail/:id" element={<DetailPage/>} />
         <Route path="*" element={<div>404페이지</div>} />
         <Route path="/placeslist" element={<PlacesList />} />
       </Routes>
