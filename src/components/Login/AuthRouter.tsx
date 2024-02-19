@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import Login from "./Login";
 import LoginError from "./LoginError";
 import Logout from "./Logout";
-import MyPage from "../MyPage/MyPage";
+
 import Signup from "../Signup/Signup";
 import FindPassword from "./FindPassword";
 import FindEmail from "./FindEmail";
@@ -13,6 +13,7 @@ import GetMyPosts from "../MyPage/GetMyPosts";
 import Redirect from "./Redirect";
 import Header from "../../shared/Header";
 import Footer from "../../shared/Footer";
+import MyPage from "../MyPage/MyPage";
 
 interface IsTokenProps {
   userNickName: string;
