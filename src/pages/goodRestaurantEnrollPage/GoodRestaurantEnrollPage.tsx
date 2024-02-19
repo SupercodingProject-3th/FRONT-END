@@ -126,6 +126,8 @@ const GoodRestaurantEnrollPage: React.FC = () => {
     detailAddress: "",
     menu: "",
     content: "",
+    latitude: "",
+    longitude: "",
   });
 
   const { postId = "" } = useParams<{ postId?: string }>(); // postId의 초기값을 ''로 설정
@@ -169,6 +171,18 @@ const GoodRestaurantEnrollPage: React.FC = () => {
     });
   };
 
+  const handleCoordinateChange = (coordinates: {
+    latitude: string;
+    longitude: string;
+  }) => {
+    setRestaurantInfo({
+      ...restaurantInfo,
+      latitude: coordinates.latitude,
+      longitude: coordinates.longitude,
+    });
+
+  };
+
   return (
     <StyledGoodRestrauntPage isDarkMode={isDarkMode}>
       <Header />
@@ -190,8 +204,8 @@ const GoodRestaurantEnrollPage: React.FC = () => {
               onChange={handleInputChangeContactNum}
             />
             <AddressInput
-              onCoordinateChange={setSelectedCoordinates}
-              onChange={handleInputChangeAddress}
+              onCoordinateChange={handleCoordinateChange} // 위도와 경도를 받아오는 핸들러 함수
+              onChange={handleInputChangeAddress} // 주소가 변경될 때 호출되는 핸들러 함수
             />
             <DetailAddressInfoInput
               label="상세주소"
