@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Postcode from "@actbase/react-daum-postcode";
+import REST_API from "../../constant/config";
 
 //onChange 핸들러는 주소 입력란의 값이 변경될 때 호출되고, onAddressChange 핸들러는 주소가 선택되었을 때 호출
 interface AddressInputProps {
@@ -17,19 +18,17 @@ const AddressInput: React.FC<AddressInputProps> = ({
 }) => {
   const [address, setAddress] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchKeyword, setSearchKeyword] =
+    useState<string>("맛집을 검색해보세요");
 
   const handleAddressInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newAddress = e.target.value;
     setAddress(newAddress);
     onChange(newAddress);
   };
-  // 사용자가 주소를 선택했을 때 호출되는 함수
-  const handleSelectedAddress = (data: any) => {
-    const { x, y, address: selectedAddress } = data;
-    setAddress(selectedAddress); // 선택된 주소로 주소 상태를 업데이트합니다.
-    onChange(selectedAddress); // 선택된 주소를 상위 컴포넌트로 전달합니다. 이게 원인
-    onCoordinateChange({ latitude: y, longitude: x }); // 선택한 주소의 좌표 정보를 상위 컴포넌트로 전달합니다.
-    handleCloseModal();
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchKeyword(e.target.value);
   };
 
   const handleCloseModal = () => {
@@ -42,6 +41,41 @@ const AddressInput: React.FC<AddressInputProps> = ({
     }
   };
 
+  const handleSelectedAddress = (data: any) => {
+    const { x, y, address: selectedAddress } = data;
+    // 선택된 주소 정보를 상태에 업데이트하고 상위 컴포넌트로 전달
+    setAddress(selectedAddress); // 선택된 주소로 주소 상태를 업데이트합니다.
+    setSearchKeyword(selectedAddress);
+    onCoordinateChange({ latitude: y, longitude: x }); // 선택한 주소의 좌표 정보를 상위 컴포넌트로 전달합니다.
+    console.log("휴...x,y 테스트", x,y);
+    onChange(selectedAddress); // 선택된 주소를 상위 컴포넌트로 전달합니다. 이게 원인
+
+    // 선택된 주소를 정보를 기반으로 API 요청 보냄, 경도 위도 받기위해
+    fetch(`https://dapi.kakao.com/v2/local/search/address.json?query=${encodeURIComponent(selectedAddress)}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `KakaoAK ${REST_API}`
+      }
+    })
+
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      // 여기서 받은 데이터를 처리합니다.
+      console.log("경도 위도 테스트", data);
+    })
+    .catch(error => {
+      console.error('There was a problem with your fetch operation:', error);
+    })
+    .finally(() => {
+      handleCloseModal();
+    });
+  };
+
   return (
     <Wrapper>
       <AddressWrapper>
@@ -50,8 +84,8 @@ const AddressInput: React.FC<AddressInputProps> = ({
           type="text"
           id="address"
           name="address"
-          value={address}
-          onChange={handleAddressInputChange}
+          value={searchKeyword}
+          onChange={handleInputChange}
         />
         <Button type="button" onClick={handleSearchAddress}>
           주소 검색
@@ -62,12 +96,12 @@ const AddressInput: React.FC<AddressInputProps> = ({
         <ModalContainer>
           <PostcodeModal>
             <CloseButton onClick={handleCloseModal}>Close</CloseButton>{" "}
-            {/* 이 부분이 추가되었습니다. */}
             <Postcode
               style={{ width: 400, height: 100 }}
               jsOptions={{ animation: true, hideMapBtn: true }}
               onSelected={(data) => {
-                alert(JSON.stringify(data));
+                alert("주소를 성공적으로 선택했습니다: " + JSON.stringify(data));
+                console.log(JSON.stringify(data));  
                 handleSelectedAddress(data);
                 handleCloseModal();
               }}
