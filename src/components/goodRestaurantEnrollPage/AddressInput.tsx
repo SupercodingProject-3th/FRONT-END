@@ -41,39 +41,68 @@ const AddressInput: React.FC<AddressInputProps> = ({
     }
   };
 
+ 
   const handleSelectedAddress = (data: any) => {
-    const { x, y, address: selectedAddress } = data;
+    const documents = data.documents;
+    let x: any, y: any;
+
+    if (documents && documents.length > 0) {
+      const { x, y } = documents[0]; // documents 배열의 첫 번째 요소에서 x와 y 값을 추출합니다.
+      console.log("경도:", x);
+      console.log("위도:", y);
+
+      onCoordinateChange({ latitude: y, longitude: x });
+    } else {
+      console.error("No documents found.");
+      // 좌표 값이 없을 경우에는 기본값으로 함수 호출
+      onCoordinateChange({
+        latitude: "기본 위도 값",
+        longitude: "기본 경도 값",
+      });
+    }
+
+    console.log("경도:", x);
+    console.log("위도:", y);
+
+    const { address: selectedAddress } = data;
     // 선택된 주소 정보를 상태에 업데이트하고 상위 컴포넌트로 전달
     setAddress(selectedAddress); // 선택된 주소로 주소 상태를 업데이트합니다.
     setSearchKeyword(selectedAddress);
-    onCoordinateChange({ latitude: y, longitude: x }); // 선택한 주소의 좌표 정보를 상위 컴포넌트로 전달합니다.
-    console.log("휴...x,y 테스트", x,y);
+    console.log("휴...x,y 테스트", x, y);
     onChange(selectedAddress); // 선택된 주소를 상위 컴포넌트로 전달합니다. 이게 원인
 
     // 선택된 주소를 정보를 기반으로 API 요청 보냄, 경도 위도 받기위해
-    fetch(`https://dapi.kakao.com/v2/local/search/address.json?query=${encodeURIComponent(selectedAddress)}`, {
-      method: 'GET',
-      headers: {
-        'Authorization': `KakaoAK ${REST_API}`
+    fetch(
+      `https://dapi.kakao.com/v2/local/search/address.json?query=${encodeURIComponent(
+        selectedAddress
+      )}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `KakaoAK ${REST_API}`,
+        },
       }
-    })
-
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      // 여기서 받은 데이터를 처리합니다.
-      console.log("경도 위도 테스트", data);
-    })
-    .catch(error => {
-      console.error('There was a problem with your fetch operation:', error);
-    })
-    .finally(() => {
-      handleCloseModal();
-    });
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // 여기서 받은 데이터를 처리합니다.
+        console.log("경도 위도 테스트 data", data);
+        console.log("경도 위도 테스트 data.documents[0].x", data.documents[0].x); //드디어됨...
+        console.log("경도 위도 테스트 data.documents[0].y", data.documents[0].y); //드디어됨...
+        onCoordinateChange({ latitude: data.documents[0].y, longitude: data.documents[0].x });
+        
+      })
+      .catch((error) => {
+        console.error("There was a problem with your fetch operation:", error);
+      })
+      .finally(() => {
+        handleCloseModal();
+      });
   };
 
   return (
@@ -100,8 +129,10 @@ const AddressInput: React.FC<AddressInputProps> = ({
               style={{ width: 400, height: 100 }}
               jsOptions={{ animation: true, hideMapBtn: true }}
               onSelected={(data) => {
-                alert("주소를 성공적으로 선택했습니다: " + JSON.stringify(data));
-                console.log(JSON.stringify(data));  
+                alert(
+                  "주소를 성공적으로 선택했습니다: " + JSON.stringify(data)
+                );
+                console.log(JSON.stringify(data));
                 handleSelectedAddress(data);
                 handleCloseModal();
               }}

@@ -180,6 +180,7 @@ const GoodRestaurantEnrollPage: React.FC = () => {
       latitude: coordinates.latitude,
       longitude: coordinates.longitude,
     });
+
   };
 
   return (
