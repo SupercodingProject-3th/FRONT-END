@@ -4,7 +4,10 @@ import Postcode from "@actbase/react-daum-postcode";
 
 //onChange 핸들러는 주소 입력란의 값이 변경될 때 호출되고, onAddressChange 핸들러는 주소가 선택되었을 때 호출
 interface AddressInputProps {
-  onCoordinateChange: (coordinates: { latitude: string; longitude: string }) => void;
+  onCoordinateChange: (coordinates: {
+    latitude: string;
+    longitude: string;
+  }) => void;
   onChange: (address: string) => void; // 수정된 부분
 }
 
@@ -18,7 +21,7 @@ const AddressInput: React.FC<AddressInputProps> = ({
   const handleAddressInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newAddress = e.target.value;
     setAddress(newAddress);
-    onChange(newAddress); 
+    onChange(newAddress);
   };
   // 사용자가 주소를 선택했을 때 호출되는 함수
   const handleSelectedAddress = (data: any) => {
@@ -48,7 +51,7 @@ const AddressInput: React.FC<AddressInputProps> = ({
           id="address"
           name="address"
           value={address}
-          onChange={handleAddressInputChange}     
+          onChange={handleAddressInputChange}
         />
         <Button type="button" onClick={handleSearchAddress}>
           주소 검색
@@ -58,6 +61,8 @@ const AddressInput: React.FC<AddressInputProps> = ({
       {isModalOpen && (
         <ModalContainer>
           <PostcodeModal>
+            <CloseButton onClick={handleCloseModal}>Close</CloseButton>{" "}
+            {/* 이 부분이 추가되었습니다. */}
             <Postcode
               style={{ width: 400, height: 100 }}
               jsOptions={{ animation: true, hideMapBtn: true }}
@@ -147,6 +152,17 @@ const ModalContainer = styled.div`
 const PostcodeModal = styled.div`
   padding: 20px;
   border-radius: 8px;
+`;
+
+const CloseButton = styled.button`
+  width: 100%;
+  height: 2%;
+  font-size: 14px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 `;
 
 export default AddressInput;
