@@ -9,6 +9,7 @@ import MainPage from "./pages/mainPage/MainPage";
 import GoodRestaurantEnrollPage from "./pages/goodRestaurantEnrollPage/GoodRestaurantEnrollPage";
 import AuthRouter from "./components/Login/AuthRouter";
 import PlacesList from "./pages/PlacesList";
+import DetailPage from "./pages/detailPage";
 
 function App() {
   const [isToken, setIsToken] = useState(false);
@@ -63,7 +64,7 @@ function App() {
                   />
                 }
               />
-              <Route path="/detail/:id" element={<div>상세페이지</div>} />
+              <Route path="/detail" element={<DetailPage/>} />
               <Route path="*" element={<div>404페이지</div>} />
             </Routes>
           </>
@@ -97,7 +98,7 @@ function App() {
                   />
                 }
               />
-              <Route path="/detail/:id" element={<div>상세페이지</div>} />
+              <Route path="/detail/:id" element={<DetailPage/>} />
               <Route path="*" element={<div>404페이지</div>} />
             </Routes>
           </>
