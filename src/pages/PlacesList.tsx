@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,Suspense } from 'react';
 import styled from 'styled-components';
 import MenuCategory from '../components/placeList/MenuCategory';
 import AreaFilter from '../components/placeList/AreaFilter';
@@ -17,11 +17,14 @@ const PlacesList: React.FC = () => {
         <MenuFilter selectedOrder={selectedOrder} setSelectedOrder={setSelectedOrder} />
       </Wrapper>
       <MenuCategory selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
-      <PlaceCardGrid
-        selectedLocation={selectedLocation}
-        selectedCategory={selectedCategory}
-        selectedOrder={selectedOrder}
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <PlaceCardGrid
+          selectedLocation={selectedLocation}
+          selectedCategory={selectedCategory}
+          selectedOrder={selectedOrder}
+        />
+      </Suspense>
+      
     </Container>
   );
 };

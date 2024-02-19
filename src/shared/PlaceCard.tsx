@@ -6,8 +6,8 @@ import LikeButton from './LikeButton';
 import {RootState} from '../store/store';
 
 const PlaceCard: React.FC<Place& { size?: string}> = ({ 
-    title, category,liked:initialLiked, image, size})=> {
-    const [liked, setLiked] = useState(initialLiked);
+  postId, name, category,mainPhoto,favoriteYn:initialLiked, userId, size})=> {
+    const [liked, setLiked] = useState(initialLiked === "Y");
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
     const toggleHandler=()=>{
       if(!isAuthenticated){
@@ -18,10 +18,10 @@ const PlaceCard: React.FC<Place& { size?: string}> = ({
     };
     return (
       <CardContainer size={size}>
-        <Image src={image} alt={title} size={size} /> 
+        <Image src={mainPhoto} alt={name} size={size} /> 
         <ContentContainer>
           <ContentWrapper>
-            <Title>{title}</Title>
+            <Title>{name}</Title>
             <LikeButton liked={liked} onToggleLike={toggleHandler} />
           </ContentWrapper>
           <Description>{category}</Description>
