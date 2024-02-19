@@ -1,23 +1,44 @@
 import styled from "styled-components";
 import { ReactComponent as RegisterIcon } from "../../assets/icon/mainPage/register.svg";
 import { ReactComponent as LogInIcon } from "../../assets/icon/mainPage/login.svg";
+import { ReactComponent as MyPageIcon } from "../../assets/icon/user-gear.svg";
 import { Link } from "react-router-dom";
 
-const UserMenu = () => {
+const UserMenu = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   return (
     <UserMenuContainer>
-      <>
-        <LoginButton isDarkMode={false} onClick={() => {}}>
-          <Link to="/login">
-            <LogInIcon />
-          </Link>
-        </LoginButton>
-        <Link to="/signup">
-          <SignupButton isDarkMode={false}>
-            <RegisterIcon />
-          </SignupButton>
-        </Link>
-      </>
+      {isLoggedIn ? (
+        <>
+          <StyledLink to="/logout">
+            <LoginButton isDarkMode={false}>
+              <LogInIcon />
+              LogOut
+            </LoginButton>
+          </StyledLink>
+
+          <StyledLink to="/mypage/0">
+            <LoginButton isDarkMode={false}>
+              <MyPageIcon />
+              MyPage
+            </LoginButton>
+          </StyledLink>
+        </>
+      ) : (
+        <>
+          <StyledLink to="/login">
+            <LoginButton isDarkMode={false}>
+              <LogInIcon />
+              LogIn
+            </LoginButton>
+          </StyledLink>
+          <StyledLink to="/signup">
+            <SignupButton isDarkMode={false}>
+              <RegisterIcon />
+              Register
+            </SignupButton>
+          </StyledLink>
+        </>
+      )}
     </UserMenuContainer>
   );
 };
@@ -30,7 +51,6 @@ const UserMenuContainer = styled.div`
   font-weight: 500;
   color: #4f3d21;
   align-items: center;
-
 `;
 
 const ProfileButton = styled.div`
@@ -55,6 +75,7 @@ const ProfileButton = styled.div`
 
 const LoginButton = styled.button<{ isDarkMode: boolean }>`
   display: none;
+  text-decoration: none;
 
   @media (min-width: 1024px) {
     display: flex;
@@ -79,6 +100,7 @@ const LoginButton = styled.button<{ isDarkMode: boolean }>`
 
 const SignupButton = styled.button<{ isDarkMode: boolean }>`
   display: none;
+  text-decoration: none;
 
   @media (min-width: 1024px) {
     display: flex;
@@ -120,10 +142,12 @@ const IconButton = styled.div<{ isDarkMode: boolean }>`
     &:hover {
       transform: scale(1.05);
       
-  
     transition: all 0.3s;
-  
   }
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
 `;
 
 export default UserMenu;

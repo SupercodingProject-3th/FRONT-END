@@ -1,79 +1,100 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useCallback } from 'react';
+import { useInfiniteQuery,InfiniteData, UseInfiniteQueryResult } from 'react-query';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import styled from 'styled-components';
 import { media } from '../../styles/media';
 import PlaceCard from '../../shared/PlaceCard';
-import { Place } from '../../types/Place';
+import { getApiList } from '../../lib/api';
+import { Place } from '../../types/Place'; 
+import { flatten } from 'lodash';
 
 interface PlaceCardGridProps {
   selectedLocation: string;
   selectedCategory: string;
   selectedOrder: string;
 }
+interface ApiResponse {
+  content: Place[];
+  lastVisible: number | null;
+  totalElements: number;
+  totalPages: number;
+}
+
+
 
 const PlaceCardGrid: React.FC<PlaceCardGridProps> = ({ selectedLocation, selectedCategory, selectedOrder }) => {
-    const [places, setPlaces] = useState<Place[]>([]);
-  
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const { data } = await axios.post('https://www.onesol.shop/v1/api/post/post-list?page=0&size=10', {
-              neighborhood: selectedLocation, category: selectedCategory, order: selectedOrder
-            }, {
-              headers: {
-                'Content-Type': 'application/json',
-              }
-            });
-            if (Array.isArray(data.content) && data.content.length > 0) {
-              const transformedPlaces = data.content.map((item: any) => ({
-                title: item.name,
-                category: item.category,
-                image: item.mainPhoto,
-                liked: false,
-              }));
-              setPlaces(transformedPlaces);
-            } else {
-              console.log("데이터가 비어있거나 예상한 형식이 아닙니다.");
-              setPlaces([]); 
-            }
-          } catch (error) {
-            console.error('Fetching places failed:', error);
-          }
-        };
-        fetchData();
-      }, [selectedLocation, selectedCategory, selectedOrder]);
+  const { data, hasNextPage, fetchNextPage, isFetching } = useInfiniteQuery<ApiResponse, Error>(
+    [selectedLocation, selectedCategory, selectedOrder],
+    ({ pageParam = 0 }) => getApiList(pageParam, 12, selectedLocation, selectedCategory, selectedOrder),
+    {
+      getNextPageParam: (lastPage) => lastPage.lastVisible,
+    }
+  );
 
+  const loadMore = useCallback(() => {
+    if (!hasNextPage || isFetching) return;
+    fetchNextPage();
+  }, [fetchNextPage, hasNextPage, isFetching]);
+  if(data == null)
+    return null
+
+  // const cards = data.pages.flatMap(page => page.content);
+  const cards = flatten(data.pages.map(page => page.content));
+  
 
   return (
     <GridContainer>
-      {places.map((place,index) => (
-        <PlaceCard key={index} {...place} size="255px" />
-      ))}
+      <InfiniteScroll
+        dataLength={cards.length}
+        next={loadMore}
+        hasMore={hasNextPage|| false}
+        loader={<div>Loading...</div>}
+      >
+        <StyledGridContainer>
+          {cards.map((card) => (
+                <PlaceCard key={card.postId} {...card} size="255px" />
+          ))}
+        </StyledGridContainer>
+        
+      </InfiniteScroll>
     </GridContainer>
   );
 };
 
 export default PlaceCardGrid;
+const StyledGridContainer = styled.div` 
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
 
+  ${media.desktop} {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  ${media.tablet} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  ${media.mobile} {
+    grid-template-columns: 1fr;
+  }
+`;
 
 const GridContainer = styled.div`
-    margin: 0rem auto;
-    justify-content: center;
-    display: grid;
-    gap:20px;
+  margin: 0rem auto;
+  justify-content: center;
+  padding: 30px 0px;
+  border-top: 2px solid #000;
+
+  ${media.desktop} {
     grid-template-columns: repeat(4, 1fr);
-    padding: 30px 0px;
-    border-top: 2px solid #000; 
+  }
 
-    ${media.desktop} {
-        grid-template-columns: repeat(4, 1fr);
-    }
+  ${media.tablet} {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
-    ${media.tablet} {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    ${media.mobile} {
-        grid-template-columns: 1fr;
-    }
+  ${media.mobile} {
+    grid-template-columns: 1fr;
+  }
 `;

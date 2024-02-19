@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MyPageMenu from "./MyPageMenu";
-import MyRestaurant from "./MyRestaurant";
+//import MyRestaurant from "./MyRestaurant";
 import MyFavoriteRestaurant from "./MyFavoriteRestaurant";
 import MyEditProfile from "./MyEditProfile";
 import { useParams } from "react-router-dom";
@@ -11,16 +11,18 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { BaseSyntheticEvent } from "react";
 import moment from "moment";
+import GetMyPosts from "../MyPage/GetMyPosts";
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/slices/authSlices";
 
-interface MyPageProps {
-  updateIsToken: any;
-}
 
-const MyPage: React.FC<MyPageProps> = ({ updateIsToken }) => {
+const MyPage: React.FC = () => {
+
   const { pagenumber } = useParams();
   const [liked, setLiked] = useState([]);
 
   const navigator = useNavigate();
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState<string>("");
   const [joinDate, setJoinDate] = useState<string>("");
@@ -104,7 +106,7 @@ const MyPage: React.FC<MyPageProps> = ({ updateIsToken }) => {
           console.log(res);
           localStorage.removeItem("nickName");
           localStorage.removeItem("token");
-          updateIsToken(false);
+          dispatch(logout());
 
           navigator("/");
         })
@@ -282,11 +284,12 @@ const MyPage: React.FC<MyPageProps> = ({ updateIsToken }) => {
         <MyMain>
           <MyPageContainer>
             <MyInfo
+              nickName={formData.nickName}
               likedNumber={liked.length}
               prevImage={prevImage}
               image2={image2}
             />
-            <MyRestaurant />
+            <GetMyPosts />
           </MyPageContainer>
         </MyMain>
       </>
@@ -298,6 +301,7 @@ const MyPage: React.FC<MyPageProps> = ({ updateIsToken }) => {
         <MyMain>
           <MyPageContainer>
             <MyInfo
+              nickName={formData.nickName}
               likedNumber={liked.length}
               prevImage={prevImage}
               image2={image2}
@@ -314,14 +318,13 @@ const MyPage: React.FC<MyPageProps> = ({ updateIsToken }) => {
         <MyMain>
           <MyPageContainer>
             <MyInfo
+              nickName={formData.nickName}
               likedNumber={liked.length}
               prevImage={prevImage}
               image2={image2}
             />
             <MyEditProfile
               formData={formData}
-              getUserInfo={getUserInfo}
-              updateIsToken={updateIsToken}
               email={email}
               joinDate={joinDate}
               prevImage={prevImage}
@@ -351,6 +354,7 @@ const MyPage: React.FC<MyPageProps> = ({ updateIsToken }) => {
         <MyMain>
           <MyPageContainer>
             <MyInfo
+              nickName={formData.nickName}
               likedNumber={liked.length}
               prevImage={prevImage}
               image2={image2}

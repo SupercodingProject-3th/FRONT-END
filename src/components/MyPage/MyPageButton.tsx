@@ -1,19 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-interface MyPageButtonProps {
-  isToken: boolean;
-}
-
-const MyPageButton: React.FC<MyPageButtonProps> = ({ isToken }) => {
+const MyPageButton: React.FC = () => {
+  const isToken = useSelector((state: any) => state.auth.isAuthenticated);
   return (
     <DivMainPost>
       {isToken ? (
         <>
           <LinkPage to="/logout">로그아웃 페이지로 이동</LinkPage>
           <LinkPage to="/mypage/0">마이 페이지로 이동</LinkPage>
-          <LinkPage to="/myposts">내가 쓴 포스트 조회</LinkPage>
         </>
       ) : (
         <>
@@ -34,6 +31,9 @@ const DivMainPost = styled.div`
 
 const LinkPage = styled(Link)`
   margin: 10px;
+  color: black;
+
+  cursor: pointer;
 `;
 
 export default MyPageButton;

@@ -3,20 +3,23 @@ import Slider from "react-slick";
 import LeftArrow from "../../assets/icon/mainPage/left-arrow.svg";
 import RightArrow from "../../assets/icon/mainPage/right-arrow.svg";
 import styled from "styled-components";
-import { DEEP_YELLOW } from "../../styles/colors";
+import { PostContent } from "../../types/PostContent";
 
-export default function Card({ title, data }: { title: any; data: any[] }) {
+export default function Card({ title, posts }: { title: any; posts: PostContent[] }) {
+
+  const contentData = posts; 
+
   const SlickArrowLeft: React.FC<any> = ({
     currentSlide,
     slideCount,
     ...props
   }) => (
-      <img
-        src={LeftArrow}
-        alt="prevArrow"
-        {...props}
-        style={{ width: "30px", height: "30px" }}
-      />
+    <img
+      src={LeftArrow}
+      alt="prevArrow"
+      {...props}
+      style={{ width: "30px", height: "30px" }}
+    />
   );
 
   const SlickArrowRight: React.FC<any> = ({
@@ -48,23 +51,23 @@ export default function Card({ title, data }: { title: any; data: any[] }) {
       <h1>{title}</h1>
       <SliderContainer>
         <Slider {...settings}>
-          {data.map((item: any, index: number) => {
+          {contentData.map((item: any, index: number) => {
             return (
               <CardItem key={index}>
                 <ImageWrapper>
-                  <FoodImage src={item.url} alt="food_img" />
+                  <FoodImage src={item.mainPhoto} alt="food_img" />
                 </ImageWrapper>
                 <CardContainerInner>
-                  <p>한식</p>
+                  <p>{item.category}</p>
                 </CardContainerInner>
-                <h2>우래옥 본점</h2>
+                <h2>{item.name}</h2>
                 <p>
-                  위치: <span>서울</span>
+                  위치: <span>{item.neighborhood}</span>
                 </p>
-                <i
-                  className="far fa-heart"
-                  style={{ width: "50px", height: "50px" }}
-                ></i>
+                <HeartIcon>
+                  <i className="far fa-heart" />
+                  {item.favoriteCount}
+                </HeartIcon>
               </CardItem>
             );
           })}
@@ -83,10 +86,8 @@ const CardContainer = styled.div`
 `;
 
 const CardItem = styled.div`
-backgroundColor: "#FFB6C1"
-  &:hover {
-    cursor: pointer;
-  }
+  backgroundColor: "#FFB6C1"
+  
 `;
 
 const ImageWrapper = styled.div`
@@ -98,14 +99,19 @@ const ImageWrapper = styled.div`
 const FoodImage = styled.img`
   width: 80%;
   height: auto;
+  cursor: pointer;
 `;
 
 const CardContainerInner = styled.div``;
-
-const slider = styled.div``;
 
 const SliderContainer = styled.div`
   width: 80%;
   margin: 0 auto;
 `;
 
+const HeartIcon = styled.div`
+  i {
+    width: 50px;
+    height: 50px;
+  }
+`;

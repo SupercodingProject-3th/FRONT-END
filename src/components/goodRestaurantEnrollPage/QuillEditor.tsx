@@ -2,7 +2,11 @@ import { useState, useRef } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-const QuillTest = () => {
+interface QuillEditorProps {
+  onContentChange: (content: string) => void;
+}
+
+const QuillEditor: React.FC<QuillEditorProps> = ({ onContentChange }) => {
   const [text, setText] = useState("");
   const QuillRef = useRef<ReactQuill | null>(null);
 
@@ -22,7 +26,10 @@ const QuillTest = () => {
 
   const handleChange = (value: string) => {
     setText(value);
+    // 부모 컴포넌트로 사용자가 작성한 내용을 전달합니다.
+    onContentChange(value);
   };
+
 
   return (
     <div>
@@ -38,5 +45,5 @@ const QuillTest = () => {
   );
 };
 
-export default QuillTest;
+export default QuillEditor;
 

@@ -5,18 +5,19 @@ import styled from "styled-components";
 import axios from "axios";
 import loginButton from "../../shared/images/LoginPage/kakao-login-button.jpg";
 import { BaseSyntheticEvent } from "react";
+import { DEEP_YELLOW, SOFT_BEIGE, DEEP_BROWN } from "../../styles/colors";
+import { useDispatch } from "react-redux";
+import { login } from "../../store/slices/authSlices";
 
-interface IsTokenProps {
-  updateIsToken: any;
-}
-
-const Login: React.FC<IsTokenProps> = ({ updateIsToken }) => {
+const Login: React.FC = () => {
   const [userId, setUserId] = useState<string>("");
   const [userPassword, setUserPassword] = useState<string>("");
 
   const [idMessage, setIdMessage] = useState<string>("");
   const [passMessage, setPassMessage] = useState<string>("");
   const [failMessage, setFailMessage] = useState<string>("");
+
+  const dispatch = useDispatch();
 
   const navigator = useNavigate();
 
@@ -88,7 +89,7 @@ const Login: React.FC<IsTokenProps> = ({ updateIsToken }) => {
           localStorage.setItem("nickName", nickName);
           localStorage.setItem("userId", userId);
 
-          updateIsToken(true);
+          dispatch(login());
 
           navigator("/");
         })
@@ -164,7 +165,9 @@ const UserLogin = styled.div`
   justify-content: center;
   align-items: center;
 
-  border: 1px solid pink;
+  background-color: ${SOFT_BEIGE};
+  border: 1px solid ${DEEP_YELLOW};
+  border-radius: 8px;
 `;
 
 const UserTitleLogin = styled.div`
@@ -185,10 +188,8 @@ const InputLogin = styled.input`
   color: rgb(200, 200, 200);
   font-size: 13px;
   width: 260px;
-  border-radius: 10px;
 
-  border-width: 1px;
-  border-color: rgb(253, 253, 253);
+  //border: 1px solid ${DEEP_YELLOW};
 
   &::placeholder {
     padding-left: 5px;
@@ -210,10 +211,10 @@ const UserLoginButton = styled.button`
 
   border: none;
   border-radius: 5px;
-  background-color: rgb(48, 192, 224);
+  background-color: ${DEEP_BROWN};
 
   &:hover {
-    background-color: rgb(40, 182, 214);
+    background-color: ${DEEP_BROWN};
     cursor: pointer;
   }
 `;

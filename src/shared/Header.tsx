@@ -6,7 +6,7 @@ import SearchBar from "../components/mainPageLayout/SearchBar";
 import DarkmodeBtn from "../components/mainPageLayout/DarkModeToggleButton";
 import UserMenu from "../components/mainPageLayout/UserMenu";
 import { media } from "../styles/media";
-import { DARK_GREY, WHITE, SOFT_BEIGE } from "../styles/colors";
+import { DARK_GREY, WHITE } from "../styles/colors";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 
@@ -14,6 +14,8 @@ const Header = () => {
   const isDarkMode = useSelector(
     (state: RootState) => state.darkMode.isDarkMode
   );
+
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isAuthenticated);
 
   return (
     <HeaderLayout isDarkMode={isDarkMode}>
@@ -27,7 +29,7 @@ const Header = () => {
           <SearchBar />
           <ButtonsWrapper>
             <DarkmodeBtn isMobile={false} />
-            <UserMenu />
+            <UserMenu isLoggedIn={isLoggedIn} />
           </ButtonsWrapper>
         </TopNavBar>
       </HeaderContainer>
@@ -48,13 +50,12 @@ const HeaderLayout = styled.div<{ isDarkMode: boolean }>`
 `;
 
 const HeaderContainer = styled.div`
-  padding: 0 2rem;
+  //NOTE: 추가했음 그 검색창 왼쪽으로 땡기려고 카테고리들어오면 수정해야함
+  position: relative;
   width: 100%;
   max-width: 120rem;
   margin: 0 auto;
-
-  //NOTE: 추가했음 그 검색창 왼쪽으로 땡기려고 카테고리들어오면 수정해야함
-  position: relative;
+  padding: 0 2rem;
 `;
 
 const TopNavBar = styled.div`
@@ -92,21 +93,20 @@ const LogoWrapper = styled.div`
 `;
 
 const ButtonsWrapper = styled.div`
-      display: flex;
-      gap: 3rem;
-      align-items: center;
+  display: flex;
+  gap: 3rem;
+  align-items: center;
 
+  /* NOTE: 오른쪽 여백 만든 것 CATEGORY 추가되면 수정해야함 */
+  @media (min-width: 1024px) {
+    margin-right: 10rem;
+  }
 
-      /* NOTE: 오른쪽 여백 만든 것 CATEGORY 추가되면 수정해야함 */
-      @media (min-width: 1024px) {
-        margin-right: 10rem; 
-      }
-
-      @media (max-width: 1023.9px) {
-        flex-direction: column; /* 모바일 환경에서 세로로 요소를 배치 */
-        align-items: flex-start; 
-      }
-    `;
+  @media (max-width: 1023.9px) {
+    flex-direction: column; /* 모바일 환경에서 세로로 요소를 배치 */
+    align-items: flex-start;
+  }
+`;
 
 const Logo = styled.img`
   width: 100px;

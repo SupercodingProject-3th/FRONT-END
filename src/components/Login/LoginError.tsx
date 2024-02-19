@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { DEEP_BROWN } from "../../styles/colors";
 
 interface LoginErrorProps {
   pageName: string;
@@ -43,7 +44,7 @@ const ButtonLoginError = styled.button`
   padding: 10px;
   font-size: 20px;
   color: white;
-  background-color: black;
+  background-color: ${DEEP_BROWN};
   border: none;
   border-radius: 10px;
   cursor: pointer;
