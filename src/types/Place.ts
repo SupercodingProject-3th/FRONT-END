@@ -1,8 +1,16 @@
+
 export interface Place {
-  title: string;
+  postId: number;
+  name: string;
+  neighborhood: string;
   category: string;
-  image: string;
-  liked: boolean; 
+  menu: string;
+  viewCount: string;
+  mainPhoto: string;
+  createAt: string;
+  favoriteCount: string;
+  userId: null | string; 
+  favoriteYn: string;
 }
 
 export interface Category {

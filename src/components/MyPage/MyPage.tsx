@@ -11,7 +11,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { BaseSyntheticEvent } from "react";
 import moment from "moment";
-import GetMyPosts from "./GetMyPosts";
+import GetMyPosts from "../MyPage/GetMyPosts";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/slices/authSlices";
 
