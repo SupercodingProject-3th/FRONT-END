@@ -5,22 +5,29 @@ import PostBannerSecond from "../../components/mainPageLayout/PostBannerSecond";
 import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 import { DARK_GREY, WHITE } from "../../styles/colors";
+import { useNavigate } from "react-router";
 
 
 const PostBanner: React.FC = () => {
+  const navigate = useNavigate();
   const isDarkMode = useSelector(
     (state: RootState) => state.darkMode.isDarkMode
   );
+
+  const handleBannerClick = () => {
+    navigate("/goodrestaurantenroll"); // 맛집 등록 페이지로 이동
+  };
+
 
   return (
     <StyledBanner isDarkMode={isDarkMode}>  
       <BannerContent>
         <BannerImageContainer>
-          <BannerImage src={NowOpenImage} />
+          <BannerImage src={NowOpenImage} onClick={handleBannerClick} />
         </BannerImageContainer>
         <BannerTextContainer>
-          <h2>찐맛집 고수의 맛집</h2>
-          <p>찐 맛집</p>
+          <h2>맛집 등록하러 가기</h2>
+          <p>당신의 맛집을 등록해주세요.</p>
         </BannerTextContainer>
       </BannerContent>
       <PostBannerSecond />
