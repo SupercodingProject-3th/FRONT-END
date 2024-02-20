@@ -4,7 +4,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import styled from 'styled-components';
 import { media } from '../../styles/media';
 import PlaceCard from '../../shared/PlaceCard';
-import { getApiList } from '../../lib/api';
+import { getApiList} from '../../api/listApi';
 import { Place } from '../../types/Place'; 
 import { flatten } from 'lodash';
 import SkeletonCard from '../../shared/SkeletonCard';

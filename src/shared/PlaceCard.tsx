@@ -4,21 +4,24 @@ import { Place } from '../types/Place';
 import { useSelector } from 'react-redux';
 import LikeButton from './LikeButton';
 import {RootState} from '../store/store';
-import Skeleton  from './Skeleton'; 
+import { postApiLike } from '../api/listApi';
 
-const PlaceCard: React.FC<Place& { size?: string}> = ({ 
-  postId, name, category,mainPhoto,favoriteYn:initialLiked, userId, size})=> {
+const PlaceCard: React.FC<Place& { size?: string}&{onCardClick?: () => void}> = ({ 
+  postId, name, category,mainPhoto,favoriteYn:initialLiked, userId, size, onCardClick })=> {
     const [liked, setLiked] = useState(initialLiked === "Y");
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
-    const toggleHandler=()=>{
-      if(!isAuthenticated){
-        console.log('로그인해주세요');
-      }else{
+    const toggleHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation();
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert('로그인 후 이용해 주세요.');
+      } else {
         setLiked(!liked);
+        postApiLike(postId);
       }
     };
     return (
-      <CardContainer size={size}>
+      <CardContainer size={size} onClick={onCardClick}>
         <Image src={mainPhoto} alt={name} size={size} /> 
         <ContentContainer>
           <ContentWrapper>
