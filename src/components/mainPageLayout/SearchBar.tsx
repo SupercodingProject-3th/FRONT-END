@@ -34,7 +34,6 @@
       max-width: 36rem;
       z-index: 999;
       border: 0.1rem solid
-      background-color: "fff"
       color: "#000";
       border: 0.2rem solid #feaa00;
       border-radius: 0.8rem 0.8rem 0.8rem 0.8rem;
