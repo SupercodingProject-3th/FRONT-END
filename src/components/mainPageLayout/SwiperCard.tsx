@@ -59,7 +59,7 @@ export default function Card({ title, posts }: { title: any; posts: PostContent[
         <Slider {...settings}>
           {contentData.map((item: any, index: number) => {
             return (
-              <CardItem key={index} onClick={() => handlePostClick(item.id)}> 
+              <CardItem key={index} onClick={() => handlePostClick(item.postId)}> 
                 <ImageWrapper>
                   <FoodImage src={item.mainPhoto} alt="food_img" />
                 </ImageWrapper>
