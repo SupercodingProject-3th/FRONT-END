@@ -26,6 +26,7 @@ const CommentList: React.FC<CommentListProps> = ({
 
   const [CommentData,setCommentData]=useState<CommentResponse | null>(null)
   const [searchParams, setSearchParams] = useSearchParams();
+  
   const page=Number(searchParams.get('page'))
     const navigate = useNavigate();
 
