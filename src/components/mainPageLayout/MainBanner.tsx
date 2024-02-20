@@ -73,7 +73,7 @@ const StyledSection = styled.section<{ showSecondBanner?: boolean; isDarkMode:bo
 const BannerArea = styled.div``;
 
 const StyledContentContainer = styled.div`
-  height: 52vh; 
+  height: 52vh;
   display: flex;
   justify-content: center;
   align-items: center;
