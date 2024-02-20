@@ -23,7 +23,7 @@ import ContactNumInfoInput from "../../components/goodRestaurantEnrollPage/Conta
 
 const GoodRestaurantEnrollPage: React.FC = () => {
   const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated
+      (state: RootState) => state.auth.isAuthenticated
   );
 
   const [restaurantInfo, setRestaurantInfo] = useState({
@@ -38,7 +38,6 @@ const GoodRestaurantEnrollPage: React.FC = () => {
     longitude: "",
   });
 
-  // isAuthenticated가 true이면서 토큰이 존재하는 경우에만 토큰을 가져옴
   const token = isAuthenticated ? localStorage.getItem("token") : null;
 
   const [selectedimageFiles, setSelectedImageFiles] = useState<File[]>([]);
@@ -59,7 +58,9 @@ const GoodRestaurantEnrollPage: React.FC = () => {
     });
   };
 
-  // 파일 선택 핸들러를 변경하여 selectedFiles 배열을 업데이트합니다.
+  //NOTE: GoodRestaurantEnrollPage 컴포넌트에서 selectedFiles 배열 상태와 해당 상태를 업데이트하는 함수를 추가합니다.
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+
   const handleFileChange = (files: FileList | null) => {
     if (files && files.length > 0) {
       const newFiles: File[] = Array.from(files);
@@ -70,36 +71,29 @@ const GoodRestaurantEnrollPage: React.FC = () => {
   const handleRegister = async () => {
     const formData = new FormData();
 
-      // 이미 selectedimageFiles 배열에 파일이 추가되어 있으므로 바로 FormData에 추가합니다.
-
-    // formData.append("images", selectedimageFiles);
- 
-    for (const file of selectedimageFiles) {
+    selectedimageFiles.forEach((file, index) => {
       formData.append("images", file);
-    }
+    });
 
-    // JSON 데이터를 Blob으로 변환하여 formData에 추가
+    //NOTE: JSON 데이터를 Blob으로 변환하여 formData에 추가
     const jsonBlob = new Blob([JSON.stringify(restaurantInfo)], {
       type: "application/json",
     });
 
-    formData.append("postRequest", JSON.stringify(restaurantInfo));
-    console.log(
-      "JSON.stringify(restaurantInfo) test:",
-      JSON.stringify(restaurantInfo)
-    );
-
-    console.log("formdata test제에발", formData);
+    //NOTE: 오류 원인
+    formData.append("postRequest", jsonBlob);
+    console.log("JSON.stringify(restaurantInfo) test", JSON.stringify(restaurantInfo));
 
     try {
       const response = await axios.post(
-        "https://www.onesol.shop/v1/api/reg-post",
-        formData,
-        {
-          headers: {
-            Token: token,
-          },
-        }
+          "https://www.onesol.shop/v1/api/reg-post",
+          formData,
+          {
+
+            headers: {
+              Token: token,
+            },
+          }
       );
       console.log("백엔드로부터의 응답:", response.data);
       alert("맛집목록등록에 성공했습니다.");
@@ -109,8 +103,6 @@ const GoodRestaurantEnrollPage: React.FC = () => {
 
       if (error.response) {
         console.log("에러 응답:", error.response.data);
-        console.log("사용자 입력 내용:", restaurantInfo);
-        console.log("사용자 입력 내용 images:", selectedimageFiles);
       } else {
         console.log("오류 응답이 없습니다.");
       }
@@ -118,10 +110,10 @@ const GoodRestaurantEnrollPage: React.FC = () => {
   };
 
   const isDarkMode = useSelector(
-    (state: RootState) => state.darkMode.isDarkMode
+      (state: RootState) => state.darkMode.isDarkMode
   );
 
-  const { postId = "" } = useParams<{ postId?: string }>(); // postId의 초기값을 ''로 설정
+  const { postId = "" } = useParams<{ postId?: string }>(); 
 
   const handleInputChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRestaurantInfo({
@@ -138,7 +130,7 @@ const GoodRestaurantEnrollPage: React.FC = () => {
   };
 
   const handleInputChangeDetailAddress = (
-    e: React.ChangeEvent<HTMLInputElement>
+      e: React.ChangeEvent<HTMLInputElement>
   ) => {
     setRestaurantInfo({
       ...restaurantInfo,
@@ -147,7 +139,7 @@ const GoodRestaurantEnrollPage: React.FC = () => {
   };
 
   const handleInputChangeContactNum = (
-    e: React.ChangeEvent<HTMLInputElement>
+      e: React.ChangeEvent<HTMLInputElement>
   ) => {
     setRestaurantInfo({
       ...restaurantInfo,
@@ -190,62 +182,62 @@ const GoodRestaurantEnrollPage: React.FC = () => {
   }, [selectedCoordinates]);
 
   return (
-    <StyledGoodRestrauntPage isDarkMode={isDarkMode}>
-      <Header />
-      <Wrapper>
-        <RestaurantInfoSectionWrapper>
-          <PageTitle />
-          <RestaurantInfoSection>
-            <CategorySelect onCategoryChange={handleCategoryChange} />
-            <RestaurantInfoInput
-              label="가게명"
-              name="name"
-              value={restaurantInfo.name}
-              onChange={handleInputChangeName}
-            />
-            <ContactNumInfoInput
-              label="연락처"
-              name="contactNum"
-              value={restaurantInfo.contactNum}
-              onChange={handleInputChangeContactNum}
-            />
-            <AddressInput
-              onCoordinateChange={handleCoordinateChange} // 위도와 경도를 받아오는 핸들러 함수
-              onChange={handleInputChangeAddress} // 주소가 변경될 때 호출되는 핸들러 함수
-            />
-            <DetailAddressInfoInput
-              label="상세주소"
-              name="detailAddress"
-              value={restaurantInfo.detailAddress}
-              onChange={handleInputChangeDetailAddress}
-            />
-          </RestaurantInfoSection>
-        </RestaurantInfoSectionWrapper>
-        <QuillAndFileUploadWrapper>
-          <QuillEditorWrapper>
-            <QuillEditor onContentChange={handleContentChange} />
-          </QuillEditorWrapper>
-          <FileUploadWrapper>
-            <FileUpload
-              selectedFiles={selectedimageFiles}
-              onFileSelect={handleFileChange}
-            />
-            <FileUpload
-              selectedFiles={selectedimageFiles}
-              onFileSelect={handleFileChange}
-            />
-            <FileUpload
-              selectedFiles={selectedimageFiles}
-              onFileSelect={handleFileChange}
-            />
-          </FileUploadWrapper>
-        </QuillAndFileUploadWrapper>
-        <MenuReviewSection onChange={handleInputChangeMenu} />
-        <ButtonSection postId={postId} onRegister={handleRegister} />
-        <ScrollToTopButton />
-      </Wrapper>
-      <Footer />
-    </StyledGoodRestrauntPage>
+      <StyledGoodRestrauntPage isDarkMode={isDarkMode}>
+        <Header />
+        <Wrapper>
+          <RestaurantInfoSectionWrapper>
+            <PageTitle />
+            <RestaurantInfoSection>
+              <CategorySelect onCategoryChange={handleCategoryChange} />
+              <RestaurantInfoInput
+                  label="가게명"
+                  name="name"
+                  value={restaurantInfo.name}
+                  onChange={handleInputChangeName}
+              />
+              <ContactNumInfoInput
+                  label="연락처"
+                  name="contactNum"
+                  value={restaurantInfo.contactNum}
+                  onChange={handleInputChangeContactNum}
+              />
+              <AddressInput
+                  onCoordinateChange={handleCoordinateChange} // 위도와 경도를 받아오는 핸들러 함수
+                  onChange={handleInputChangeAddress} // 주소가 변경될 때 호출되는 핸들러 함수
+              />
+              <DetailAddressInfoInput
+                  label="상세주소"
+                  name="detailAddress"
+                  value={restaurantInfo.detailAddress}
+                  onChange={handleInputChangeDetailAddress}
+              />
+            </RestaurantInfoSection>
+          </RestaurantInfoSectionWrapper>
+          <QuillAndFileUploadWrapper>
+            <QuillEditorWrapper>
+              <QuillEditor onContentChange={handleContentChange} />
+            </QuillEditorWrapper>
+            <FileUploadWrapper>
+              <FileUpload
+                  selectedFiles={selectedimageFiles}
+                  onFileSelect={handleFileChange}
+              />
+              <FileUpload
+                  selectedFiles={selectedimageFiles}
+                  onFileSelect={handleFileChange}
+              />
+              <FileUpload
+                  selectedFiles={selectedimageFiles}
+                  onFileSelect={handleFileChange}
+              />
+            </FileUploadWrapper>
+          </QuillAndFileUploadWrapper>
+          <MenuReviewSection onChange={handleInputChangeMenu} />
+          <ButtonSection postId={postId} onRegister={handleRegister} />
+          <ScrollToTopButton />
+        </Wrapper>
+        <Footer />
+      </StyledGoodRestrauntPage>
   );
 };
 

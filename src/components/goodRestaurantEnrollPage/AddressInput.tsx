@@ -40,7 +40,6 @@ const AddressInput: React.FC<AddressInputProps> = ({
       setIsModalOpen(true);
     }
   };
-
  
   const handleSelectedAddress = (data: any) => {
     const documents = data.documents;
@@ -48,8 +47,6 @@ const AddressInput: React.FC<AddressInputProps> = ({
 
     if (documents && documents.length > 0) {
       const { x, y } = documents[0]; // documents 배열의 첫 번째 요소에서 x와 y 값을 추출합니다.
-      console.log("경도:", x);
-      console.log("위도:", y);
     } else {
       console.error("No documents found.");
       // 좌표 값이 없을 경우에는 기본값으로 함수 호출
@@ -59,17 +56,12 @@ const AddressInput: React.FC<AddressInputProps> = ({
       });
     }
 
-    console.log("경도:", x);
-    console.log("위도:", y);
-
     const { address: selectedAddress } = data;
     // 선택된 주소 정보를 상태에 업데이트하고 상위 컴포넌트로 전달
     setAddress(selectedAddress); // 선택된 주소로 주소 상태를 업데이트합니다.
     setSearchKeyword(selectedAddress);
-    console.log("휴...x,y 테스트", x, y);
     onChange(selectedAddress); // 선택된 주소를 상위 컴포넌트로 전달합니다. 이게 원인
 
-    // 선택된 주소를 정보를 기반으로 API 요청 보냄, 경도 위도 받기위해
     fetch(
       `https://dapi.kakao.com/v2/local/search/address.json?query=${encodeURIComponent(
         selectedAddress
@@ -88,11 +80,6 @@ const AddressInput: React.FC<AddressInputProps> = ({
         return response.json();
       })
       .then((data) => {
-        // 여기서 받은 데이터를 처리합니다.
-        console.log("경도 위도 테스트 data", data);
-        console.log("경도 위도 테스트 data.documents[0].x", data.documents[0].x); 
-        console.log("경도 위도 테스트 data.documents[0].y", data.documents[0].y); 
-        console.log("경도 위도 테스트 data.documents[0].address_name", data.documents[0].address_name); 
         onCoordinateChange({ latitude: data.documents[0].y, longitude: data.documents[0].x });
         onChange(data.documents[0].address_name);
         
