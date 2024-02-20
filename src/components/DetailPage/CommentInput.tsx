@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { ImgBox } from "../../shared/Imgbox"
 import { GrayBtn, GrayText } from "../../shared/Text";
-import styled from 'styled-components';
 import { postComment } from "./uselogic/fetchCommentData";
 import { CommentInputBox, CommentInputBtnBox, CommentInputContent, CommentInputLeftBox, CommentInputTextBox } from "./CommentInputLayout";
 

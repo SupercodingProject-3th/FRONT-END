@@ -1,34 +1,10 @@
 
 import React, { useEffect, useState } from "react";
-import { ImgBox } from "../../shared/Imgbox";
-import { BlackText, GrayBtn, GrayText } from "../../shared/Text";
 import { CommentResponse, fetchCommetData } from "./uselogic/fetchCommentData";
 import Comment from "./Comment";
 import { PageNationBox } from "./PageNationBtn";
 import CommentInput from "./CommentInput";
-import styled from "styled-components";
 
-
-interface CommentType {
-  user_id: number;
-  comment_id: number;
-  parent_comment_id?: number;
-  content: string;
-  like_count: number;
-  create_date: string;
-  update_date: string | null;
-  postId: number;
-  toggleReplyInput?: () => void;
-  clickLike?: () => void;
-  clickModify?: () => void;
-  contact_user:number;
-  like: boolean;
-  profile_img?: string;
-  showReplyInput?: boolean;
-  modify?: Boolean
-  user_like:boolean;
-  index:number;
-}
 
 interface  CommentListProps {
  

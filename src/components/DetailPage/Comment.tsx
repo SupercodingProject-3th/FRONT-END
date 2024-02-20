@@ -48,11 +48,11 @@ const Comment = ({
   const [modify, setModify] = useState<boolean>(false);
   const [replyContent, setReplyContent] = useState<string>(""); //수정창 인풋값
   const [showReply, setShowReply] = useState<boolean>(false);
-  // useEffect(()=>{    
-  //   setShowReply(false);
-  //   setLike(user_like)
-  // }
-  //   ,[page, user_like])
+  useEffect(()=>{    
+    setShowReply(false);
+    setLike(user_like)
+  }
+    ,[page, user_like])
 
   //좋아요 클릭
   const clickLike = () => {
