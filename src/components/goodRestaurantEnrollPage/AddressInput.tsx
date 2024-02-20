@@ -50,8 +50,6 @@ const AddressInput: React.FC<AddressInputProps> = ({
       const { x, y } = documents[0]; // documents 배열의 첫 번째 요소에서 x와 y 값을 추출합니다.
       console.log("경도:", x);
       console.log("위도:", y);
-
-      onCoordinateChange({ latitude: y, longitude: x });
     } else {
       console.error("No documents found.");
       // 좌표 값이 없을 경우에는 기본값으로 함수 호출
