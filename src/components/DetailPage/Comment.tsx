@@ -44,15 +44,16 @@ const Comment = ({
 }
   :CommentType
 ) => {
-
-  const [like, setLike] = useState<boolean|null>(user_like);
+  const [like, setLike] = useState<boolean>(false);
   const [modify, setModify] = useState<boolean>(false);
   const [replyContent, setReplyContent] = useState<string>(""); //수정창 인풋값
   const [showReply, setShowReply] = useState<boolean>(false);
-  useEffect(()=>{
-    setShowReply(false);}
+  // useEffect(()=>{    
+  //   setShowReply(false);
+  //   setLike(user_like)
+  // }
+  //   ,[page, user_like])
 
-    ,[page])
   //좋아요 클릭
   const clickLike = () => {
     setLike(!like);
@@ -125,7 +126,7 @@ const Comment = ({
             </BlackText>
             }
             <div onClick={clickLike}>
-              <HeartIcon like={like===null?user_like:like}></HeartIcon>
+              <HeartIcon like={like}></HeartIcon>
             </div>
             <BlackText size={"15px"}>{like_count}</BlackText>
           </CommentLikeBox>
