@@ -59,24 +59,24 @@ const GoodRestaurantEnrollPage: React.FC = () => {
     });
   };
 
-  // GoodRestaurantEnrollPage 컴포넌트에서 selectedFiles 배열 상태와 해당 상태를 업데이트하는 함수를 추가합니다.
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-
   // 파일 선택 핸들러를 변경하여 selectedFiles 배열을 업데이트합니다.
   const handleFileChange = (files: FileList | null) => {
     if (files && files.length > 0) {
       const newFiles: File[] = Array.from(files);
-      setSelectedImageFiles(newFiles); 
+      setSelectedImageFiles(newFiles);
     }
   };
 
   const handleRegister = async () => {
     const formData = new FormData();
 
-    selectedimageFiles.forEach((file, index) => {
-      console.log("file test제에발", file);
+      // 이미 selectedimageFiles 배열에 파일이 추가되어 있으므로 바로 FormData에 추가합니다.
+
+    // formData.append("images", selectedimageFiles);
+ 
+    for (const file of selectedimageFiles) {
       formData.append("images", file);
-    });
+    }
 
     // JSON 데이터를 Blob으로 변환하여 formData에 추가
     const jsonBlob = new Blob([JSON.stringify(restaurantInfo)], {
@@ -84,7 +84,10 @@ const GoodRestaurantEnrollPage: React.FC = () => {
     });
 
     formData.append("postRequest", JSON.stringify(restaurantInfo));
-    console.log("JSON.stringify(restaurantInfo) test", JSON.stringify(restaurantInfo));
+    console.log(
+      "JSON.stringify(restaurantInfo) test:",
+      JSON.stringify(restaurantInfo)
+    );
 
     console.log("formdata test제에발", formData);
 
@@ -93,7 +96,6 @@ const GoodRestaurantEnrollPage: React.FC = () => {
         "https://www.onesol.shop/v1/api/reg-post",
         formData,
         {
-    
           headers: {
             Token: token,
           },
@@ -191,56 +193,56 @@ const GoodRestaurantEnrollPage: React.FC = () => {
     <StyledGoodRestrauntPage isDarkMode={isDarkMode}>
       <Header />
       <Wrapper>
-          <RestaurantInfoSectionWrapper>
-            <PageTitle />
-            <RestaurantInfoSection>
-              <CategorySelect onCategoryChange={handleCategoryChange} />
-              <RestaurantInfoInput
-                label="가게명"
-                name="name"
-                value={restaurantInfo.name}
-                onChange={handleInputChangeName}
-              />
-              <ContactNumInfoInput
-                label="연락처"
-                name="contactNum"
-                value={restaurantInfo.contactNum}
-                onChange={handleInputChangeContactNum}
-              />
-              <AddressInput
-                onCoordinateChange={handleCoordinateChange} // 위도와 경도를 받아오는 핸들러 함수
-                onChange={handleInputChangeAddress} // 주소가 변경될 때 호출되는 핸들러 함수
-              />
-              <DetailAddressInfoInput
-                label="상세주소"
-                name="detailAddress"
-                value={restaurantInfo.detailAddress}
-                onChange={handleInputChangeDetailAddress}
-              />
-            </RestaurantInfoSection>
-          </RestaurantInfoSectionWrapper>
-          <QuillAndFileUploadWrapper>
-            <QuillEditorWrapper>
-              <QuillEditor onContentChange={handleContentChange} />
-            </QuillEditorWrapper>
-            <FileUploadWrapper>
-              <FileUpload
-                selectedFiles={selectedimageFiles}
-                onFileSelect={handleFileChange}
-              />
-              <FileUpload
-                selectedFiles={selectedimageFiles}
-                onFileSelect={handleFileChange}
-              />
-              <FileUpload
-                selectedFiles={selectedimageFiles}
-                onFileSelect={handleFileChange}
-              />
-            </FileUploadWrapper>
-          </QuillAndFileUploadWrapper>
-          <MenuReviewSection onChange={handleInputChangeMenu} />
-          <ButtonSection postId={postId} onRegister={handleRegister} />
-          <ScrollToTopButton />
+        <RestaurantInfoSectionWrapper>
+          <PageTitle />
+          <RestaurantInfoSection>
+            <CategorySelect onCategoryChange={handleCategoryChange} />
+            <RestaurantInfoInput
+              label="가게명"
+              name="name"
+              value={restaurantInfo.name}
+              onChange={handleInputChangeName}
+            />
+            <ContactNumInfoInput
+              label="연락처"
+              name="contactNum"
+              value={restaurantInfo.contactNum}
+              onChange={handleInputChangeContactNum}
+            />
+            <AddressInput
+              onCoordinateChange={handleCoordinateChange} // 위도와 경도를 받아오는 핸들러 함수
+              onChange={handleInputChangeAddress} // 주소가 변경될 때 호출되는 핸들러 함수
+            />
+            <DetailAddressInfoInput
+              label="상세주소"
+              name="detailAddress"
+              value={restaurantInfo.detailAddress}
+              onChange={handleInputChangeDetailAddress}
+            />
+          </RestaurantInfoSection>
+        </RestaurantInfoSectionWrapper>
+        <QuillAndFileUploadWrapper>
+          <QuillEditorWrapper>
+            <QuillEditor onContentChange={handleContentChange} />
+          </QuillEditorWrapper>
+          <FileUploadWrapper>
+            <FileUpload
+              selectedFiles={selectedimageFiles}
+              onFileSelect={handleFileChange}
+            />
+            <FileUpload
+              selectedFiles={selectedimageFiles}
+              onFileSelect={handleFileChange}
+            />
+            <FileUpload
+              selectedFiles={selectedimageFiles}
+              onFileSelect={handleFileChange}
+            />
+          </FileUploadWrapper>
+        </QuillAndFileUploadWrapper>
+        <MenuReviewSection onChange={handleInputChangeMenu} />
+        <ButtonSection postId={postId} onRegister={handleRegister} />
+        <ScrollToTopButton />
       </Wrapper>
       <Footer />
     </StyledGoodRestrauntPage>
