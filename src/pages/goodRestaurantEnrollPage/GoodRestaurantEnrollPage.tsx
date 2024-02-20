@@ -69,18 +69,18 @@ const GoodRestaurantEnrollPage: React.FC = () => {
     formData.append(`images[${index}]`, file);
   });
 
+  // JSON 데이터를 Blob으로 변환하여 formData에 추가
+  const jsonBlob = new Blob([JSON.stringify(restaurantInfo)], { type: "application/json" });
+  formData.append("postRequest", jsonBlob);
+
   const handleRegister = async () => {
     try {
       const response = await axios.post(
         "https://www.onesol.shop/v1/api/reg-post",
-        {
-          ...restaurantInfo, // 사용자 입력값
-          images: selectedimageFiles, // 이미지 파일들
-        },
+        formData,
         {
           headers: {
             Token: token,
-            "Content-Type": "application/json",
           },
         }
       );
