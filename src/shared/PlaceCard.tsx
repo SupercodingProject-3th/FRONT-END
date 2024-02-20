@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState,FC } from 'react';
 import styled from 'styled-components';
 import { Place } from '../types/Place';
 import { useSelector } from 'react-redux';
 import LikeButton from './LikeButton';
 import {RootState} from '../store/store';
+import Skeleton  from './Skeleton'; 
 
 const PlaceCard: React.FC<Place& { size?: string}> = ({ 
   postId, name, category,mainPhoto,favoriteYn:initialLiked, userId, size})=> {
