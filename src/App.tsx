@@ -8,9 +8,8 @@ import GoodRestaurantEnrollPage from "./pages/goodRestaurantEnrollPage/GoodResta
 import AuthRouter from "./components/Login/AuthRouter";
 import PlacesList from "./pages/PlacesList";
 import GoodRestaurantEditPage from "./pages/goodRestaurantEditPage/GoodRestaurantEditPage";
-import MapMainPage from "./components/KakaoMapMainPage/MapMainPage"
+import MapMainPage from "./components/KakaoMapMainPage/MapMainPage";
 import DetailPage from "./pages/detailPage";
-
 
 function App() {
   const [userNickName, setUserNickName] = useState("");
@@ -43,18 +42,14 @@ function App() {
           element={<GoodRestaurantEnrollPage />}
         />
 
-        <Route
-          path="/map"
-          element={<MapMainPage/>}
-        />
-
+        <Route path="/map" element={<MapMainPage />} />
 
         <Route path="/map" element={<MapMainPage />} />
 
         <Route path="/edit/:postId" element={<GoodRestaurantEditPage />} />
 
         <Route path="/*" element={<AuthRouter userNickName={userNickName} />} />
-        <Route path="/detail" element={<DetailPage/>} />
+        <Route path="/detail" element={<DetailPage />} />
         <Route path="*" element={<div>404페이지</div>} />
         <Route path="/placeslist" element={<PlacesList />} />
       </Routes>

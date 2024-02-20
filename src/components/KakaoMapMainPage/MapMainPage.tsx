@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FaMapLocationDot } from "react-icons/fa6";
-
+// 오류 없음 확인 했습니다. 추후 지도 컴포넌트 기능 추가하여 push 할 계획입니다.
 declare global {
   interface Window {
     kakao: any;
