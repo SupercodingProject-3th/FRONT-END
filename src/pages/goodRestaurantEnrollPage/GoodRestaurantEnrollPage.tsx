@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -26,6 +26,18 @@ const GoodRestaurantEnrollPage: React.FC = () => {
     (state: RootState) => state.auth.isAuthenticated
   );
 
+  const [restaurantInfo, setRestaurantInfo] = useState({
+    name: "",
+    address: "",
+    category: "",
+    contactNum: "",
+    detailAddress: "",
+    menu: "",
+    content: "",
+    latitude: "",
+    longitude: "",
+  });
+
   const token = localStorage.getItem("token");
   const [selectedimageFiles, setSelectedImageFiles] = useState<File[]>([]);
 
@@ -37,14 +49,6 @@ const GoodRestaurantEnrollPage: React.FC = () => {
   };
 
   const [selectedAddress, setSelectedAddress] = useState("");
-
-  const [selectedCoordinates, setSelectedCoordinates] = useState<{
-    latitude: string;
-    longitude: string;
-  }>({
-    latitude: "",
-    longitude: "",
-  });
 
   const handleContentChange = (content: string) => {
     setRestaurantInfo({
@@ -63,39 +67,20 @@ const GoodRestaurantEnrollPage: React.FC = () => {
 
   selectedimageFiles.forEach((file, index) => {
     formData.append(`images[${index}]`, file);
-    formData.append(
-      "images",
-      new Blob([JSON.stringify(formData)], { type: "application/json" })
-    );
   });
-
-  // JSON 데이터를 formData에 추가합니다.
-  const jsonData = {
-    name: "간장떡볶이",
-    address: "대전광역시 강남구 강남대로152길 64",
-    detailAddress: "B103호",
-    latitude: "33.25144684054",
-    longitude: "126.50972692876",
-    category: "한식",
-    contactNum: "02-738-3383",
-    menu: "떡볶이",
-    content: "맛있어요",
-  };
-
-  formData.append(
-    "data",
-    new Blob([JSON.stringify(jsonData)], { type: "application/json" })
-  );
 
   const handleRegister = async () => {
     try {
       const response = await axios.post(
         "https://www.onesol.shop/v1/api/reg-post",
-        formData,
+        {
+          ...restaurantInfo, // 사용자 입력값
+          images: selectedimageFiles, // 이미지 파일들
+        },
         {
           headers: {
             Token: token,
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
         }
       );
@@ -108,6 +93,7 @@ const GoodRestaurantEnrollPage: React.FC = () => {
       if (error.response) {
         console.log("에러 응답:", error.response.data);
         console.log("사용자 입력 내용:", restaurantInfo);
+        console.log("사용자 입력 내용 images:", selectedimageFiles);
       } else {
         console.log("오류 응답이 없습니다.");
       }
@@ -117,18 +103,6 @@ const GoodRestaurantEnrollPage: React.FC = () => {
   const isDarkMode = useSelector(
     (state: RootState) => state.darkMode.isDarkMode
   );
-
-  const [restaurantInfo, setRestaurantInfo] = useState({
-    name: "",
-    address: "",
-    category: "",
-    contactNum: "",
-    detailAddress: "",
-    menu: "",
-    content: "",
-    latitude: "",
-    longitude: "",
-  });
 
   const { postId = "" } = useParams<{ postId?: string }>(); // postId의 초기값을 ''로 설정
 
@@ -171,17 +145,32 @@ const GoodRestaurantEnrollPage: React.FC = () => {
     });
   };
 
+  const [selectedCoordinates, setSelectedCoordinates] = useState<{
+    latitude: string;
+    longitude: string;
+  }>({
+    latitude: "",
+    longitude: "",
+  });
+
+  //NOTE: handleCoordinateChange함수안에 setSelectedCoordinates IMPO 경도 위도 추후에 업데이트하는 로직
   const handleCoordinateChange = (coordinates: {
     latitude: string;
     longitude: string;
   }) => {
-    setRestaurantInfo({
-      ...restaurantInfo,
+    setSelectedCoordinates({
       latitude: coordinates.latitude,
       longitude: coordinates.longitude,
     });
-
   };
+
+  useEffect(() => {
+    setRestaurantInfo(prevInfo => ({
+      ...prevInfo,
+      latitude: selectedCoordinates.latitude,
+      longitude: selectedCoordinates.longitude,
+    }));
+  }, [selectedCoordinates]);
 
   return (
     <StyledGoodRestrauntPage isDarkMode={isDarkMode}>
