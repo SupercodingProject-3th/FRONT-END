@@ -25,7 +25,7 @@ const RelativePostingBox : React.FC<{ postId: number  }> = ({postId}) => {
 
   return (
     <div style={{width:'100%',display:"flex",gap:"5px", justifyContent:"end",flexDirection:"column"}}>
-      <div style={{display:"flex",gap:"10px", justifyContent:"end",paddingRight:
+     <div style={{display:"flex",gap:"10px", justifyContent:"end",paddingRight:
       "10px"}} >
       <GrayBtn  size={"18px"} bold={order==="최신순"} onClick={(event) => changeOrder("최신순", event)}>
       최신순 

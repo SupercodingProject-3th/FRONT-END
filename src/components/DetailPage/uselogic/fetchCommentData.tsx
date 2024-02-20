@@ -107,7 +107,7 @@ export async function postComment(
     console.error("데이터를 가져오는 중에 오류 발생:", error);
     throw error;
   }
-}else if(typeof comment_id === undefined){
+}else if(typeof comment_id === "undefined"){
   try {
     const response: AxiosResponse<putAndPostCommentType> =
       await axios.post<putAndPostCommentType>(

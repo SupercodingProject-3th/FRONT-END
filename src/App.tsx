@@ -3,17 +3,13 @@ import "./App.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login, logout } from "./store/slices/authSlices";
-import React from "react";
 import MainPage from "./pages/mainPage/MainPage";
 import GoodRestaurantEnrollPage from "./pages/goodRestaurantEnrollPage/GoodRestaurantEnrollPage";
 import AuthRouter from "./components/Login/AuthRouter";
 import PlacesList from "./pages/PlacesList";
 import GoodRestaurantEditPage from "./pages/goodRestaurantEditPage/GoodRestaurantEditPage";
-
-import MapMainPage from "./components/kakaoMapMainPage/MapMainPage"
+import MapMainPage from "./components/KakaoMapMainPage/MapMainPage"
 import DetailPage from "./pages/detailPage";
-
-import MapMainPage from "./components/kakaoMapMainPage/MapMainPage";
 
 
 function App() {
@@ -58,7 +54,7 @@ function App() {
         <Route path="/edit/:postId" element={<GoodRestaurantEditPage />} />
 
         <Route path="/*" element={<AuthRouter userNickName={userNickName} />} />
-        <Route path="/detail/:id" element={<DetailPage/>} />
+        <Route path="/detail" element={<DetailPage/>} />
         <Route path="*" element={<div>404페이지</div>} />
         <Route path="/placeslist" element={<PlacesList />} />
       </Routes>
