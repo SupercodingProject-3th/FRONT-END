@@ -14,7 +14,7 @@ type Props = {
   showSecondBanner?: boolean;
 };
 
-const TestBanner = ({ setSelectedPage, showSecondBanner }: Props) => {
+const MainBanner = ({ setSelectedPage, showSecondBanner }: Props) => {
   {
     const navigate = useNavigate();
     const [isSecondBannerShown, setIsSecondBannerShown] = useState(
@@ -26,7 +26,6 @@ const TestBanner = ({ setSelectedPage, showSecondBanner }: Props) => {
       if (action === 'list') {  // "맛집 목록" 버튼 클릭 시
         navigate('/placeslist'); 
       } else if (action === 'map') { // "맛집 지도" 버튼 클릭 시 
-        
       }
       setIsSecondButtonClicked(!isSecondButtonClicked);
       setIsSecondBannerShown(!isSecondBannerShown);
@@ -38,25 +37,23 @@ const TestBanner = ({ setSelectedPage, showSecondBanner }: Props) => {
     return (
       <StyledSection id="home" showSecondBanner={showSecondBanner} isDarkMode={isDarkMode} >
         <ButtonWrapper>
-          <Button onClick={() => handleButtonClick('list')}>맛집 목록</Button>
+        <Button>맛집 목록</Button>
           <Button onClick={() => handleButtonClick('map')}>맛집 지도</Button>
         </ButtonWrapper>
 
         {isSecondButtonClicked ? (
           <BannerArea >
-            {/* 맛집 지도가 클릭되었을 때 표시할 내용 */}
             <div className="mt-32 md:basis-3/5">
               <StyledContentContainer>
-                <Image alt="home-pageGraphic" src={FoodMap} onClick={() => navigate('/map')} />
+                <Image alt="home-pageGraphic" src={FoodMap}  onClick={() => navigate('/map')} />
               </StyledContentContainer>
             </div>
           </BannerArea>
         ) : (
           <BannerArea>
-            {/* 맛집 목록이 클릭되었을 때 표시할 내용 */}
             <StyledBannerWrapper>
               <StyledContentContainer>
-                <Image alt="home-pageGraphic" src={FoodImage} />
+              <Image alt="home-pageGraphic" src={FoodImage} onClick={() => handleButtonClick('list')}/>
               </StyledContentContainer>
             </StyledBannerWrapper>
           </BannerArea>
@@ -67,7 +64,7 @@ const TestBanner = ({ setSelectedPage, showSecondBanner }: Props) => {
 };
 
 const StyledSection = styled.section<{ showSecondBanner?: boolean; isDarkMode:boolean }>`
-background-color: ${(props) => (props.isDarkMode ? DARK_GREY : WHITE)};
+  background-color: ${(props) => (props.isDarkMode ? DARK_GREY : WHITE)};
   padding: 10px;
 `;
 
@@ -119,4 +116,4 @@ const Button = styled.button`
 `;
 
 const StyledBannerWrapper = styled.div``;
-export default TestBanner;
+export default MainBanner;
