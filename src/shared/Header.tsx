@@ -15,7 +15,9 @@ const Header = () => {
     (state: RootState) => state.darkMode.isDarkMode
   );
 
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isAuthenticated);
+  const isLoggedIn = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
 
   return (
     <HeaderLayout isDarkMode={isDarkMode}>
@@ -72,9 +74,7 @@ const TopNavBar = styled.div`
   }
 
   @media (max-width: 1023.9px) {
-    flex-direction: column; /* 모바일 환경에서 세로로 요소를 배치 */
     height: auto; /* 높이를 자동으로 설정하여 내용에 맞게 조절 */
-    align-items: flex-start; /* 요소를 왼쪽 정렬 */
   }
 `;
 
@@ -84,11 +84,10 @@ const UnderLine = styled.div`
 `;
 
 const LogoWrapper = styled.div`
-  @media (max-width: 1023.9px) {
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+  ${media.mobile} {
+    position: static;
+    transform: none;
+    margin-bottom: 1rem; /* 로고와 다른 요소 간의 간격을 조절할 수 있습니다. */
   }
 `;
 

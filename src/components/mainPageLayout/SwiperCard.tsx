@@ -4,10 +4,16 @@ import LeftArrow from "../../assets/icon/mainPage/left-arrow.svg";
 import RightArrow from "../../assets/icon/mainPage/right-arrow.svg";
 import styled from "styled-components";
 import { PostContent } from "../../types/PostContent";
+import { useNavigate } from "react-router";
 
 export default function Card({ title, posts }: { title: any; posts: PostContent[] }) {
 
   const contentData = posts; 
+  const navigate = useNavigate(); // 변수명을 navigate로 수정
+
+  const handlePostClick = (postId: string) => {
+    navigate(`/detail?postId=${postId}&page=0`); // 변수명도 navigate로 수정
+  };
 
   const SlickArrowLeft: React.FC<any> = ({
     currentSlide,
@@ -53,7 +59,7 @@ export default function Card({ title, posts }: { title: any; posts: PostContent[
         <Slider {...settings}>
           {contentData.map((item: any, index: number) => {
             return (
-              <CardItem key={index}>
+              <CardItem key={index} onClick={() => handlePostClick(item.id)}> 
                 <ImageWrapper>
                   <FoodImage src={item.mainPhoto} alt="food_img" />
                 </ImageWrapper>
