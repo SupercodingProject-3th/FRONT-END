@@ -7,6 +7,7 @@ import PlaceCard from '../../shared/PlaceCard';
 import { getApiList } from '../../lib/api';
 import { Place } from '../../types/Place'; 
 import { flatten } from 'lodash';
+import SkeletonCard from '../../shared/SkeletonCard';
 
 interface PlaceCardGridProps {
   selectedLocation: string;
@@ -20,14 +21,15 @@ interface ApiResponse {
   totalPages: number;
 }
 
-
-
+const formatQueryValue = (value: string) => value === '전체' ? "" : value;
 const PlaceCardGrid: React.FC<PlaceCardGridProps> = ({ selectedLocation, selectedCategory, selectedOrder }) => {
   const { data, hasNextPage, fetchNextPage, isFetching } = useInfiniteQuery<ApiResponse, Error>(
     [selectedLocation, selectedCategory, selectedOrder],
-    ({ pageParam = 0 }) => getApiList(pageParam, 12, selectedLocation, selectedCategory, selectedOrder),
+    ({ pageParam = 0 }) => getApiList(pageParam, 12, 
+      formatQueryValue(selectedLocation), formatQueryValue(selectedCategory), selectedOrder),
     {
       getNextPageParam: (lastPage) => lastPage.lastVisible,
+      suspense: true
     }
   );
 
@@ -35,12 +37,11 @@ const PlaceCardGrid: React.FC<PlaceCardGridProps> = ({ selectedLocation, selecte
     if (!hasNextPage || isFetching) return;
     fetchNextPage();
   }, [fetchNextPage, hasNextPage, isFetching]);
+
   if(data == null)
     return null
 
-  // const cards = data.pages.flatMap(page => page.content);
   const cards = flatten(data.pages.map(page => page.content));
-  
 
   return (
     <GridContainer>
@@ -48,11 +49,11 @@ const PlaceCardGrid: React.FC<PlaceCardGridProps> = ({ selectedLocation, selecte
         dataLength={cards.length}
         next={loadMore}
         hasMore={hasNextPage|| false}
-        loader={<div>Loading...</div>}
+        loader={<SkeletonCard/>}
       >
         <StyledGridContainer>
-          {cards.map((card) => (
-                <PlaceCard key={card.postId} {...card} size="255px" />
+          {cards.map((card,index) => (
+                <PlaceCard key={index} {...card} size="255px" />
           ))}
         </StyledGridContainer>
         
@@ -62,6 +63,7 @@ const PlaceCardGrid: React.FC<PlaceCardGridProps> = ({ selectedLocation, selecte
 };
 
 export default PlaceCardGrid;
+
 const StyledGridContainer = styled.div` 
   display: grid;
   gap: 20px;
