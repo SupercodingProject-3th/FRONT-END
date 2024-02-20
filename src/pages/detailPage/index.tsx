@@ -8,10 +8,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import Header from '../../shared/Header';
 import Footer from '../../shared/Footer';
-import DetailPageMap from '../../components/DetailPage/DetailPageMap';
 import DetailPageSummary from '../../components/DetailPage/DetailPageSummary';
 import RelativePosting from '../../components/DetailPage/RelativePosting';
-import { useEffect } from 'react';
 
 const DetailPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
