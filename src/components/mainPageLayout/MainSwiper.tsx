@@ -7,18 +7,11 @@
 
   interface Post {
     content: PostContent[];
-
   }
 
-  // 정적데이터 
+  // NOTE: 정적데이터 예시
   // const dataTop = [
   //   {url:"https://t1.daumcdn.net/cfile/tistory/247BF54F560F52372F"},
-  //   {url:"https://cdn.pixabay.com/photo/2010/12/13/10/05/berries-2277_1280.jpg"},
-  //   {url:"https://cdn.pixabay.com/photo/2010/12/13/10/05/berries-2277_1280.jpg"},
-  //   {url:"https://cdn.pixabay.com/photo/2010/12/13/10/05/berries-2277_1280.jpg"},
-  //   {url:"https://cdn.pixabay.com/photo/2010/12/13/10/05/berries-2277_1280.jpg"},
-  //   {url:"https://cdn.pixabay.com/photo/2010/12/13/10/05/berries-2277_1280.jpg"},
-  //   {url:"https://cdn.pixabay.com/photo/2010/12/13/10/05/berries-2277_1280.jpg"},
   // ]  
 
   const MainSwiper: React.FC<Post> = ({ content }) => {
