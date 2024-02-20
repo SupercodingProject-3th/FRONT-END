@@ -21,14 +21,16 @@ const MainBanner = ({ setSelectedPage, showSecondBanner }: Props) => {
       showSecondBanner || false
     );
     const [isSecondButtonClicked, setIsSecondButtonClicked] = useState(false);
-    // NOTE: 맛집 목록 연동
+ 
     const handleButtonClick = (action: string) => {
-      if (action === 'list') {  // "맛집 목록" 버튼 클릭 시
-        navigate('/placeslist'); 
-      } else if (action === 'map') { // "맛집 지도" 버튼 클릭 시 
+      if (action === 'list') { // "맛집 목록" 버튼 클릭 시
+        setIsSecondButtonClicked(false); // 상태 변경
+        setIsSecondBannerShown(false); // 이미지 변경
+        navigate('/placeslist'); // 페이지 이동
+      } else if (action === 'map') { // "맛집 지도" 버튼 클릭 시
+        setIsSecondButtonClicked(true); // 상태 변경
+        setIsSecondBannerShown(true); // 이미지 변경
       }
-      setIsSecondButtonClicked(!isSecondButtonClicked);
-      setIsSecondBannerShown(!isSecondBannerShown);
     };
     const isDarkMode = useSelector(
       (state: RootState) => state.darkMode.isDarkMode
@@ -37,7 +39,7 @@ const MainBanner = ({ setSelectedPage, showSecondBanner }: Props) => {
     return (
       <StyledSection id="home" showSecondBanner={showSecondBanner} isDarkMode={isDarkMode} >
         <ButtonWrapper>
-        <Button>맛집 목록</Button>
+        <Button onClick={() => setIsSecondButtonClicked(false)}>맛집 목록</Button>
           <Button onClick={() => handleButtonClick('map')}>맛집 지도</Button>
         </ButtonWrapper>
 
@@ -71,7 +73,7 @@ const StyledSection = styled.section<{ showSecondBanner?: boolean; isDarkMode:bo
 const BannerArea = styled.div``;
 
 const StyledContentContainer = styled.div`
-  height: 52vh; 
+  height: 52vh;
   display: flex;
   justify-content: center;
   align-items: center;
