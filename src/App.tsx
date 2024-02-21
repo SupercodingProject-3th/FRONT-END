@@ -6,10 +6,11 @@ import { login, logout } from "./store/slices/authSlices";
 import MainPage from "./pages/mainPage/MainPage";
 import GoodRestaurantEnrollPage from "./pages/goodRestaurantEnrollPage/GoodRestaurantEnrollPage";
 import AuthRouter from "./components/Login/AuthRouter";
-import PlacesList from "./pages/PlacesList";
+import PlacesList from "./pages/PlacesList/PlacesList";
 import GoodRestaurantEditPage from "./pages/goodRestaurantEditPage/GoodRestaurantEditPage";
 import MapMainPage from "./components/KakaoMapMainPage/MapMainPage";
 import DetailPage from "./pages/detailPage";
+import SearchPlacesList from "./pages/PlacesList/SearchPlacesList";
 
 function App() {
   const [userNickName, setUserNickName] = useState("");
@@ -41,6 +42,7 @@ function App() {
           path="/goodrestaurantenroll"
           element={<GoodRestaurantEnrollPage />}
         />
+        <Route path="/searchlist/:keyword" element={<SearchPlacesList />} />
 
         <Route path="/map" element={<MapMainPage />} />
 

@@ -12,6 +12,22 @@ export interface Place {
   userId: null | string; 
   favoriteYn: string;
 }
+export interface SearchPlace {
+  postId: number;
+  userId: null | string; 
+  name: string;
+  mainPhoto: string;
+  viewCount: string;
+  favoriteCount: string;
+  favoriteYn: string;
+}
+
+export interface ApiResponse {
+  content: Place[];
+  lastVisible: number | null;
+  totalElements: number;
+  totalPages: number;
+}
 
 export interface Category {
   id: number

@@ -15,7 +15,8 @@ interface MenuFilterProps {
         <FilterControl>
           <FilterSelect value={selectedOrder} onChange={handleChange}>
             <option value="최신순">최신순</option>
-            <option value="추천순">추천순</option>
+            <option value="인기순">인기순</option>
+            <option value="조회순">조회순</option>
           </FilterSelect>
         </FilterControl>
       );

@@ -1,20 +1,29 @@
+  import React, { useState } from 'react';
+  import { useNavigate } from 'react-router-dom';
   import styled from "styled-components";
   import searchIcon from "../../assets/icon/searchIcon.png";
   import { media } from "../../styles/media";
 
 
   const SearchBar = () => {
+    const [keyword, setKeyword] = useState('');
+    const navigate = useNavigate(); 
+    const handleImageClick = () => {
+      console.log("확인")
+      navigate(`/searchlist/${keyword}`);
+    };
       return (
           <SearchBarContainer>
             <SearchBarInputContainer>
               <SearchBarInputWrapper>
-                <SearchBarInput/>
+                <SearchBarInput onChange={(e) => setKeyword(e.target.value)} />
               </SearchBarInputWrapper>
               <Image
                 src={searchIcon}
                 width="18"
                 height="24"
                 alt="searchIcon"
+                onClick={handleImageClick}
               />
             </SearchBarInputContainer>
           </SearchBarContainer>
