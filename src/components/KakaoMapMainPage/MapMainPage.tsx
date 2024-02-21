@@ -175,6 +175,7 @@ const StyledPagination = styled.div`
   font-size: 20px;
   margin-top: -80px;
   margin-bottom: 70px;
+  align-items: center;
 
   a {
     color: #fff;
@@ -216,7 +217,7 @@ const StyledList = styled.div`
   }
 `;
 const Info = styled.div`
-  margin-left: 30px;
+  margin-left: 8px;
 
   background-color: #f7f4ef;
   margin-bottom: 40px;
