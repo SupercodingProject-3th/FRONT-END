@@ -4,8 +4,10 @@ import PlaceCardGrid from '../../components/placeList/PlaceCardGrid';
 import MenuFilter from '../../components/placeList/MenuFilter';
 import SkeletonCard from '../../shared/SkeletonCard';
 import RelationPlaceCardGrid from '../../components/placeList/RelationPlaceCardGrid';
+import { useParams } from 'react-router';
 
-const RelationPlacesList = (postId: number) => {
+const RelationPlacesList = () => {
+    const { postId } = useParams() as { postId: string };
     const [selectedOrder, setSelectedOrder] = useState<string>('최신순');
     return (
         <Container>

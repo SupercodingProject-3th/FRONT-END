@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useInfiniteQuery} from 'react-query';
 import { media } from '../../styles/media';
+import { flatten } from 'lodash';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import PlaceCard from '../../shared/PlaceCard';
+import SkeletonCard from '../../shared/SkeletonCard';
 import { getApiSearch } from '../../api/listApi';
 import { ApiResponse, Place } from '../../types/Place';
 
 
 interface SearchPlaceCardGridProps {
     keyword: string;
-    setCards: (cards: Place[]) => void; 
-    cards: Place[]; 
 }
-const SearchPlaceCardGrid: React.FC<SearchPlaceCardGridProps> = ({ keyword, setCards, cards }) => {
+const SearchPlaceCardGrid: React.FC<SearchPlaceCardGridProps> = ({ keyword}) => {
+    // const [cards, setCards] = useState<Place[]>([]);
     const { data, hasNextPage, fetchNextPage, isFetching } = useInfiniteQuery<ApiResponse, Error>(
        [keyword],
       ({ pageParam = 0 }) => getApiSearch(pageParam, 12, keyword),
@@ -21,34 +23,63 @@ const SearchPlaceCardGrid: React.FC<SearchPlaceCardGridProps> = ({ keyword, setC
         suspense: true
       }
     );
+
+    const loadMore = useCallback(() => {
+        if (!hasNextPage || isFetching) return;
+        fetchNextPage();
+      }, [fetchNextPage, hasNextPage, isFetching]);
+
+    if(data == null)
+        return null
+
+    const cards = flatten(data.pages.map(page => page.content));
+    // setCards(newCards)
+
     return (
         <GridContainer>
+            <Wrapper>
+            <TextDiv>{cards.length > 0 ? `'${keyword}' 관련 맛집 목록.` : `'${keyword}' 결과가 없습니다.`}</TextDiv>
+            </Wrapper>
+          <InfiniteScroll
+            dataLength={cards.length}
+            next={loadMore}
+            hasMore={hasNextPage|| false}
+            loader={<SkeletonCard/>}
+          >
+            <StyledGridContainer>
               {cards.map((card,index) => (
                     <PlaceCard key={index} {...card} size="255px" />
               ))}
+            </StyledGridContainer>
+            
+          </InfiniteScroll>
         </GridContainer>
-    );
+      );
+
 };
 
-// const SearchPlaceCardGrid: React.FC<SearchPlaceCardGridProps> = ({ keyword, setCards, cards }) => {
 
-//     useEffect(() => {
-//         const fetchData = async () => {
-//             const { content } = await getApiSearch(keyword);
-//             setCards(content );
-//         };
-//         fetchData();
-//     }, [setCards]);
-//     return (
-//         <GridContainer>
-//               {cards.map((card,index) => (
-//                     <PlaceCard key={index} {...card} size="255px" />
-//               ))}
-//         </GridContainer>
-//       );
-// };
+
 
 export default SearchPlaceCardGrid;
+
+const StyledGridContainer = styled.div` 
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+
+  ${media.desktop} {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  ${media.tablet} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  ${media.mobile} {
+    grid-template-columns: 1fr;
+  }
+`;
 
 const GridContainer = styled.div`
   margin: 0rem auto;
@@ -67,4 +98,17 @@ const GridContainer = styled.div`
   ${media.mobile} {
     grid-template-columns: 1fr;
   }
+`;
+
+const TextDiv = styled.div`
+width: 100%;
+height: 50px;
+font-size: 20px;
+font-weight: 400;
+`;
+
+const Wrapper = styled.div`
+display: flex;
+justify-content: space-between;
+margin: 0.3rem 0;
 `;

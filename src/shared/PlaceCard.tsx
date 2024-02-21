@@ -19,7 +19,7 @@ const PlaceCard: React.FC<
   size,
   onCardClick,
 }) => {
-  const [liked, setLiked] = useState(initialLiked === "Y");
+  const [liked, setLiked] = useState(initialLiked === "Y"|| initialLiked === true);
   const isAuthenticated = useSelector(
     (state: RootState) => state.auth.isAuthenticated
   );
