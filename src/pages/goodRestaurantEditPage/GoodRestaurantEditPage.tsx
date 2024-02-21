@@ -52,11 +52,16 @@ const GoodRestaurantEnrollPage: React.FC = () => {
           `https://www.onesol.shop/v1/api/post-detail/${postId}`
         );
         const postData = response.data; // 가져온 게시물 데이터
-        console.log("response.data 가져오나요? ", postData);
-        console.log("postData.address 가져오나요? ", postData.data.address); //NOTE: IMPO DATA 한번 더 접근
-        console.log("postData.data.postPhotoDtos.photo 가져오나요? ", postData.data.postPhotoDtos); 
+        console.log(
+          "postPhotoDtos: postData.postPhotoDtos",
+          postData.data.postPhotoDtos
+        );
+        console.log(
+          "postPhotoDtos: postData.postPhotoDtos[0].photo",
+          postData.data.postPhotoDtos[0].photo
+        );
 
-        setRestaurantInfo(prevInfo => ({
+        setRestaurantInfo((prevInfo) => ({
           ...prevInfo,
           name: postData.data.name,
           address: postData.data.address,
@@ -67,23 +72,22 @@ const GoodRestaurantEnrollPage: React.FC = () => {
           content: postData.data.content,
           latitude: postData.data.latitude,
           longitude: postData.data.longitude,
-          postPhotoDtos: postData.postPhotoDtos,
+          // postPhotoDtos: postData.data.postPhotoDtos[0].photo,
+          postPhotoDtos: postData.data.postPhotoDtos.map((photo: any) => photo.photo),
         }));
-        
-        // 데이터 로딩이 완료되었으므로 로딩 상태를 false로 변경
+
         setLoading(false);
       } catch (error) {
         console.error("게시물 데이터를 가져오는 중 오류 발생:", error);
       }
     };
 
-  if (postId) {
-    fetchPostData(); // postId가 존재할 때에만 데이터를 가져오도록 함
-  }
+    if (postId) {
+      fetchPostData();
+    }
   }, []);
 
   const token = isAuthenticated ? localStorage.getItem("token") : null;
-
   const [selectedimageFiles, setSelectedImageFiles] = useState<File[]>([]);
 
   const handleCategoryChange = (selectedCategory: string) => {
@@ -118,10 +122,10 @@ const GoodRestaurantEnrollPage: React.FC = () => {
       type: "application/json",
     });
 
-    formData.append("postRequest", jsonBlob);
+    formData.append("modifyPost", jsonBlob);
 
     try {
-      const response = await axios.put(
+      const response = await axios.post(
         `https://www.onesol.shop/v1/api/modify-post/${postId}`,
         formData,
         {
@@ -131,8 +135,8 @@ const GoodRestaurantEnrollPage: React.FC = () => {
         }
       );
       console.log("백엔드로부터의 응답:", response.data);
-      alert("맛집목록등록에 성공했습니다.");
-      window.location.reload();
+      alert("맛집수정에 성공했습니다.");
+      // window.location.reload();
     } catch (error: any) {
       console.error("오류 발생:", error);
 
@@ -216,7 +220,10 @@ const GoodRestaurantEnrollPage: React.FC = () => {
         <RestaurantInfoSectionWrapper>
           <PageTitle title="맛집수정페이지" />
           <RestaurantInfoSection>
-            <CategorySelect onCategoryChange={handleCategoryChange} value={restaurantInfo.category} />
+            <CategorySelect
+              onCategoryChange={handleCategoryChange}
+              value={restaurantInfo.category}
+            />
             <RestaurantInfoInput
               label="가게명"
               name="name"
@@ -244,28 +251,36 @@ const GoodRestaurantEnrollPage: React.FC = () => {
         </RestaurantInfoSectionWrapper>
         <QuillAndFileUploadWrapper>
           <QuillEditorWrapper>
-            <QuillEditor onContentChange={handleContentChange} initialValue={restaurantInfo.content} />
+            <QuillEditor
+              onContentChange={handleContentChange}
+              initialValue={restaurantInfo.content}
+            />
           </QuillEditorWrapper>
           <FileUploadWrapper>
-            <FileEdit
-              selectedFiles={selectedimageFiles}
-              onFileSelect={handleFileChange}
-              initialPhoto={restaurantInfo.postPhotoDtos}
-            />
-            <FileEdit
-              selectedFiles={selectedimageFiles}
-              onFileSelect={handleFileChange}
-              initialPhoto={restaurantInfo.postPhotoDtos}
-            />
-            <FileEdit
-              selectedFiles={selectedimageFiles}
-              onFileSelect={handleFileChange}
-              initialPhoto={restaurantInfo.postPhotoDtos}
-            />
+            {/* 미리보기가 있는 사진의 수 계산 */}
+
+            {/* 항상 3개의 FileEdit 컴포넌트를 렌더링 */}
+            {[...Array(3)].map((_, index) => (
+              <FileEdit
+                key={index}
+                selectedFiles={selectedimageFiles}
+                onFileSelect={handleFileChange}
+                initialPhoto={
+                 index >= 2? restaurantInfo.postPhotoDtos: "" // index가 2보다 크거나 같으면 미리보기 없음
+                }
+              />
+            ))}
           </FileUploadWrapper>
         </QuillAndFileUploadWrapper>
-        <MenuReviewSection onChange={handleInputChangeMenu} initialValue={restaurantInfo.menu} />
-        <ButtonSection postId={postId} onRegister={handleRegister} isEditing={true} />
+        <MenuReviewSection
+          onChange={handleInputChangeMenu}
+          initialValue={restaurantInfo.menu}
+        />
+        <ButtonSection
+          postId={postId}
+          onRegister={handleRegister}
+          isEditing={true}
+        />
         <ScrollToTopButton />
       </Wrapper>
       <Footer />
@@ -326,5 +341,5 @@ const QuillAndFileUploadWrapper = styled.div`
 
 const FileUploadWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
 `;

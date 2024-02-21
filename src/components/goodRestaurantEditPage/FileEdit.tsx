@@ -16,10 +16,12 @@ const FileEdit: React.FC<FileEditProps> = ({
   const inputRef = useRef<HTMLInputElement | null>(null); // useRef를 함수 외부에서 선언
   const [isFileInputDisabled, setIsFileInputDisabled] = useState(false);
 
+
   useEffect(() => {
     setPreviewImage(initialPhoto);
   }, [initialPhoto]);
 
+  console.log("initialPhoto test", initialPhoto);
 
   useEffect(() => {
     if (selectedFiles.length >= 3) {
@@ -42,7 +44,7 @@ const FileEdit: React.FC<FileEditProps> = ({
     } else {
       setPreviewImage(""); // 파일이 선택되지 않았을 때 미리보기 이미지 초기화
     }
-    onFileSelect(files); // 부모 컴포넌트로 선택된 파일 전달
+    onFileSelect(files);
   };
 
   const handleButtonClick = () => {
