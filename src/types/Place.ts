@@ -12,6 +12,13 @@ export interface Place {
   userId: null | string; 
   favoriteYn: string|Boolean;
 }
+
+export interface PlaceCardGridProps {
+  selectedLocation: string;
+  selectedCategory: string;
+  selectedOrder: string;
+}
+
 export interface SearchPlace {
   postId: number;
   userId: null | string; 

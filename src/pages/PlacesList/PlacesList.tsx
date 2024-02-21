@@ -4,8 +4,6 @@ import MenuCategory from '../../components/placeList/MenuCategory';
 import AreaFilter from '../../components/placeList/AreaFilter';
 import PlaceCardGrid from '../../components/placeList/PlaceCardGrid';
 import MenuFilter from '../../components/placeList/MenuFilter';
-import Skeleton from '../../shared/Skeleton';
-import { media } from '../../styles/media';
 import SkeletonCard from '../../shared/SkeletonCard';
 import Header from '../../shared/Header';
 
@@ -38,26 +36,6 @@ const PlacesList = () => {
 
 export default PlacesList;
 
-const SkeletonContainer = styled.div` 
-  display: grid;
-  justify-content: center;
-  padding: 30px 10px;
-  border-top: 2px solid #000;
-  gap: 20px;
-  grid-template-columns: repeat(4, 1fr);
-
-  ${media.desktop} {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  ${media.tablet} {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  ${media.mobile} {
-    grid-template-columns: 1fr;
-  }
-`;
 const Container = styled.div`
   margin: 0 auto;
   max-width: 1170px;
