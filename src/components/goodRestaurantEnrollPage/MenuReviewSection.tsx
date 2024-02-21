@@ -16,7 +16,7 @@ interface MenuReviewSectionProps {
       setMenu(updatedMenu); // 메뉴 상태를 업데이트
       onChange(updatedMenu); // 변경된 메뉴를 상위 컴포넌트로 전달
     };
-
+    
   return (
     <StyledMenuReviewSection>
       <RecommendMenuWrapper>
