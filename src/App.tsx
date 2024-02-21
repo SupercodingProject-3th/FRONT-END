@@ -38,20 +38,15 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<MainPage />} />
-
         <Route
           path="/goodrestaurantenroll"
           element={<GoodRestaurantEnrollPage />}
         />
+
         <Route path="/searchlist/:keyword" element={<SearchPlacesList />} />
         <Route path="/relationlist/:postId" element={<RelationPlacesList />} />
-
         <Route path="/map" element={<MapMainPage />} />
-
-        <Route path="/map" element={<MapMainPage />} />
-
         <Route path="/edit/:postId" element={<GoodRestaurantEditPage />} />
-
         <Route path="/*" element={<AuthRouter userNickName={userNickName} />} />
         <Route path="/detail" element={<DetailPage />} />
         <Route path="*" element={<div>404페이지</div>} />

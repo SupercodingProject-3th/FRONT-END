@@ -41,7 +41,7 @@ const DetailPageMenu:React.FC<DetailPageMenuType>  = ({postId,viewCount,favorite
     <StyledDiv style={{flexDirection:"column",alignItems:"end"}}>
       <StyledDiv>
         <StyledDiv>
-            <StyledLink to={`/edsit/${postId}`}>수정</StyledLink>
+            <StyledLink to={`/edit/${postId}`}>수정</StyledLink>
               <BlackBtn>삭제</BlackBtn>
             </StyledDiv>
             <div>{updateAt!==null?updateAt.slice(0, 10):createAt.slice(0, 10)}</div>

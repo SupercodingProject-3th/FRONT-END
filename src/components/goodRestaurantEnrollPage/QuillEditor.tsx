@@ -4,10 +4,11 @@ import 'react-quill/dist/quill.snow.css';
 
 interface QuillEditorProps {
   onContentChange: (content: string) => void;
+  initialValue: string;
 }
 
-const QuillEditor: React.FC<QuillEditorProps> = ({ onContentChange }) => {
-  const [text, setText] = useState("");
+const QuillEditor: React.FC<QuillEditorProps> = ({ onContentChange, initialValue }) => {
+  const [text, setText] = useState(initialValue);
   const QuillRef = useRef<ReactQuill | null>(null);
 
   const modules = {
@@ -30,12 +31,11 @@ const QuillEditor: React.FC<QuillEditorProps> = ({ onContentChange }) => {
     onContentChange(value);
   };
 
-
   return (
     <div>
       <ReactQuill
         ref={(el) => QuillRef.current = el}
-        value={text}
+        value={initialValue}
         onChange={handleChange}
         modules={modules}
         formats={formats}

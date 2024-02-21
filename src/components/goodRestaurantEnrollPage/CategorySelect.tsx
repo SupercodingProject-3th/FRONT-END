@@ -1,8 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-const CategorySelect: React.FC<{ onCategoryChange: (selectedCategory: string) => void }> = ({ onCategoryChange }) => {
-  const [category, setCategory] = useState("");
+interface CategorySelectProps {
+  onCategoryChange: (selectedCategory: string) => void;
+  value?: string; // 추가된 value props
+}
+
+const CategorySelect: React.FC<CategorySelectProps> = ({ onCategoryChange, value }) => {
+  const [category, setCategory] = useState(value || ""); // 초기값 설정
+
+  useEffect(() => {
+    setCategory(value || ""); // 상위 컴포넌트에서 value props가 변경될 때마다 카테고리 상태 업데이트
+  }, [value]);
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedCategory = e.target.value;
