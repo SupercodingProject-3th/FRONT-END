@@ -9,10 +9,10 @@ import { useNavigate } from "react-router";
 export default function Card({ title, posts }: { title: any; posts: PostContent[] }) {
 
   const contentData = posts; 
-  const navigate = useNavigate(); // 변수명을 navigate로 수정
+  const navigate = useNavigate();
 
   const handlePostClick = (postId: string) => {
-    navigate(`/detail?postId=${postId}&page=0`); // 변수명도 navigate로 수정
+    navigate(`/detail?postId=${postId}&page=0`); 
   };
 
   const SlickArrowLeft: React.FC<any> = ({

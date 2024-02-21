@@ -21,8 +21,8 @@
         </>
       ) : ( // 수정 중이 아니면 등록 버튼과 수정 버튼을 렌더링
         <>
+          <Button type="button" as={Link} to="/">홈</Button>
           <Button type="button" onClick={onRegister}>등록</Button>
-          <Button type="button" as={Link} to={`/edit/${postId}`}>수정</Button>
         </>
       )}
     </ButtonContainer>
