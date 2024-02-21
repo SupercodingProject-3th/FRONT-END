@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import Header from "../../shared/Header";
 import Footer from "../../shared/Footer";
@@ -25,7 +26,7 @@ const GoodRestaurantEnrollPage: React.FC = () => {
   const isAuthenticated = useSelector(
       (state: RootState) => state.auth.isAuthenticated
   );
-
+  const navigate = useNavigate(); 
   const [restaurantInfo, setRestaurantInfo] = useState({
     name: "",
     address: "",
@@ -103,7 +104,7 @@ const GoodRestaurantEnrollPage: React.FC = () => {
       );
       console.log("백엔드로부터의 응답:", response.data);
       alert("맛집목록등록에 성공했습니다.");
-      window.location.reload();
+      navigate("/");
     } catch (error: any) {
       console.error("오류 발생:", error);
 

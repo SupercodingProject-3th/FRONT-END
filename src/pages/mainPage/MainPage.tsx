@@ -20,13 +20,11 @@ const MainPage: React.FC = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-
     const size = 7; // 한 페이지에 표시할 아이템 수
     const page = 0; // 페이지 번호 (0부터 시작)
     const apiUrl =
       "https://www.onesol.shop/v1/api/post/post-list?page=0&size=10";
 
-    // 요청 보내기
     axios
       .post(apiUrl, {
         params: {
@@ -38,7 +36,6 @@ const MainPage: React.FC = () => {
         },
       })
       .then((response) => {
-        console.log("Response data:", response.data);
         setPosts(response.data.data.content);
       })
       .catch((error) => {

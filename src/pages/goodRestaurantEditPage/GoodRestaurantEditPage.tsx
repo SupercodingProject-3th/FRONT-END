@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import Header from "../../shared/Header";
 import Footer from "../../shared/Footer";
@@ -29,7 +30,7 @@ const GoodRestaurantEnrollPage: React.FC = () => {
   const isAuthenticated = useSelector(
     (state: RootState) => state.auth.isAuthenticated
   );
-
+  const navigate = useNavigate(); 
   const { postId = "" } = useParams<{ postId?: string }>();
   const [loading, setLoading] = useState(true);
   const [restaurantInfo, setRestaurantInfo] = useState({
@@ -51,7 +52,7 @@ const GoodRestaurantEnrollPage: React.FC = () => {
         const response = await axios.get(
           `https://www.onesol.shop/v1/api/post-detail/${postId}`
         );
-        const postData = response.data; // 가져온 게시물 데이터
+        const postData = response.data;
         console.log(
           "postPhotoDtos: postData.postPhotoDtos",
           postData.data.postPhotoDtos
@@ -136,7 +137,7 @@ const GoodRestaurantEnrollPage: React.FC = () => {
       );
       console.log("백엔드로부터의 응답:", response.data);
       alert("맛집수정에 성공했습니다.");
-      // window.location.reload();
+      navigate("/placelist");
     } catch (error: any) {
       console.error("오류 발생:", error);
 
