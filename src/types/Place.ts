@@ -10,7 +10,23 @@ export interface Place {
   createAt: string;
   favoriteCount: string;
   userId: null | string; 
+  favoriteYn: string|Boolean;
+}
+export interface SearchPlace {
+  postId: number;
+  userId: null | string; 
+  name: string;
+  mainPhoto: string;
+  viewCount: string;
+  favoriteCount: string;
   favoriteYn: string;
+}
+
+export interface ApiResponse {
+  content: Place[];
+  lastVisible: number | null;
+  totalElements: number;
+  totalPages: number;
 }
 
 export interface Category {

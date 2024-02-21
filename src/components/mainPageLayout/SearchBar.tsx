@@ -1,21 +1,41 @@
+  import React, { useState } from 'react';
+  import { useNavigate } from 'react-router-dom';
   import styled from "styled-components";
   import searchIcon from "../../assets/icon/searchIcon.png";
   import { media } from "../../styles/media";
 
 
   const SearchBar = () => {
+    const [keyword, setKeyword] = useState('');
+    const navigate = useNavigate(); 
+    const handleImageClick = () => {
+      const trimmedKeyword = keyword.trim();
+      console.log(`검색확인:${trimmedKeyword}`);
+      if (trimmedKeyword) {
+        const token = localStorage.getItem("token");
+        if (!token) { 
+          alert("로그인 후 이용가능합니다");
+        } else {
+          navigate(`/searchlist/${trimmedKeyword}`);
+        }
+      }
+    };
       return (
           <SearchBarContainer>
             <SearchBarInputContainer>
               <SearchBarInputWrapper>
-                <SearchBarInput/>
+                <SearchBarInput onChange={(e) => setKeyword(e.target.value)} />
               </SearchBarInputWrapper>
-              <Image
-                src={searchIcon}
-                width="18"
-                height="24"
-                alt="searchIcon"
-              />
+              <ImageWrapper>
+                <Image
+                  src={searchIcon}
+                  width="18"
+                  height="24"
+                  alt="searchIcon"
+                  onClick={handleImageClick}
+                />
+              </ImageWrapper>
+              
             </SearchBarInputContainer>
           </SearchBarContainer>
         );
@@ -23,6 +43,10 @@
 
 
   export default SearchBar;
+
+  const ImageWrapper= styled.div`
+  width:100%
+  `;
 
   const SearchBarContainer = styled.div`
       position: relative;

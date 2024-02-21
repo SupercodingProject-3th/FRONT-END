@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useInfiniteQuery,InfiniteData, UseInfiniteQueryResult } from 'react-query';
+import { useInfiniteQuery} from 'react-query';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import styled from 'styled-components';
 import { media } from '../../styles/media';
@@ -8,20 +8,17 @@ import { getApiList} from '../../api/listApi';
 import { Place } from '../../types/Place'; 
 import { flatten } from 'lodash';
 import SkeletonCard from '../../shared/SkeletonCard';
+import { ApiResponse } from '../../types/Place';
 
 interface PlaceCardGridProps {
   selectedLocation: string;
   selectedCategory: string;
   selectedOrder: string;
 }
-interface ApiResponse {
-  content: Place[];
-  lastVisible: number | null;
-  totalElements: number;
-  totalPages: number;
-}
+
 
 const formatQueryValue = (value: string) => value === '전체' ? "" : value;
+
 const PlaceCardGrid: React.FC<PlaceCardGridProps> = ({ selectedLocation, selectedCategory, selectedOrder }) => {
   const { data, hasNextPage, fetchNextPage, isFetching } = useInfiniteQuery<ApiResponse, Error>(
     [selectedLocation, selectedCategory, selectedOrder],
