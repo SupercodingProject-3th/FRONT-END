@@ -5,10 +5,11 @@ import { SOFT_BEIGE } from "../../styles/colors";
 
 interface MenuReviewSectionProps {
   onChange: (updatedMenu: string) => void; 
+  initialValue: string;
 }
 
-  const MenuReviewSection: React.FC<MenuReviewSectionProps> = ({ onChange }) => {
-    const [menu, setMenu] = useState<string>("");
+  const MenuReviewSection: React.FC<MenuReviewSectionProps> = ({ onChange, initialValue }) => {
+    const [menu, setMenu] = useState<string>(initialValue);
   
     const handleMenuChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       const updatedMenu = e.target.value; // 업데이트된 메뉴 값을 변수에 저장
@@ -21,8 +22,7 @@ interface MenuReviewSectionProps {
       <RecommendMenuWrapper>
         <Title>추천메뉴 조합</Title>
         <MenuTextarea
-          placeholder="메뉴를 입력하세요"
-          value={menu}
+          value={initialValue}
           onChange={handleMenuChange}
         />
       </RecommendMenuWrapper>

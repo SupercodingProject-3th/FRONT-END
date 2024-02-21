@@ -3,23 +3,29 @@ import styled from "styled-components";
 import Postcode from "@actbase/react-daum-postcode";
 import REST_API from "../../constant/config";
 
-//onChange 핸들러는 주소 입력란의 값이 변경될 때 호출되고, onAddressChange 핸들러는 주소가 선택되었을 때 호출
 interface AddressInputProps {
   onCoordinateChange: (coordinates: {
     latitude: string;
     longitude: string;
+
   }) => void;
-  onChange: (address: string) => void; // 수정된 부분
+  onChange: (address: string) => void; 
+  initialValue: {
+    address: string;
+  };
+  postId?: string; 
 }
 
 const AddressInput: React.FC<AddressInputProps> = ({
   onCoordinateChange,
   onChange,
+  initialValue,
+  postId,
 }) => {
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState(initialValue.address);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchKeyword, setSearchKeyword] =
-    useState<string>("맛집을 검색해보세요");
+    useState<string>("맛집을 검색해보세요."+initialValue.address);
 
   const handleAddressInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newAddress = e.target.value;
@@ -158,7 +164,7 @@ const DetailAddressWrapper = styled.div`
 
 const Input = styled.input`
   flex: 1;
-  width: 50%;
+  width: 90%;
   padding: 0px 100px 0 0px;
   border-radius: 5px;
   margin-bottom: 10px;

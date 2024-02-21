@@ -42,6 +42,12 @@ const GoodRestaurantEnrollPage: React.FC = () => {
 
   const [selectedimageFiles, setSelectedImageFiles] = useState<File[]>([]);
 
+  const [isEditing, setIsEditing] = useState(false);
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+  
+
   const handleCategoryChange = (selectedCategory: string) => {
     setRestaurantInfo({
       ...restaurantInfo,
@@ -186,7 +192,7 @@ const GoodRestaurantEnrollPage: React.FC = () => {
         <Header />
         <Wrapper>
           <RestaurantInfoSectionWrapper>
-            <PageTitle />
+          <PageTitle title="맛집등록페이지" />
             <RestaurantInfoSection>
               <CategorySelect onCategoryChange={handleCategoryChange} />
               <RestaurantInfoInput
@@ -204,7 +210,8 @@ const GoodRestaurantEnrollPage: React.FC = () => {
               <AddressInput
                   onCoordinateChange={handleCoordinateChange} // 위도와 경도를 받아오는 핸들러 함수
                   onChange={handleInputChangeAddress} // 주소가 변경될 때 호출되는 핸들러 함수
-              />
+                  initialValue={restaurantInfo} 
+             />
               <DetailAddressInfoInput
                   label="상세주소"
                   name="detailAddress"
@@ -215,12 +222,13 @@ const GoodRestaurantEnrollPage: React.FC = () => {
           </RestaurantInfoSectionWrapper>
           <QuillAndFileUploadWrapper>
             <QuillEditorWrapper>
-              <QuillEditor onContentChange={handleContentChange} />
+              <QuillEditor onContentChange={handleContentChange} initialValue={restaurantInfo.content} />
             </QuillEditorWrapper>
             <FileUploadWrapper>
               <FileUpload
                   selectedFiles={selectedimageFiles}
                   onFileSelect={handleFileChange}
+                  
               />
               <FileUpload
                   selectedFiles={selectedimageFiles}
@@ -232,8 +240,8 @@ const GoodRestaurantEnrollPage: React.FC = () => {
               />
             </FileUploadWrapper>
           </QuillAndFileUploadWrapper>
-          <MenuReviewSection onChange={handleInputChangeMenu} />
-          <ButtonSection postId={postId} onRegister={handleRegister} />
+          <MenuReviewSection onChange={handleInputChangeMenu} initialValue={restaurantInfo.menu} />
+          <ButtonSection postId={postId} onRegister={handleRegister} isEditing={isEditing} />
           <ScrollToTopButton />
         </Wrapper>
         <Footer />

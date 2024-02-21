@@ -1,10 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-const PageTitle: React.FC = () => {
+interface PageTitleProps {
+  title: string; // 변경되는 제목 문자열을 받을 props
+}
+
+const PageTitle: React.FC<PageTitleProps> = ( {title}) => {
   return (
     <PageTitleWrapper>
-      <Label>맛집상세등록페이지</Label>
+      <Label>{title}</Label>
       <Spacer />
       <MandatoryInfo>(*)표시는 필수입력사항입니다.</MandatoryInfo>
     </PageTitleWrapper>
