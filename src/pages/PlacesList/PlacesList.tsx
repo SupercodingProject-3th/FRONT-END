@@ -1,14 +1,14 @@
 import React, { useState,Suspense } from 'react';
 import styled from 'styled-components';
-import MenuCategory from '../components/placeList/MenuCategory';
-import AreaFilter from '../components/placeList/AreaFilter';
-import PlaceCardGrid from '../components/placeList/PlaceCardGrid';
-import MenuFilter from '../components/placeList/MenuFilter';
-import Skeleton from '../shared/Skeleton';
-import { media } from '../styles/media';
-import SkeletonCard from '../shared/SkeletonCard';
+import MenuCategory from '../../components/placeList/MenuCategory';
+import AreaFilter from '../../components/placeList/AreaFilter';
+import PlaceCardGrid from '../../components/placeList/PlaceCardGrid';
+import MenuFilter from '../../components/placeList/MenuFilter';
+import Skeleton from '../../shared/Skeleton';
+import { media } from '../../styles/media';
+import SkeletonCard from '../../shared/SkeletonCard';
 
-const PlacesList: React.FC = () => {
+const PlacesList = () => {
   const [selectedLocation, setSelectedLocation] = useState<string>('전체');
   const [selectedCategory, setSelectedCategory] = useState<string>('전체');
   const [selectedOrder, setSelectedOrder] = useState<string>('최신순');
