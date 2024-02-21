@@ -34,18 +34,34 @@ export async function postApiLike(postId: number): Promise<{ content: string }> 
 }
 
 export async function getApiRelation(postId: number,selectedOrderParam: string): Promise<{ content: Place[] }> {
-    const response = await axios.post(`https://www.onesol.shop/v1/api/post-relation/${postId}?order=${selectedOrderParam}`);
+    const response = await axios.get(`https://www.onesol.shop/v1/api/post-relation/${postId}?order=${selectedOrderParam}`);
     
-    const { content } = response.data.data;
-    return { content};
+    const  content  = response.data.data;
+    return  content;
 }
 
 export async function getApiSearch(pageParam: number, sizeParam: number,keywordParam: string): Promise<{content: Place[], lastVisible: number | null, totalElements: number, totalPages: number}> {
-    const response = await axios.get(`https://www.onesol.shop/v1/api/search?keyword=${keywordParam}&page=${pageParam}&size=${sizeParam}`);
-    
+    const token =localStorage.getItem("token");
+    const response = await axios.get(`https://www.onesol.shop/v1/api/search?keyword=${keywordParam}&page=${pageParam}&size=${sizeParam}`, {
+        headers: {
+            Token: token
+        }
+    });
     const { content, totalPages, totalElements } = response.data.data;
     const nextPage = pageParam + 1;
     const lastVisible = nextPage < totalPages ? nextPage : null;
   
     return { content, lastVisible, totalElements, totalPages };
+}
+
+export async function getApiSearch_(keywordParam: string): Promise<{content: Place[]}> {
+    const token =localStorage.getItem("token");
+    const response = await axios.get(`https://www.onesol.shop/v1/api/search?keyword=${keywordParam}&page=0&size=12`, {
+        headers: {
+            Token: token
+        }
+    });
+    const { content } = response.data.data;
+  
+    return { content};
 }

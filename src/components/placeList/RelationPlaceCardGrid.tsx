@@ -6,7 +6,7 @@ import { getApiRelation } from '../../api/listApi';
 import { Place } from '../../types/Place';
 
 interface RelationPlaceCardGridProps {
-    postId: number;
+    postId: string;
     selectedOrder: string;
   }
   
@@ -15,7 +15,7 @@ interface RelationPlaceCardGridProps {
 
     useEffect(() => {
         const fetchData = async () => {
-            const { content } = await getApiRelation(postId, selectedOrder);
+            const { content } = await getApiRelation(Number(postId), selectedOrder);
             setCards(content );
         };
         fetchData();

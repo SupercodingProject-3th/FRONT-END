@@ -10,7 +10,7 @@ export interface Place {
   createAt: string;
   favoriteCount: string;
   userId: null | string; 
-  favoriteYn: string;
+  favoriteYn: string|Boolean;
 }
 export interface SearchPlace {
   postId: number;

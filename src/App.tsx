@@ -11,6 +11,7 @@ import GoodRestaurantEditPage from "./pages/goodRestaurantEditPage/GoodRestauran
 import MapMainPage from "./components/KakaoMapMainPage/MapMainPage";
 import DetailPage from "./pages/detailPage";
 import SearchPlacesList from "./pages/PlacesList/SearchPlacesList";
+import RelationPlacesList from "./pages/PlacesList/RelationPlacesList";
 
 function App() {
   const [userNickName, setUserNickName] = useState("");
@@ -43,6 +44,7 @@ function App() {
           element={<GoodRestaurantEnrollPage />}
         />
         <Route path="/searchlist/:keyword" element={<SearchPlacesList />} />
+        <Route path="/relationlist/:postId" element={<RelationPlacesList />} />
 
         <Route path="/map" element={<MapMainPage />} />
 
