@@ -10,13 +10,7 @@ import { useNavigate } from "react-router";
 const PlaceCard: React.FC<
   Place & { size?: string } & { onCardClick?: () => void }
 > = ({
-  postId,
-  name,
-  category,
-  mainPhoto,
-  favoriteYn: initialLiked,
-  userId,
-  size,
+  postId, name, category, mainPhoto, favoriteYn: initialLiked, userId, size,
   onCardClick,
 }) => {
   const [liked, setLiked] = useState(initialLiked === "Y"|| initialLiked === true);

@@ -5,17 +5,11 @@ import styled from 'styled-components';
 import { media } from '../../styles/media';
 import PlaceCard from '../../shared/PlaceCard';
 import { getApiList} from '../../api/listApi';
-import { Place } from '../../types/Place'; 
 import { flatten } from 'lodash';
 import SkeletonCard from '../../shared/SkeletonCard';
 import { ApiResponse } from '../../types/Place';
-
-interface PlaceCardGridProps {
-  selectedLocation: string;
-  selectedCategory: string;
-  selectedOrder: string;
-}
-
+import { PlaceCardGridProps } from '../../types/Place';
+import ScrollToTopButton from '../../shared/ScrollTopButton';
 
 const formatQueryValue = (value: string) => value === '전체' ? "" : value;
 
@@ -53,8 +47,8 @@ const PlaceCardGrid: React.FC<PlaceCardGridProps> = ({ selectedLocation, selecte
                 <PlaceCard key={index} {...card} size="255px" />
           ))}
         </StyledGridContainer>
-        
       </InfiniteScroll>
+      <ScrollToTopButton/>
     </GridContainer>
   );
 };
@@ -84,16 +78,4 @@ const GridContainer = styled.div`
   justify-content: center;
   padding: 30px 0px;
   border-top: 2px solid #000;
-
-  ${media.desktop} {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  ${media.tablet} {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  ${media.mobile} {
-    grid-template-columns: 1fr;
-  }
 `;

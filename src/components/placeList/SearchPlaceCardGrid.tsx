@@ -9,12 +9,10 @@ import SkeletonCard from '../../shared/SkeletonCard';
 import { getApiSearch } from '../../api/listApi';
 import { ApiResponse, Place } from '../../types/Place';
 
-
 interface SearchPlaceCardGridProps {
     keyword: string;
 }
 const SearchPlaceCardGrid: React.FC<SearchPlaceCardGridProps> = ({ keyword}) => {
-    // const [cards, setCards] = useState<Place[]>([]);
     const { data, hasNextPage, fetchNextPage, isFetching } = useInfiniteQuery<ApiResponse, Error>(
        [keyword],
       ({ pageParam = 0 }) => getApiSearch(pageParam, 12, keyword),
@@ -33,7 +31,6 @@ const SearchPlaceCardGrid: React.FC<SearchPlaceCardGridProps> = ({ keyword}) => 
         return null
 
     const cards = flatten(data.pages.map(page => page.content));
-    // setCards(newCards)
 
     return (
         <GridContainer>
@@ -51,15 +48,11 @@ const SearchPlaceCardGrid: React.FC<SearchPlaceCardGridProps> = ({ keyword}) => 
                     <PlaceCard key={index} {...card} size="255px" />
               ))}
             </StyledGridContainer>
-            
           </InfiniteScroll>
         </GridContainer>
       );
 
 };
-
-
-
 
 export default SearchPlaceCardGrid;
 
@@ -86,18 +79,6 @@ const GridContainer = styled.div`
   justify-content: center;
   padding: 30px 0px;
   border-top: 2px solid #000;
-
-  ${media.desktop} {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  ${media.tablet} {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  ${media.mobile} {
-    grid-template-columns: 1fr;
-  }
 `;
 
 const TextDiv = styled.div`
