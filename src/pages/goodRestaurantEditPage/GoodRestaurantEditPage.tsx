@@ -137,7 +137,7 @@ const GoodRestaurantEnrollPage: React.FC = () => {
       );
       console.log("백엔드로부터의 응답:", response.data);
       alert("맛집수정에 성공했습니다.");
-      navigate("/placelist");
+      navigate("/");
     } catch (error: any) {
       console.error("오류 발생:", error);
 
